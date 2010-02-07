@@ -246,7 +246,7 @@ attributetype ( ffckMemberAttr:8
 #
 
 objectclass ( jevObjectClass:1
-    NAME 'status'
+    NAME 'statusObject'
     DESC 'Status of this entry'
     AUXILIARY
     MAY (
