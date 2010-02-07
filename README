@@ -1,0 +1,9 @@
+
+Intranet for Joinville Eau Vive - intranet.jevck.com
+Webapp built using rack/sinatra and ldap & mongodb for persistence.
+Uses lemonldap (web SSO) for auth.
+
+Dependencies :
+- ruby-ldap
+- activeldap 
+
