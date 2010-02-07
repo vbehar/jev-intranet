@@ -1,0 +1,286 @@
+
+#
+# LDAP Schema for Joinville Eau Vive
+#
+
+# Joinville Eau Vive OID : 34262
+# see http://www.iana.org/assignments/enterprise-numbers 
+objectIdentifier jevOID                 1.3.6.1.4.1.34262
+objectIdentifier jevObjectClass         jevOID:1
+objectIdentifier jevAttributeType       jevOID:2
+objectIdentifier statusAttr             jevAttributeType:1
+objectIdentifier extraPersonAttr        jevAttributeType:2
+objectIdentifier contactPersonAttr      jevAttributeType:3
+objectIdentifier ffckMemberAttr         jevAttributeType:4
+
+#
+# Attribute type
+#
+
+attributetype ( statusAttr:1
+    NAME 'status'
+    DESC 'Status of this entry : active or inactive'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( extraPersonAttr:1
+    NAME 'birthDate'
+    DESC 'Date of birth, ISO format : YYYY-MM-DD'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{10}
+    SINGLE-VALUE )
+
+attributetype ( extraPersonAttr:2
+    NAME 'gender'
+    DESC 'Gender : M or F'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{1}
+    SINGLE-VALUE )
+
+attributetype ( extraPersonAttr:3
+    NAME 'occupation'
+    DESC 'Occupation'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( extraPersonAttr:4
+    NAME 'socialSecurityNumber'
+    DESC 'Social security number'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+    SINGLE-VALUE )
+
+attributetype ( extraPersonAttr:5
+    NAME 'tetanusVaccineDate'
+    DESC 'Date of the last tetanus vaccine, ISO format : YYYY-MM-DD'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{10}
+    SINGLE-VALUE )
+
+attributetype ( contactPersonAttr:1
+    NAME 'mainContactName'
+    DESC 'Name of the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( contactPersonAttr:2
+    NAME 'mainContactPhone'
+    DESC 'Generic phone number of the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:3
+    NAME 'mainContactHomePhone'
+    DESC 'Home phone number of the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:4
+    NAME 'mainContactMobilePhone'
+    DESC 'Mobile phone number of the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:5
+    NAME 'mainContactMail'
+    DESC 'E-mail address of the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( contactPersonAttr:6
+    NAME 'mainContactRelationship'
+    DESC 'Relationship with the main contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( contactPersonAttr:7
+    NAME 'secContactName'
+    DESC 'Name of the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( contactPersonAttr:8
+    NAME 'secContactPhone'
+    DESC 'Generic phone number of the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:9
+    NAME 'secContactHomePhone'
+    DESC 'Home phone number of the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:10
+    NAME 'secContactMobilePhone'
+    DESC 'Mobile phone number of the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( contactPersonAttr:11
+    NAME 'secContactMail'
+    DESC 'E-mail address of the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( contactPersonAttr:12
+    NAME 'secContactRelationship'
+    DESC 'Relationship with the secondary contact'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:1
+    NAME 'ffckNumber'
+    DESC 'FFCK Licence number'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{10}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:2
+    NAME 'ffckNumberYear'
+    DESC 'Year of the FFCK Licence number, format : YYYY'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{4} )
+
+attributetype ( ffckMemberAttr:3
+    NAME 'ffckNumberDate'
+    DESC 'Date of the FFCK Licence number, ISO format : YYYY-MM-DD'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{10} )
+
+attributetype ( ffckMemberAttr:4
+    NAME 'ffckCategory'
+    DESC 'FFCK category for the current season'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:5
+    NAME 'ffckClubNumber'
+    DESC 'FFCK Club number'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{4}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:6
+    NAME 'ffckClubName'
+    DESC 'FFCK Club name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:7
+    NAME 'medicalCertificateDate'
+    DESC 'Date of the medical certificate, ISO format : YYYY-MM-DD'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{10}
+    SINGLE-VALUE )
+
+attributetype ( ffckMemberAttr:8
+    NAME 'medicalCertificateType'
+    DESC 'Type of the medical certificate'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+    SINGLE-VALUE )
+
+#
+# Object class
+#
+
+objectclass ( jevObjectClass:1
+    NAME 'status'
+    DESC 'Status of this entry'
+    AUXILIARY
+    MAY (
+        status )
+    )
+
+objectclass ( jevObjectClass:2
+    NAME 'extraPerson'
+    DESC 'Extra attributes for a person entry'
+    AUXILIARY
+    MAY (
+        birthDate $ gender $ occupation $
+        socialSecurityNumber $ tetanusVaccineDate )
+    )
+
+objectclass ( jevObjectClass:3
+    NAME 'contactPerson'
+    DESC 'Main and secondary contact person'
+    AUXILIARY
+    MAY (
+        mainContactName $ mainContactPhone $ mainContactHomePhone $
+        mainContactMobilePhone $ mainContactMail $ mainContactRelationship $
+        secContactName $ secContactPhone $ secContactHomePhone $
+        secContactMobilePhone $ secContactMail $ secContactRelationship )
+    )
+
+objectclass ( jevObjectClass:4
+    NAME 'ffckMember'
+    DESC 'Attributes for a FFCK member'
+    AUXILIARY
+    MAY (
+        ffckNumber $ ffckNumberYear $ ffckNumberDate $
+        ffckCategory $ ffckClubNumber $ ffckClubName $
+        medicalCertificateDate $ medicalCertificateType )
+    )
+
+
