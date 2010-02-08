@@ -13,8 +13,10 @@ class User < LdapBase
   attr_mapping :city, :l
   attr_mapping :mobile_phone, :mobile
 
+  date_attr :birth_date
+
   def age
-    days = (Date.today - Date.parse(birth_date)).to_i
+    days = (Date.today - birth_date).to_i
     (Date.parse("1970-01-01") + days).year - 1970
   end
 
