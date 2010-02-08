@@ -4,6 +4,6 @@ Webapp built using rack/sinatra and ldap & mongodb for persistence.
 Uses lemonldap (web SSO) for auth.
 
 Dependencies :
-- ruby-ldap
-- activeldap 
+- ruby-net-ldap (tested with 0.0.4)
+- activeldap (tested with 1.2.1)
 
