@@ -1,0 +1,10 @@
+# YAML config for the LDAP connection
+
+host: localhost
+port: 389 # 389 or 636 for ssl
+method: :plain # :plain, :ssl or :tls
+base: dc=acme,dc=com
+allow_anonymous: true
+bind_dn: 
+password: 
+

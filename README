@@ -3,7 +3,15 @@ Intranet for Joinville Eau Vive - intranet.jevck.com
 Webapp built using rack/sinatra and ldap & mongodb for persistence.
 Uses lemonldap (web SSO) for auth.
 
-Dependencies :
-- ruby-net-ldap (tested with 0.0.4)
-- activeldap (tested with 1.2.1)
+Dependencies (and their tested versions) :
+- ruby-net-ldap 0.0.4
+- activeldap    1.2.1
+- rack          1.1.0
+- sinatra       0.9.4
+
+Config :
+- copy config/ldap_sample.yml to config/ldap.yml and adapt it to your env.
+
+Running :
+it's just a rack-based webapp. rackup, shotgun or anything will do the trick.
 
