@@ -10,8 +10,9 @@ end
   require File.dirname(__FILE__) + "/controller/#{f}"
 end
 
-# ldap config 
-ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
-ActiveLdap::Base.setup_connection ldap_config
-
+configure do
+  # ldap config
+  ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
+  ActiveLdap::Base.setup_connection ldap_config
+end
 

@@ -1,9 +1,11 @@
 
 get '/groups' do
-  Group.find(:all).collect{|g| g.name + "<br>"}.to_s
+  @list = Group.find(:all).collect{|g| g.name + "<br>"}
+  erb :list
 end
 
 get '/users' do
-  User.find(:all).collect{|u| u.name + "<br>"}.to_s
+  @list = User.find(:all).collect{|u| u.name + "<br>"}
+  erb :list
 end
 
