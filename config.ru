@@ -13,7 +13,9 @@ require 'sinatra'
 set :raise_errors, true
 
 # middlewares
+require 'middleware/sinatra_reloader.rb'
 require 'middleware/remote_user.rb'
+use Sinatra::Reloader
 use Rack::ShowExceptions
 use Rack::RemoteUser
 
