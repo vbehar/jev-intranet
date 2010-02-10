@@ -9,9 +9,13 @@ Dependencies (and their tested versions) :
 - rack          1.1.0
 - sinatra       0.9.4
 
+Dev mode :
+- racksh        0.9.7
+- shotgun       0.6
+
 Config :
 - copy config/ldap_sample.yml to config/ldap.yml and adapt it to your env.
 
 Running :
-it's just a rack-based webapp. rackup, shotgun or anything will do the trick.
+it's just a rack-based webapp. rackup, webroar or anything will do the trick.
 
