@@ -13,8 +13,6 @@ class User < LdapBase
   attr_mapping :name, :cn
   attr_mapping :lastname, :sn
   attr_mapping :firstname, :gn
-  attr_mapping :city, :l
-  attr_mapping :mobile_phone, :mobile
 
   date_attr :birth_date
 
