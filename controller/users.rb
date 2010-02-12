@@ -5,7 +5,12 @@ get '/groups' do
 end
 
 get '/users' do
-  @list = User.find(:all).collect{|u| u.name }
-  erb :list
+  @users = User.find(:all, :attributes => [:uid, :cn, :title])
+  erb :users
+end
+
+get '/user/:uid' do |uid|
+  @user = User.find(uid)
+  erb :user
 end
 

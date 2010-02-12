@@ -1,0 +1,616 @@
+/***
+Body
+***/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #A4BEDB none repeat-x scroll left top;
+  color: #EEEEEE;
+  font-family: Verdana, Arial, Tahoma, "Trebuchet MS", sans-serif;
+  font-size: 76%;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1.4em;
+  padding: 0;
+  text-align: center;
+}
+#wrap {
+  background-color: #FFFFFF;
+  border: 1px solid #555555;
+  color: #555555;
+  margin: 10px auto 10px;
+  padding: 10px;
+  text-align: left;
+  width: 960px;
+}
+#top {
+  color: #DDDDDD;
+  font-size: 0.9em;
+  margin: 10px auto 5px;
+  text-align: right;
+  width: 960px;
+}
+#top p {
+  margin: 2px;
+  padding: 0;
+}
+#top a {
+  border-bottom: 1px dotted #AAAAAA;
+  color: #EEEEEE;
+}
+#top a:hover {
+  border-bottom: 1px dotted #FFFFFF;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/***************
+Header and title
+***************/
+
+#header {
+  margin: 0 0 0 0;
+  padding: 0;
+  text-align: left;
+  border-bottom: 1px solid #CCCCCC;
+}
+#sitelogo {
+  float: left;
+  width: 150px;
+}
+#sitetitle {
+  float: left;
+  width: 300px;
+}
+#sitetitle h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  line-height: 0.9em;
+  margin: 5px 0 10px 30px;
+  padding: 0;
+}
+#sitetitle h1 a {
+  font-weight: 700;
+}
+#sitetitle h2 {
+  font-size: 1.8em;
+  letter-spacing: 5px;
+  margin: 10px 0 10px 80px;
+  padding: 0;
+}
+
+/********
+Main menu
+********/
+
+#mainmenu {
+  float: right;
+  margin: 0;
+  width: 460px;
+}
+dl.nav {
+  float: left;
+  margin: 0 0 5px 10px;
+  width: 140px;
+}
+dl.nav dt {
+  border-bottom: 1px solid #AAAAAA;
+  color: #777777;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+dl.nav dt a {
+  color: #777777;
+  font-weight: 700;
+}
+dl.nav dt a:hover {
+  color: #222222;
+}
+dl.nav dd {
+  border-bottom: 1px solid #CCCCCC;
+  margin: 0;
+  padding: 0;
+}
+dl.nav dd a {
+  color: #4D699D;
+  display: block;
+  font-weight: 400;
+  padding: 1px 0 1px 5px;
+  width: 135px;
+}
+dl.nav dd a:hover {
+  background: #F4F4F4 none repeat scroll 0%;
+  color: #222222;
+}
+
+/*******
+sub menu
+*******/
+
+#submenu {
+  float: right;
+  margin: 20px 10px 0 0;
+}
+#submenu ul {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#submenu li {
+  display: block;
+  float: left;
+  padding: 0 5px;
+  font-size: 80%;
+  border-left: solid 1px #AAAAAA;
+}
+#submenu li.first {
+  border-left: none;
+}
+#submenu a {
+  display: block;
+}
+#submenu a:hover {
+  background: #F4F4F4 none repeat scroll 0%;
+}
+
+/*********
+Breadcrumb
+*********/
+
+#breadcrumb {
+  font-size: 80%;
+}
+
+/******
+Headers
+******/
+
+h2,h3,h4,h4 a {
+  color: #666666;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  padding-bottom: 5px;
+}
+
+/******
+Content
+******/
+
+#contentfull {
+  float: left;
+  margin: 20px 0 0 0;
+  text-align: left;
+  width: 100%;
+}
+#content {
+  float: left;
+  margin: 20px 0 0 0;
+  text-align: left;
+  width: 700px;
+}
+#content h2, #contentfull h2 {
+  border-bottom: 2px solid #CCCCCC;
+  clear: left;
+  font-size: 1.7em;
+}
+#content h3, #contentfull h3 {
+  font-size: 1.4em;
+  font-weight: normal;
+  font-style: italic;
+  padding: 8px 0 2px 10px;
+}
+#content h2 a, #content h3 a, #contentfull h2 a, #contentfull h3 a {
+  font-weight: 700;
+}
+#content p, #contentfull p {
+  margin: 0 0 15px 0;
+}
+#content a, #contentfull a {
+  border-bottom: 1px dotted #888888;
+}
+#content a:hover, #contentfull a:hover {
+  border-bottom: 1px dotted #000000;
+  color: #222222;
+}
+#content ul, #content ol, #contentfull ul, #contentfull ol {
+  margin: 0 0 15px 10px;
+  padding: 0 0 0 10px;
+}
+#content ul li, #content ol li, #contentfull ul li, #contentfull ol li {
+  margin: 0 0 10px 10px;
+}
+#content ul ul, #content ol ol, #contentfull ul ul, #contentfull ol ol {
+  margin: 5px 0 5px 10px;
+}
+#content dl {
+}
+#content dl dt {
+  margin: 20px 0 5px 10px;
+  font-weight: bold;
+}
+#content dl dd {
+}
+
+/*******
+msgbox
+*******/
+
+.msgbox {
+  border: 1px solid #CCCCCC;
+  margin: 15px 0;
+  padding: 10px 10px 10px 30px;
+  text-align: left;
+  width: 660px;
+}
+.msgbox a {
+  font-weight: bold;
+}
+.msginfo {
+  background: #F0F0F0 url(../images/icons/msginfo.png) no-repeat scroll 8px;
+  color: #336699;
+}
+.msgwarning {
+  background: #F0F0F0 url(../images/icons/msgwarning.png) no-repeat scroll 8px;
+  color: #CC8822;
+}
+.msgerror {
+  background: #F0F0F0 url(../images/icons/msgerror.png) no-repeat scroll 8px;
+  color: #FF0000;
+}
+
+/******
+Sidebox
+******/
+
+.sidebox {
+  background: #F0F0F0 none repeat scroll 0%;
+  border: 1px solid #CCCCCC;
+  margin: 20px 0 10px 717px;
+  padding: 10px 10px 5px 10px;
+  text-align: left;
+  width: 215px;
+}
+.sidebox h2, .sidebox h3 {
+  border-bottom: 2px solid #CCCCCC;
+  font-size: 1.4em;
+  margin: 0 0 10px 0;
+  padding: 0 0 2px 0;
+}
+.sidebox h2 a {
+  font-weight: bolder;
+}
+.sidebox p {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+.sidebox a {
+}
+.sidebox ul li {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0 0 6px 0;
+}
+.sidebox ul li a {
+  border-bottom: 1px dotted #888888;
+  font-size: 1.1em;
+}
+.sidebox ul li a.title {
+  font-weight: bold;
+  margin: 0 0 0 10px;
+}
+.sidebox ul li span.title a.title {
+  margin: 0 0 0 0;
+}
+.sidebox ul li span.title {
+  font-weight: bold;
+  margin: 0 0 0 10px;
+}
+.sidebox ul li span.date {
+  font-style: italic;
+}
+.sidebox ul ul {
+  font-size: 1em;
+  margin: 3px 0 3px 10px;
+}
+.sidebox ul ul li {
+  margin: 2px 0;
+}
+.sidebox ul ul li a {
+  font-weight: 400;
+}
+
+/*******
+Sidemenu
+*******/
+
+.sidebox ul.sidemenu li {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0 0 2px 0;
+  padding: 0;
+  width: 218px;
+}
+.sidebox ul.sidemenu li a {
+  background-color: #F4F4F4;
+  border: 1px solid #DDDDDD;
+  display: block;
+  font-size: 1.1em;
+  font-weight: 400;
+  overflow: visible;
+  padding: 2px 0 2px 5px;
+}
+.sidebox ul.sidemenu li a:hover, .sidebox ul.sidemenu li.current a:hover, .sidebox ul li.current a {
+  background-color: #FFFFFF;
+  border: 1px solid #555555;
+  color: #444444;
+}
+.sidebox ul.sidemenu li.current li a {
+  background-color: #F8F8F8;
+  border-color: #DDDDDD rgb(221, 221, 221) rgb(204, 204, 204);
+  border-style: solid;
+  border-width: 1px;
+  color: #467AA7;
+}
+.sidebox ul.sidemenu ul {
+  margin: 0;
+  padding: 2px 0 0pt 15px;
+}
+.sidebox ul.sidemenu ul li {
+  letter-spacing: 0;
+  width: 203px;
+}
+.sidebox ul.sidemenu ul li a {
+  font-size: 0.9em;
+  padding: 1px 0 1px 5px;
+}
+.sidebox ul.sidemenu ul li ul li {
+  letter-spacing: 0;
+  width: 188px;
+}
+
+/***********
+Floating box
+***********/
+
+.floatingbox {
+  width: 200px;
+  background-color: #EEEEEE;
+  border: 1px solid #333333;
+  margin: 4px;
+  padding: 4px;
+}
+
+/*******
+Calendar
+*******/
+
+#content ul.calendar {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 20px 0 0 10px;
+  padding: 0;
+}
+#content li.calendar_event {
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+#content ul.calendar_event {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0 0 0 10px;
+  padding: 0;
+}
+#content ul.calendar_event li.calendar_event_title {
+  font-weight: bold;
+  margin: 0 0 0 -10px;
+  padding: 0;
+}
+#content ul.calendar_event li.calendar_event_title a {
+  font-weight: bold;
+}
+#content ul.calendar_event li.calendar_event_description {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+#content ul.calendar_event li.calendar_event_location {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+#content ul.calendar_event li.calendar_event_date {
+  font-style: italic;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+/******
+Twitter
+******/
+
+.tweet_sidebox_text {
+}
+.tweet_sidebox_date {
+  font-style: italic;
+}
+.tweet_page_text {
+}
+.tweet_page_date {
+  font-style: italic;
+}
+.tweet_current {
+  font-weight: bold;
+}
+.tweet_favorite {
+  font-weight: bold;
+}
+
+/****
+Blog
+****/
+
+.blog_date {
+  font-style: italic;
+}
+
+/****************
+Flowplayer player
+****************/
+
+#content a.player {
+  display: block;
+  background: url(/images/playlist/splash.png) no-repeat;
+  width: 425px;
+  height: 298px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 126px 75px 127px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 0;
+}
+a.player img {
+  margin-top: 115px;
+  border: 0;
+}
+
+/******************
+Flowplayer playlist
+******************/
+
+#playlist {
+  height: 80px;
+  background: #f5fbfb url(/images/playlist/gradient-h150.png) repeat-x; 
+  border: 1px solid #ddd;
+  width: 584px;
+  position: relative;
+  overflow: hidden;
+  padding: 5px 0;
+  float: left;
+}
+#playlist div.entries {
+  height: 80px;
+  position: absolute;
+  width: 10000em;
+}
+#content #playlist div.entries a {
+  background: transparent url(/images/playlist/entry.png) no-repeat scroll 0%;
+  color: #666;
+  float: left;
+  font-family: "bitstream vera sans","lucida grande","verdana";
+  font-size: 11px;
+  height: 60px;
+  margin: 0px 4px;
+  padding: 10px;
+  text-decoration: none;
+  width: 117px;
+  border-bottom: 0;
+}
+#content #playlist div.entries a:hover {
+  background-position: -140px 0;
+  color: #000;
+  border-bottom: 0;
+}
+#playlist div.entries a.playing {
+  background-position: -280px 0;
+  color: #000;
+}
+#playlist div.entries a.paused {
+  background-position: -420px 0;
+  color: #000;
+}
+#playlist div.entries a.progress {
+  /*opacity: 0.8;*/
+}
+#playlist div.entries em {
+  float: right;
+  color: red;
+  font-style: normal;
+}
+#content a.nextPage, #content a.prevPage {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url(/images/playlist/arrow-left.png) no-repeat;
+  margin: 30px 10px;
+  cursor: pointer;
+  float: left;
+  border-bottom: 0;
+}
+#content a.nextPage:hover, #content a.prevPage:hover {
+  background-position: 0px -18px;
+  border-bottom: 0;
+}
+#content a.nextPage {
+  background-image: url(/images/playlist/arrow-right.png);
+}
+#content a.nextPage.disabled, #content a.prevPage.disabled {
+  visibility: hidden;
+}
+
+/****
+Links
+****/
+
+a {
+  color: #4D699D;
+  font-weight: 400;
+  text-decoration: none;
+}
+a:hover {
+  color: #444444;
+  text-decoration: none;
+}
+a img {
+  border: 0 none;
+}
+
+/**************
+Various classes
+**************/
+
+.left {
+  float: left;
+  text-align: left;
+  margin-right: 10px;
+}
+.right {
+  float: right;
+  text-align: right;
+  margin-left: 10px;
+}
+.textleft {
+  text-align: left;
+}
+.textright {
+  text-align: right;
+}
+.textcenter {
+  text-align: center;
+}
+.textjustify {
+  text-align: justify;
+}
+.introtext, .introtext a {
+  font-weight: 700;
+}
+.clear {
+  clear: both;
+  height: 1px;
+  visibility: hidden;
+}
+.hide {
+  display: none;
+}

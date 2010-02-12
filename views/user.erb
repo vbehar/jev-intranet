@@ -1,0 +1,19 @@
+
+<dl>
+  <dt>Nom</dt>
+  <dd><%= @user.name %></dd>
+</dl>
+
+<dl>
+  <dt>Fonction</dt>
+  <dd><%= @user.title %></dd>
+</dl>
+
+<dl>
+  <dt>Anniversaire</dt>
+  <dd><%= @user.birth_date.strftime("%A %d %B") rescue "Inconnu" %></dd>
+</dl>
+
+
+
+
