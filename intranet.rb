@@ -1,5 +1,10 @@
 # Our sinatra application - main entry point
 
+# extra, aka monkey patches
+%w(date).each do |f|
+  require File.dirname(__FILE__) + "/extra/#{f}"
+end
+
 # domain classes
 %w(user group).each do |f|
   require File.dirname(__FILE__) + "/domain/#{f}"
