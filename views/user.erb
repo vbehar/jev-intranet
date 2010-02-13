@@ -11,7 +11,7 @@
 
 <dl>
   <dt>Anniversaire</dt>
-  <dd><%= @user.birth_date.strftime("%A %d %B") rescue "Inconnu" %></dd>
+  <dd><%= @user.birth_date.strftime("%d %B") rescue "Inconnu" %></dd>
 </dl>
 
 
