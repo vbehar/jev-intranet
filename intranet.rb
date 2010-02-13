@@ -11,7 +11,7 @@ end
 end
 
 # controllers (sinatra routes)
-%w(main users api_v1).each do |f|
+%w(helper main users api_v1).each do |f|
   require File.dirname(__FILE__) + "/controller/#{f}"
 end
 

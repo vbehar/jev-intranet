@@ -26,32 +26,27 @@
     </div>
     <div id="mainmenu">
       <dl class="nav">
-        <dt><a href=""><%= @me.name %></a></dt>
-        <dd><a href="">Mon compte</a></dd>
-        <dd><a href="">Mes cotisations</a></dd>
-        <dd><a href="">Mes dettes</a></dd>
-        <dd><a href="">&nbsp;</a></dd>
+        <dt><a href="/account"><%= @me.name %></a></dt>
+        <dd><a href="/account">Mon compte</a></dd>
+        <dd><a href="/subscription">Mes cotisations</a></dd>
+        <dd><a href="/debts">Mes dettes</a></dd>
+        <dd><a href="/mailing-list">Mes abonnements</a></dd>
       </dl>
       <dl class="nav">
-        <dt><a href="">Ressources</a></dt>
-        <dd><a href="">Adhérents</a></dd>
-        <dd><a href="">Pagaies couleurs</a></dd>
-        <dd><a href="">&nbsp;</a></dd>
-        <dd><a href="">&nbsp;</a></dd>
+        <dt><a href="/resources">Ressources</a></dt>
+        <dd><a href="/users">Annuaire adhérents</a></dd>
+        <dd><a href="/paddle_pass">Pagaies couleurs</a></dd>
       </dl>
       <dl class="nav">
-        <dt><a href="">Services</a></dt>
-        <dd><a href="">Redmine</a></dd>
-        <dd><a href="">Partage de fichiers</a></dd>
-        <dd><a href="">Inventaire</a></dd>
-        <dd><a href="">&nbsp;</a></dd>
+        <dt><a href="/services">Services</a></dt>
+        <dd><a href="/redmine">Redmine</a></dd>
+        <dd><a href="/files">Partage de fichiers</a></dd>
+        <dd><a href="/inventory">Inventaire</a></dd>
       </dl>
     </div>
     <div id="submenu">
       <ul>
         <li class="first"><a href="/contact"><strong>Contact</strong></a></li>
-        <li><a href="/recherche">Recherche</a></li>
-        <li><a href="/plan">Plan du site</a></li>
         <li><a href="http://www.jevck.com/">www.jevck.com</a></li>
       </ul>
     </div>
@@ -59,9 +54,14 @@
   </div>
 
   <div id="breadcrumb">
+    <%= breadcrumb %>
   </div>
 
-  <%= yield %>
+  <div id="contentfull">
+    <%= yield %>
+    <hr class="clear" />
+  </div>
+
  
   <hr class="clear" />
 </div>
