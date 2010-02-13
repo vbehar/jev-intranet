@@ -9,7 +9,7 @@ require 'rack'
 require 'sinatra'
 
 # config
-set :environment, ENV['APP_ENV'] || :development
+set :environment, ENV['RACK_ENV'] || :development
 set :raise_errors, true
 
 # middlewares
