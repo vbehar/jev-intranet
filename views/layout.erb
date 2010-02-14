@@ -35,6 +35,7 @@
       <dl class="nav">
         <dt><a href="/resources">Ressources</a></dt>
         <dd><a href="/users">Annuaire adhérents</a></dd>
+        <dd><a href="/birthdays">Anniversaires</a></dd>
         <dd><a href="/paddle_pass">Pagaies couleurs</a></dd>
       </dl>
       <dl class="nav">
@@ -46,15 +47,16 @@
     </div>
     <div id="submenu">
       <ul>
-        <li class="first"><a href="/contact"><strong>Contact</strong></a></li>
-        <li><a href="http://www.jevck.com/">www.jevck.com</a></li>
+        <li class="first"><a href="http://www.jevck.com"><strong>Site Internet</strong></a></li>
+        <li><a href="/admin">Admin</a></li>
+        <li><a href="/logout">Déconnexion</a></li>
       </ul>
     </div>
     <hr class="clear" />
   </div>
 
   <div id="breadcrumb">
-    <%= breadcrumb %>
+    <%= @breadcrumb.collect { |path, title| "<a href='#{path}' title='#{title}'>#{title}</a>" }.join(" > ") %>
   </div>
 
   <div id="contentfull">

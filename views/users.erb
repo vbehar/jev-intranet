@@ -1,8 +1,19 @@
+<% 
+  @title = "Annuaire des adhérents"
+  @breadcrumb = {'/' => 'Accueil', '/users' => @title}
+%>
 
+<h2>Annuaire des adhérents</h2>
+
+<p>Liste de tous les adhérents de JEV :</p>
 
 <ul>
 <% @users.each do |u| %>
-<li><a href="/user/<%= u.uid %>"><%= u.name %></a> - <%= u.title %></li>
+<li>
+  <a href="/user/<%= u.uid %>"><%= u.name %></a> 
+  (<%= u.display_name %>)
+  <% if(u.title) %> - <%= u.title %><% end %>
+</li>
 <% end %>
 </ul>
 

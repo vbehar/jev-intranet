@@ -1,8 +1,8 @@
 
 before do
   # default values
-  @breadcrumb = request.path_info
   @title = request.path_info
+  @breadcrumb = {}
 
   # current user
   uid = "vincent.behar" #request.env['REMOTE_USER']
@@ -10,7 +10,6 @@ before do
 end
 
 get '/' do
-  @title = @breadcrumb = "Accueil"
   erb :index
 end
 

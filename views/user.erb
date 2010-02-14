@@ -1,3 +1,9 @@
+<%
+  @title = @user.name
+  @breadcrumb = {'/' => 'Accueil', '/users' => 'Annuaire des adhérents', "/user/#{@user.uid}" => @title }
+%>
+
+<h2><%= @user.name %></h2>
 
 <dl>
   <dt>Nom</dt>
