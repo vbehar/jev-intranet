@@ -9,6 +9,7 @@ require 'rack'
 require 'sinatra'
 
 # config
+ENV['RACK_ENV'] ||= ENV['APP_ENV'] # APP_ENV is used by webroar
 set :environment, ENV['RACK_ENV'] || :development
 set :raise_errors, true
 
