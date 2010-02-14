@@ -5,17 +5,15 @@ class LdapBase < ActiveLdap::Base
 
   protected
 
-  # Map a LDAP attribute to a new name
-  def self.attr_mapping(name, ldap_attr)
+  # Map a LDAP attribute to a new name, optionaly converting it
+  def self.attr_mapping(name, ldap_attr, clazz = :string)
     define_method name.to_sym do
-      self[ldap_attr.to_s]
-    end
-  end
-
-  def self.date_attr(name)
-    define_method name.to_sym do
-      value = self[name.to_s]
-      Date.parse(value)
+      value = self[ldap_attr.to_s]
+      case clazz
+        when :string; value
+        when :date; Date.parse(value)
+        else nil
+      end
     end
   end
 

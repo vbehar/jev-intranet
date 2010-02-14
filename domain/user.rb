@@ -13,8 +13,7 @@ class User < LdapBase
   attr_mapping :name, :cn
   attr_mapping :lastname, :sn
   attr_mapping :firstname, :gn
-
-  date_attr :birth_date
+  attr_mapping :birth_date, :birth_date, :date
 
   def age
     days = (Date.today - birth_date).to_i
