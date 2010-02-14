@@ -1,7 +1,7 @@
 # Our sinatra application - main entry point
 
 # extra, aka monkey patches
-%w(date).each do |f|
+%w(string date).each do |f|
   require File.dirname(__FILE__) + "/extra/#{f}"
 end
 
