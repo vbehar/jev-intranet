@@ -4,6 +4,6 @@ get '/admin' do
 end
 
 get '/admin/about' do
-  "Environment : " + options.environment
+  "Environment : " + ( options.environment.to_s rescue "undefined" )
 end
 
