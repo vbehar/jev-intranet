@@ -5,7 +5,10 @@ before do
   @breadcrumb = {}
 
   # current user
-  uid = "vincent.behar" #request.env['REMOTE_USER']
+  uid = case options.environment.to_sym
+    when :development; "vincent.behar"
+    when :production; request.env['REMOTE_USER']
+  end
   @me = User.find(uid)
 end
 
