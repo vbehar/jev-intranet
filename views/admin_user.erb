@@ -1,6 +1,6 @@
 <%
   @title = @user.name
-  @breadcrumb = {'/' => 'Accueil', '/admin' => 'Admin', '/admin/users' => 'Adhérents', "/admin/user/#{@user.uid}" => @title}
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/users', 'Adhérents'], ["/admin/user/#{@user.uid}", @title]]
 %>
 
 <h2><%= @user.name %></h2>
