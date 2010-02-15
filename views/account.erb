@@ -11,63 +11,51 @@
 
   <form id="account" name="account" method="post" action="/account">
     <label>Identifiant<span class="labeltip">de connexion</span></label>
-    <input type="text" name="uid" id="uid" value="<%= @me.uid %>" readonly />
+    <input type="text" name="user[uid]" value="<%= @me.uid %>" readonly />
 
     <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" readonly />
+    <input type="text" name="user[cn]" value="<%= @me.cn %>" readonly />
 
     <label>Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
-    <input type="text" name="display_name" id="display_name" value="<%= @me.display_name %>" />
+    <input type="text" name="user[display_name]" value="<%= @me.display_name %>" />
 
     <label>Sexe<span class="labeltip"></span></label>
-    <input type="text" name="gender" id="gender" value="<%= @me.gender %>" />
+    <input type="text" name="user[gender]" value="<%= @me.gender %>" />
 
     <label>Date de naissance<span class="labeltip"></span></label>
-    <input type="text" name="birth_date" id="birth_date" value="<%= @me.birth_date %>" />
+    <input type="text" name="user[birth_date]" value="<%= @me.birth_date %>" />
 
     <% @me.mail(true).each_with_index do |mail, index| %>
     <label>Email <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="mail" id="mail" value="<%= mail %>" />
+    <input type="text" name="user[mail]" value="<%= mail %>" />
     <% end %>
 
     <div class="separator"></div>
 
     <label>Adresse<span class="labeltip"></span></label>
-    <input type="text" name="street" id="street" value="<%= @me.street %>" />
+    <input type="text" name="user[street]" value="<%= @me.street %>" />
 
     <label>Code postal<span class="labeltip"></span></label>
-    <input type="text" name="postal_code" id="postal_code" value="<%= @me.postal_code %>" />
+    <input type="text" name="user[postal_code]" value="<%= @me.postal_code %>" />
 
     <label>Ville<span class="labeltip"></span></label>
-    <input type="text" name="l" id="l" value="<%= @me.l %>" />
+    <input type="text" name="user[l]" value="<%= @me.l %>" />
 
     <div class="separator"></div>
 
     <label>Téléphone portable<span class="labeltip"></span></label>
-    <input type="text" name="mobile" id="mobile" value="<%= @me.mobile %>" />
+    <input type="text" name="user[mobile]" value="<%= @me.mobile %>" />
 
     <label>Téléphone domicile<span class="labeltip"></span></label>
-    <input type="text" name="home_phone" id="home_phone" value="<%= @me.home_phone %>" />
+    <input type="text" name="user[home_phone]" value="<%= @me.home_phone %>" />
 
     <label>Téléphone pro<span class="labeltip"></span></label>
-    <input type="text" name="telephone_number" id="telephone_number" value="<%= @me.telephone_number %>" />
+    <input type="text" name="user[telephone_number]" value="<%= @me.telephone_number %>" />
 
     <div class="separator"></div>
 
     <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" />
-
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" />
-
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" />
-
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" />
-
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="cn" id="cn" value="<%= @me.cn %>" />
+    <input type="text" name="user[cn]" value="<%= @me.cn %>" />
 
     <button type="submit">Envoyer !</button>
     <div class="spacer"></div>
