@@ -20,7 +20,10 @@
   <dd><%= @user.birth_date.strftime("%d %B") rescue "Inconnu" %></dd>
 </dl>
 
-
+<ul>
+<% if prev_user(@user.uid) %><li><a href="/admin/user/<%= prev_user(@user.uid) %>"><%= prev_user(@user.uid) %></a></li><% end %>
+<% if next_user(@user.uid) %><li><a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %></a></li><% end %>
+</ul>
 
 
 

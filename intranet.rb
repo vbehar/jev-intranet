@@ -21,5 +21,6 @@ configure do
   ActiveLdap::Base.setup_connection ldap_config
 end
 
+enable :sessions
 disable :logging
 

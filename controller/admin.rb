@@ -9,6 +9,7 @@ end
 
 get '/admin/users' do
   @users = User.find(:all)
+  session["users"] = @users.collect{|u| u.uid}
   erb :admin_users
 end
 
