@@ -1,0 +1,18 @@
+<%
+  @title = "Adhérents"
+  @breadcrumb = {'/' => 'Accueil', '/admin' => 'Admin', '/admin/users' => @title}
+%>
+
+<h2>Admin - Adhérents</h2>
+
+<p>Liste de tous les adhérents de JEV :</p>
+
+<ul>
+<% @users.each do |u| %>
+<li>
+  <a href="/admin/user/<%= u.uid %>"><%= u.name %></a> 
+</li>
+<% end %>
+</ul>
+
+

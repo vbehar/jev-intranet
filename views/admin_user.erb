@@ -1,0 +1,26 @@
+<%
+  @title = @user.name
+  @breadcrumb = {'/' => 'Accueil', '/admin' => 'Admin', '/admin/users' => 'Adhérents', "/admin/user/#{@user.uid}" => @title}
+%>
+
+<h2><%= @user.name %></h2>
+
+<dl>
+  <dt>Nom</dt>
+  <dd><%= @user.name %></dd>
+</dl>
+
+<dl>
+  <dt>Fonction</dt>
+  <dd><%= @user.title %></dd>
+</dl>
+
+<dl>
+  <dt>Anniversaire</dt>
+  <dd><%= @user.birth_date.strftime("%d %B") rescue "Inconnu" %></dd>
+</dl>
+
+
+
+
+
