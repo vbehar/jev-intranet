@@ -407,6 +407,11 @@ Form
   margin-bottom: 8px;
 }
 
+.niceform h4 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .niceform p {
   font-size: 11px;
   color: #666666;
@@ -432,7 +437,7 @@ Form
   width: 140px;
 }
 
-.niceform input {
+.niceform input, .niceform select {
   float: left;
   font-size: 12px;
   padding: 4px 2px;
@@ -441,12 +446,15 @@ Form
   margin: 2px 0 20px 10px;
 }
 
+.niceform input[readonly], .niceform select[readonly] {
+  background-color: #dcdcdc;
+}
+
 .niceform .separator {
   clear: both;
   height: 1px;
+  border-top: solid 1px #b7ddf2;
   margin-bottom: 20px;
-  border-bottom: solid 1px #b7ddf2;
-  padding-bottom: 0px;
 }
 
 .niceform button {

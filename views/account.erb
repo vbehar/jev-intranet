@@ -10,52 +10,59 @@
   <p>En cas de changement d'adresse, de numéro de téléphone, etc, pensez à mettre à jour vos informations !</p>
 
   <form id="account" name="account" method="post" action="/account">
-    <label>Identifiant<span class="labeltip">de connexion</span></label>
-    <input type="text" name="user[uid]" value="<%= @me.uid %>" readonly />
+    <label for="user_uid">Identifiant<span class="labeltip">de connexion</span></label>
+    <input type="text" name="user[uid]" id="user_uid" value="<%= @me.uid %>" readonly />
 
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="user[cn]" value="<%= @me.cn %>" readonly />
+    <label for="user_cn">Nom<span class="labeltip"></span></label>
+    <input type="text" name="user[cn]" id="user_cn" value="<%= @me.cn %>" readonly />
 
-    <label>Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
-    <input type="text" name="user[display_name]" value="<%= @me.display_name %>" />
+    <label for="user_display_name">Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
+    <input type="text" name="user[display_name]" id="user_display_name" value="<%= @me.display_name %>" />
 
-    <label>Sexe<span class="labeltip"></span></label>
-    <input type="text" name="user[gender]" value="<%= @me.gender %>" />
+    <label for="user_gender">Sexe<span class="labeltip"></span></label>
+    <select name="user[gender]" id="user_gender">
+      <option value="M" <%= "selected='selected'" if @me.male? %>>Homme</option>
+      <option value="F" <%= "selected='selected'" if @me.female? %>>Femme</option>
+    </select>
 
-    <label>Date de naissance<span class="labeltip"></span></label>
-    <input type="text" name="user[birth_date]" value="<%= @me.birth_date %>" />
+    <label for="user_birth_date">Date de naissance<span class="labeltip"></span></label>
+    <input type="text" name="user[birth_date]" id="user_birth_date" value="<%= @me.birth_date %>" />
 
+    <h4 class="separator">Adresses e-mail</h4>
     <% @me.mail(true).each_with_index do |mail, index| %>
-    <label>Email <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="user[mail]" value="<%= mail %>" />
+    <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+    <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+    <% end %>
+    <!--<a href="javascript:$('<p>plop</p>').insertBefore('#mail')" id='mail'>add mail</a>-->
+
+    <h4 class="separator">Coordonnées</h4>
+
+    <label for="user_street">Adresse<span class="labeltip"></span></label>
+    <input type="text" name="user[street]" id="user_street" value="<%= @me.street %>" />
+
+    <label for="user_postal_code">Code postal<span class="labeltip"></span></label>
+    <input type="text" name="user[postal_code]" id="user_postal_code" value="<%= @me.postal_code %>" />
+
+    <label for="user_l">Ville<span class="labeltip"></span></label>
+    <input type="text" name="user[l]" id="user_l" value="<%= @me.l %>" />
+
+    <h4 class="separator">Téléphone portable</h4>
+    <% @me.mobile(true).each_with_index do |mobile, index| %>
+    <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+    <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
     <% end %>
 
-    <div class="separator"></div>
+    <h4 class="separator">Téléphone domicile</h4>
+    <% @me.home_phone(true).each_with_index do |home_phone, index| %>
+    <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+    <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
+    <% end %>
 
-    <label>Adresse<span class="labeltip"></span></label>
-    <input type="text" name="user[street]" value="<%= @me.street %>" />
-
-    <label>Code postal<span class="labeltip"></span></label>
-    <input type="text" name="user[postal_code]" value="<%= @me.postal_code %>" />
-
-    <label>Ville<span class="labeltip"></span></label>
-    <input type="text" name="user[l]" value="<%= @me.l %>" />
-
-    <div class="separator"></div>
-
-    <label>Téléphone portable<span class="labeltip"></span></label>
-    <input type="text" name="user[mobile]" value="<%= @me.mobile %>" />
-
-    <label>Téléphone domicile<span class="labeltip"></span></label>
-    <input type="text" name="user[home_phone]" value="<%= @me.home_phone %>" />
-
-    <label>Téléphone pro<span class="labeltip"></span></label>
-    <input type="text" name="user[telephone_number]" value="<%= @me.telephone_number %>" />
-
-    <div class="separator"></div>
-
-    <label>Nom<span class="labeltip"></span></label>
-    <input type="text" name="user[cn]" value="<%= @me.cn %>" />
+    <h4 class="separator">Téléphone professionnel</h4>
+    <% @me.telephone_number(true).each_with_index do |telephone_number, index| %>
+    <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+    <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
+    <% end %>
 
     <button type="submit">Envoyer !</button>
     <div class="spacer"></div>

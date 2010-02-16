@@ -13,3 +13,8 @@ get '/account' do
   erb :account
 end
 
+post '/account' do
+  puts params['user'].inspect
+  redirect '/account'
+end
+
