@@ -12,7 +12,7 @@
 <li>
   <a href="/user/<%= u.uid %>"><%= u.name %></a> 
   (<%= u.display_name %>)
-  <% if(u.title) %> - <%= u.title %><% end %>
+  <%= (" - " + u.title) if u.title %>
 </li>
 <% end %>
 </ul>
