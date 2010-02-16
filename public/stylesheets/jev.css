@@ -450,6 +450,10 @@ Form
   background-color: #dcdcdc;
 }
 
+.niceform .action {
+  float: left;
+}
+
 .niceform .separator {
   clear: both;
   height: 1px;

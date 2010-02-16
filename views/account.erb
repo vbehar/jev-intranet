@@ -30,8 +30,11 @@
 
     <h4 class="separator">Adresses e-mail</h4>
     <% @me.mail(true).each_with_index do |mail, index| %>
-    <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+    <div id="user_mail_block_<%= index %>">
+      <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+      <span class="action"><a href="javascript:$('#user_mail_block_<%= index %>').remove();">x</a></span>
+    </div>
     <% end %>
     <!--<a href="javascript:$('<p>plop</p>').insertBefore('#mail')" id='mail'>add mail</a>-->
 
