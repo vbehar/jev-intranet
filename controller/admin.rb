@@ -7,8 +7,23 @@ get '/admin/about' do
   "Environment : " + ( options.environment.to_s rescue "undefined" )
 end
 
-get '/admin/users' do
+get '/admin/users/?' do
   @users = User.find(:all)
+
+  session["users"] = @users.collect{|u| u.uid}
+  erb :admin_users
+end
+
+get '/admin/users/:filter' do |filter|
+  @filter = filter
+  @users = User.search(:filter => filter).collect do |user|
+    attrs = user[1].to_a
+    # don't use an array for uid
+    attrs.collect!{ |k,v| k == "uid" ? [k,v.to_s] : [k,v] }
+    User.new(Hash[attrs])
+  end
+  @users.sort!{ |a,b| a.uid <=> b.uid }
+
   session["users"] = @users.collect{|u| u.uid}
   erb :admin_users
 end

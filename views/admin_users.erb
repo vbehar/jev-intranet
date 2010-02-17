@@ -5,7 +5,11 @@
 
 <h2>Admin - Adhérents</h2>
 
-<p>Liste de tous les adhérents de JEV :</p>
+<% if @filter %>
+  <p>Liste des <strong><%= @users.size %></strong> utilisateurs qui matchent la requête <strong><%= @filter %></strong> :</p>
+<% else %>
+  <p>Liste complètes des <strong><%= @users.size %></strong> utilisateurs :</p>
+<% end %>
 
 <ul>
 <% @users.each do |u| %>
