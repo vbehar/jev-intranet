@@ -16,7 +16,7 @@ end
 
 post '/admin/users' do
   @filter = params[:filter]
-  @users = User.search(:filter => @filter)
+  @users = User.search_users(:filter => @filter)
   @users.sort!{ |a,b| a.uid <=> b.uid }
 
   session["users"] = @users.collect{|u| u.uid}
