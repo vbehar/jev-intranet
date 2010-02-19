@@ -15,6 +15,17 @@ class User < LdapBase
   attr_mapping :firstname, :gn
   attr_mapping :birth_date, :birth_date, :date
 
+  # search users with the given params (:filter and :attributes)
+  def self.search(params = {})
+    ActiveLdap::Base.search(params).collect do |user|
+      attrs = user[1].to_a
+      # don't use an array for uid
+      attrs.collect!{ |k,v| k == "uid" ? [k,v.to_s] : [k,v] }
+      User.new(Hash[attrs])
+    end
+  end
+
+  # return the actual age of the user
   def age
     days = (Date.today - birth_date).to_i
     (Date.parse("1970-01-01") + days).year - 1970

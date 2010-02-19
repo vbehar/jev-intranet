@@ -16,12 +16,7 @@ end
 
 post '/admin/users' do
   @filter = params[:filter]
-  @users = User.search(:filter => @filter).collect do |user|
-    attrs = user[1].to_a
-    # don't use an array for uid
-    attrs.collect!{ |k,v| k == "uid" ? [k,v.to_s] : [k,v] }
-    User.new(Hash[attrs])
-  end
+  @users = User.search(:filter => @filter)
   @users.sort!{ |a,b| a.uid <=> b.uid }
 
   session["users"] = @users.collect{|u| u.uid}
