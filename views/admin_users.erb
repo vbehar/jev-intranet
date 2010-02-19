@@ -39,6 +39,7 @@
       <th>uid</th>
       <th>Prénom</th>
       <th>Nom</th>
+      <th>Date naiss.</th>
       <th>Age</th>
       <th>Catégorie</th>
       <th>Licence</th>
@@ -50,6 +51,7 @@
         <td><a href="/admin/user/<%= u.uid %>"><%= u.uid %></a></td>
         <td><%= u.firstname %></td>
         <td><%= u.lastname %></td>
+        <td><%= birth_date(u.birth_date) %></td>
         <td><%= u.age %></td>
         <td><%= u.ffck_category %></td>
         <td><%= u.ffck_number %></td>

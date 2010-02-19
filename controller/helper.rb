@@ -2,6 +2,16 @@ require 'md5'
 
 helpers do 
 
+  # return the full birth_date
+  def birth_date(user_birth_date)
+    user_birth_date.strftime("%d %B %Y") rescue ""
+  end
+
+  # return the day and month of the birth_date
+  def birth_day(user_birth_date)
+    user_birth_date.strftime("%d %B") rescue ""
+  end
+
   # return the gravatar url for the current user
   def gravatar()
     gravatar_for(@me.mail(true).first)
