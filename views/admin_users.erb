@@ -5,6 +5,17 @@
 
 <h2>Admin - Adhérents</h2>
 
+<div class="niceform">
+  <form method="post">
+    <label for="filter">Filtre<span class="labeltip">Format LDAP</span></label>
+    <input type="text" name="filter" value="" />
+    <button type="submit">Envoyer !</button>
+    <div class="spacer"></div>
+  </form>
+</div>
+
+<h3>Résultats</h3>
+
 <% if @filter %>
   <p>Liste des <strong><%= @users.size %></strong> utilisateurs qui matchent la requête <strong><%= @filter %></strong> :</p>
 <% else %>
