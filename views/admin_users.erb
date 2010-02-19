@@ -7,7 +7,7 @@
 
 <div class="niceform">
   <form method="post">
-    <label for="filter">Filtre<span class="labeltip">Format LDAP</span></label>
+    <label for="filter">Recherche<span class="labeltip">Filtre LDAP</span></label>
     <input type="text" name="filter" value="" />
     <button type="submit">Envoyer !</button>
     <div class="spacer"></div>
@@ -22,7 +22,18 @@
   <p>Liste complètes des <strong><%= @users.size %></strong> utilisateurs :</p>
 <% end %>
 
-<table class="users">
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#users').dataTable( {
+      "bJQueryUI": true,
+      "bAutoWidth": false,
+      "sPaginationType": "full_numbers",
+      "iDisplayLength": 25
+      } );
+  } );
+</script>
+
+<table id="users" class="fullwidth">
   <thead>
     <tr>
       <th>uid</th>
