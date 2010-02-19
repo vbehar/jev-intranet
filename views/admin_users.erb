@@ -22,12 +22,29 @@
   <p>Liste complètes des <strong><%= @users.size %></strong> utilisateurs :</p>
 <% end %>
 
-<ul>
-<% @users.each do |u| %>
-<li>
-  <a href="/admin/user/<%= u.uid %>"><%= u.name %></a> 
-</li>
-<% end %>
-</ul>
+<table class="users">
+  <thead>
+    <tr>
+      <th>uid</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Age</th>
+      <th>Catégorie</th>
+      <th>Licence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><a href="/admin/user/<%= u.uid %>"><%= u.uid %></a></td>
+        <td><%= u.firstname %></td>
+        <td><%= u.lastname %></td>
+        <td><%= u.age %></td>
+        <td><%= u.ffck_category %></td>
+        <td><%= u.ffck_number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 
