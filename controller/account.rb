@@ -18,6 +18,7 @@ before do
 end
 
 get '/account.json' do
+  content_type 'application/json', :charset => 'utf-8'
   exported_attrs = {'uid'=>'uid','cn'=>'name','sn'=>'lastname','givenName'=>'firstname','displayName'=>'displayName'}
   attrs = @me.attributes.collect{|k,v| exported_attrs.include?(k) ? [exported_attrs[k],v.to_s] : nil}.compact
   Hash[attrs].to_json
