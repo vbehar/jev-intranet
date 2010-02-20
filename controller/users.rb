@@ -17,15 +17,6 @@ get '/user/:uid' do |uid|
   erb :user
 end
 
-get '/account' do
-  erb :account
-end
-
-post '/account' do
-  puts params['user'].inspect
-  redirect '/account'
-end
-
 # return an array of users born in the given month
 def users_birthdays_for(date)
   User.find(:all, :attribute => 'birthDate', :value => date.strftime("*-%m-*"), :attributes => [:uid, :cn, :displayName, :birthDate]).sort{|a,b| a.birth_date.day <=> b.birth_date.day}
