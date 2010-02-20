@@ -6,7 +6,7 @@
 before do
   if request.path_info.match(/^\/account/)
     # do not cache
-    cache_control :private, :no_cache, :no_store, :max_age => 0
+    expires 0, :private, :no_cache, :no_store
 
     # current user
     uid = case options.environment.to_sym
