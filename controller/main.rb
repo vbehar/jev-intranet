@@ -5,7 +5,7 @@ before do
   @breadcrumb = {}
 
   # default cache
-  expires 1.hour, :public
+  expires 10.minutes, :public
 end
 
 get '/' do
