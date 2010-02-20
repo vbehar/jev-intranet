@@ -3,7 +3,9 @@ before do
   # default values
   @title = request.path_info
   @breadcrumb = {}
-  cache_control :public, :max_age => 3600
+
+  # default cache
+  expires 1.hour, :public
 
   # current user
   uid = case options.environment.to_sym
