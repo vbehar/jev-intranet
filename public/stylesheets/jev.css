@@ -394,7 +394,7 @@ Table
 ****/
 
 table.nicetable th {
-  font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
   color: #6D929B;
   border-right: 1px solid #C1DAD7;
   border-bottom: 1px solid #C1DAD7;
@@ -407,17 +407,33 @@ table.nicetable th {
 }
 
 table.nicetable tbody th {
+  font-size: 0.9em;
   border-left: 1px solid #C1DAD7;
   border-top: 0;
-  background-color: #fff;
-  font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  text-transform: none;
 }
 
 table.nicetable tbody td {
   border-right: 1px solid #C1DAD7;
   border-bottom: 1px solid #C1DAD7;
-  background: #fff;
   padding: 6px 6px 6px 12px;
+}
+
+table.nicetable tbody tr.odd th {
+  background-color: #DBFAFA;
+}
+
+table.nicetable tbody tr.odd td {
+  background-color: #DBFAFA;
+  color: #B4AA9D;
+}
+
+table.nicetable tbody tr.even th {
+  background-color: #FFFFFF;
+}
+
+table.nicetable tbody tr.even td {
+  background-color: #FFFFFF;
   color: #6D929B;
 }
 

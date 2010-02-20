@@ -15,8 +15,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @current_birthdays.each do |u| %>
-      <tr>
+    <% @current_birthdays.each_with_index do |u,i| %>
+      <tr class="<%= i%2==0 ? "even" : "odd" %>">
         <th><%= birth_day(u.birth_date) %></th>
         <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
       </tr>
@@ -34,8 +34,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @next_birthdays.each do |u| %>
-      <tr>
+    <% @next_birthdays.each_with_index do |u,i| %>
+      <tr class="<%= i%2==0 ? "even" : "odd" %>">
         <th><%= birth_day(u.birth_date) %></th>
         <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
       </tr>
