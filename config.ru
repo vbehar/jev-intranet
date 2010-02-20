@@ -34,6 +34,8 @@ configure :production do
     set :metastore,         cache_config['metastore']
     set :entitystore,       cache_config['entitystore']
   end
+  require 'rack/contrib'
+  use ::Rack::ETag
 end
 
 # application
