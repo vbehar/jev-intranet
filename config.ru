@@ -26,7 +26,7 @@ configure :production do
   use ::Rack::RemoteUser
   require 'rack/cache'
   cache_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/cache.yml")).result)
-  use Rack::Cache do
+  use ::Rack::Cache do
     set :verbose,           true
     set :private_headers,   []
     set :allow_reload,      true
