@@ -1,0 +1,57 @@
+<%
+  @title = "Statistiques"
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/stats', @title]]
+%>
+
+<h2>Statistiques adhérents</h2>
+
+<h3>Mairie Joinville-le-pont</h3>
+
+<table class="fullwidth nicetable">
+  <thead>
+    <tr>
+      <th>Age</th>
+      <th>Joinvillais</th>
+      <th>Non-joinvillais</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [[0,12],[12,18],[18,25],[25,40],[40,999],[0,999]].each do |low,high| %>
+      <% selected_users = @users.select{|u| u.age > low && u.age <= high} %>
+      <tr>
+        <th><%= "#{low} < x <= #{high}" %></th>
+        <td><%= selected_users.select{|u| u.postal_code == "94340"}.size.to_s %></td>
+        <td><%= selected_users.select{|u| u.postal_code != "94340"}.size.to_s %></td>
+        <td><%= selected_users.size.to_s %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>CNDS</h3>
+
+<table class="fullwidth nicetable">
+  <thead>
+    <tr>
+      <th>Age</th>
+      <th>Hommes</th>
+      <th>Femmes</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [[0,18],[18,999],[0,999]].each do |low,high| %>
+      <% selected_users = @users.select{|u| u.age > low && u.age <= high} %>
+      <tr>
+        <th><%= "#{low} < x <= #{high}" %></th>
+        <td><%= selected_users.select{|u| u.male?}.size.to_s %></td>
+        <td><%= selected_users.select{|u| u.female?}.size.to_s %></td>
+        <td><%= selected_users.size.to_s %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

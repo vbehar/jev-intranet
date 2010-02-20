@@ -28,6 +28,11 @@ get '/admin/user/:uid' do |uid|
   erb :admin_user
 end
 
+get '/admin/stats' do
+  @users = User.find(:all)
+  erb :admin_stats
+end
+
 # return the ldap attrs needed for listing users
 def admin_user_attributes()
   %w(uid cn sn gn birthDate ffckCategory ffckNumber)

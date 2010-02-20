@@ -389,6 +389,38 @@ Floating box
   padding: 4px;
 }
 
+/****
+Table
+****/
+
+table.nicetable th {
+  font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  color: #6D929B;
+  border-right: 1px solid #C1DAD7;
+  border-bottom: 1px solid #C1DAD7;
+  border-top: 1px solid #C1DAD7;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 6px 6px 6px 12px;
+  background-color: #CAE8EA;
+}
+
+table.nicetable tbody th {
+  border-left: 1px solid #C1DAD7;
+  border-top: 0;
+  background-color: #fff;
+  font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+
+table.nicetable tbody td {
+  border-right: 1px solid #C1DAD7;
+  border-bottom: 1px solid #C1DAD7;
+  background: #fff;
+  padding: 6px 6px 6px 12px;
+  color: #6D929B;
+}
+
 /***
 Form
 ***/
