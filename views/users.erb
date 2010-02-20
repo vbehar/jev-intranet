@@ -7,13 +7,37 @@
 
 <p>Liste de tous les adhérents de JEV :</p>
 
-<ul>
-<% @users.each do |u| %>
-<li>
-  <a href="/user/<%= u.uid %>"><%= u.name %></a> 
-  (<%= u.display_name %>)
-  <%= (" - " + u.title) if u.title %>
-</li>
-<% end %>
-</ul>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#users').dataTable( {
+      "bJQueryUI": true,
+      "bAutoWidth": false,
+      "sPaginationType": "full_numbers",
+      "iDisplayLength": 50
+      } );
+  } );
+</script>
+
+<table id="users" class="fullwidth">
+  <thead>
+    <tr>
+      <th>Pseudo</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Fonction</th>
+      <th>Catégorie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
+        <td><%= u.firstname %></td>
+        <td><%= u.lastname %></td>
+        <td><%= u.title %></td>
+        <td><%= u.ffck_category %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 

@@ -1,6 +1,6 @@
 
 get '/users' do
-  @users = User.find(:all, :attributes => [:uid, :cn, :displayName, :title])
+  @users = User.find(:all, :attributes => [:uid, :cn, :sn, :gn, :displayName, :title, :ffckCategory])
   erb :users
 end
 
