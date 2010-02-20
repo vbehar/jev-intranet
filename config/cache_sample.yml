@@ -1,0 +1,5 @@
+# YAML config for Rack::Cache
+
+metastore: 'heap:/'
+entitystore: 'heap:/'
+

@@ -1,4 +1,5 @@
 # Our sinatra application - main entry point
+# load classes and initialize connections
 
 # extra, aka monkey patches
 %w(string date).each do |f|
@@ -15,12 +16,10 @@ end
   require File.dirname(__FILE__) + "/controller/#{f}"
 end
 
+# initialize connections
 configure do
-  # ldap config
+  # ldap
   ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
   ActiveLdap::Base.setup_connection ldap_config
 end
-
-enable :sessions
-disable :logging
 
