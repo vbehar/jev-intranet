@@ -12,11 +12,6 @@ helpers do
     user_birth_date.strftime("%d %B") rescue ""
   end
 
-  # return the gravatar url for the current user
-  def gravatar()
-    gravatar_for(@me.mail(true).first)
-  end
-
   # return the gravatar url for the given mail address
   def gravatar_for(mail)
     encoded_mail = MD5::md5(mail.downcase) rescue nil

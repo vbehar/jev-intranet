@@ -5,7 +5,15 @@
 
 before do
   if request.path_info.match(/^\/account/)
+    # do not cache
     cache_control :private, :no_cache, :no_store, :max_age => 0
+
+    # current user
+    uid = case options.environment.to_sym
+      when :development; "vincent.behar"
+      when :production; request.env['REMOTE_USER']
+    end
+    @me = User.find(uid)
   end
 end
 
