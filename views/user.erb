@@ -5,7 +5,7 @@
 
 <h2><%= @user.name %></h2>
 
-<img src="<%= gravatar %>" />
+<img src="<%= gravatar_for(@user.mail(true).first) %>" />
 
 <dl>
   <dt>Nom</dt>
