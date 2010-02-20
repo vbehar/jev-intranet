@@ -16,29 +16,29 @@ enable  :sessions
 disable :logging
 
 # middlewares
+use ::Rack::ShowExceptions
 configure :development do
-  require 'middleware/sinatra_reloader.rb'
+  require File.dirname(__FILE__) + '/middleware/sinatra_reloader'
   use ::Sinatra::Reloader
-  use ::Rack::ShowExceptions
 end
 configure :production do
-  require 'middleware/remote_user.rb'
-  use ::Rack::RemoteUser
   require 'rack/cache'
   cache_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/cache.yml")).result)
-  use ::Rack::Cache do
-    set :verbose,           true
-    set :private_headers,   []
-    set :allow_reload,      true
-    set :allow_revalidate,  true
-    set :metastore,         cache_config['metastore']
-    set :entitystore,       cache_config['entitystore']
-  end
+  use ::Rack::Cache,
+    :verbose            => true,
+    :default_ttl        => 0,
+    :private_headers    => [],
+    :allow_reload       => false,
+    :allow_revalidate   => false,
+    :metastore          => cache_config['metastore'],
+    :entitystore        => cache_config['entitystore']
   require 'rack/contrib'
   use ::Rack::ETag
+  require File.dirname(__FILE__) + '/middleware/remote_user'
+  use ::Rack::RemoteUser
 end
 
 # application
-require 'intranet.rb'
+require File.dirname(__FILE__) + '/intranet'
 run ::Sinatra::Application
 

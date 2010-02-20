@@ -1,5 +1,3 @@
-require 'rack'
-require 'sinatra'
 
 # reload sinatra routes in dev mode
 class Sinatra::Reloader < ::Rack::Reloader

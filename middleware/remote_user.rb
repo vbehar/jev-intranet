@@ -1,4 +1,3 @@
-require 'rack'
 
 module Rack
 
