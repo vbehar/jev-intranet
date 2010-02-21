@@ -59,6 +59,21 @@ get '/admin/stats' do
   erb :admin_stats
 end
 
+get '/admin/stats/graphs' do
+  erb :admin_stats_graphs
+end
+
+get '/admin/stats/data/ffck_category_repartition.json' do
+  content_type 'application/json', :charset => 'utf-8'
+  users = User.find(:all, :attributes => ['cn','ffckCategory']).collect{|u| u.ffck_category.to_s}
+  categories = users.group_by{|u| u.split(' ').first}.collect{|k,v| [k,v.size]}
+  categories.sort!{|a,b| ffck_categories.index(a.first) <=> ffck_categories.index(b.first)}
+  rows = categories.map{|k,v| {:c => [{:v => k},{:v => v}]}}
+  {:cols => [{:id => 'cat', :label => 'Catégorie', :type => 'string'},
+             {:id => 'nb', :label => 'Nombre', :type => 'number'}],
+   :rows => rows }.to_json
+end
+
 # return the ldap attrs needed for listing users
 def admin_user_attributes()
   %w(uid cn sn gn gender birthDate ffckCategory ffckNumber postalCode l)

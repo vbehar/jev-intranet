@@ -1,0 +1,24 @@
+<%
+  @title = "Graphs"
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/stats', 'Statistiques'], ['/admin/stats/graphs', @title]]
+%>
+
+<h2>Graphs</h2>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+  google.load('visualization', '1', {'packages':['piechart'], 'callback': function() {
+    $.getJSON('/admin/stats/data/ffck_category_repartition.json', function(data) {
+      var dataTable = new google.visualization.DataTable(data);
+      var chart = new google.visualization.PieChart(document.getElementById('repartion_par_categorie'));
+      chart.draw(dataTable, {width: 400, height: 240, is3D: true, title: 'Répartition par catégorie'});
+    });
+  }});
+});
+//]]>
+</script>
+
+<div id="repartion_par_categorie"></div>
+
