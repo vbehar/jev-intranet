@@ -18,6 +18,11 @@ helpers do
     "http://www.gravatar.com/avatar/#{encoded_mail}?s=80"
   end
 
+  # return an ordered array of all ffck categories
+  def ffck_categories()
+    %w(Pitchoun Poussin Benjamin Minime Cadet Junior Senior Veteran Inconnu)
+  end
+
   # ADMIN HELPERS
 
   # retrieve the uid of the previous user (based on the list of users present in session)

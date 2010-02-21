@@ -53,5 +53,29 @@
   </tbody>
 </table>
 
+<h3>Catégorie FFCK</h3>
+
+<table class="fullwidth nicetable">
+  <thead>
+    <tr>
+      <th>Catégorie</th>
+      <th>Hommes</th>
+      <th>Femmes</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% ffck_categories.push('').each do |cat| %>
+      <% selected_users = @users.select{|u| u.ffck_category.include?(cat) rescue false } %>
+      <tr>
+        <th><%= cat %></th>
+        <td><%= selected_users.select{|u| u.male?}.size.to_s %></td>
+        <td><%= selected_users.select{|u| u.female?}.size.to_s %></td>
+        <td><%= selected_users.size.to_s %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 
