@@ -51,7 +51,7 @@ class User < LdapBase
       when 35..39; "Veteran 1"
       when 40..44; "Veteran 2"
       when 45..49; "Veteran 3"
-      when 50..100; "Veteran +"
+      when 50..999; "Veteran +"
       else "Inconnu"
     end
   end
