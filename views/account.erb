@@ -5,11 +5,12 @@
 
 <h2>Mon compte</h2>
 
-<div class="niceform">
-  <h3>Modifier mes informations</h3>
-  <p>En cas de changement d'adresse, de numéro de téléphone, etc, pensez à mettre à jour vos informations !</p>
+<form id="account" name="account" method="post" action="/account">
 
-  <form id="account" name="account" method="post" action="/account">
+  <div class="niceform">
+    <h3>Coordonnées</h3>
+    <p>En cas de changement d'adresse, de numéro de téléphone, etc, pensez à mettre à jour vos coordonnées !</p>
+
     <label for="user_uid">Identifiant<span class="labeltip">de connexion</span></label>
     <input type="text" name="user[uid]" id="user_uid" value="<%= @me.uid %>" readonly />
 
@@ -25,8 +26,16 @@
       <option value="F" <%= "selected='selected'" if @me.female? %>>Femme</option>
     </select>
 
-    <label for="user_birth_date">Date de naissance<span class="labeltip"></span></label>
-    <input type="text" name="user[birth_date]" id="user_birth_date" value="<%= @me.birth_date %>" />
+    <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
+    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @me.birth_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @me.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <script type="text/javascript">
+      //<![CDATA[
+      $(document).ready(function(){
+        $("#user_birth_date_fr").datepicker({altField:'#user_birth_date', altFormat:'yy-mm-dd', changeMonth:true, changeYear:true, yearRange:'1950:2010', showButtonPanel:true, closeText:'X', showOn:'both', buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true, buttonText:'Calendrier', currentText:'Aujourd\'hui'});
+      });
+      //]]>
+    </script>
 
     <h4 class="separator">Adresses e-mail</h4>
     <% @me.mail(true).each_with_index do |mail, index| %>
@@ -38,7 +47,7 @@
     <% end %>
     <!--<a href="javascript:$('<p>plop</p>').insertBefore('#mail')" id='mail'>add mail</a>-->
 
-    <h4 class="separator">Coordonnées</h4>
+    <h4 class="separator">Adresse</h4>
 
     <label for="user_street">Adresse<span class="labeltip"></span></label>
     <input type="text" name="user[street]" id="user_street" value="<%= @me.street %>" />
@@ -66,9 +75,24 @@
     <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
     <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
     <% end %>
+  </div>
 
+  <div class="niceform">
+    <h3>Licence FFCK</h3>
+    <p>En cas de changement d'adresse, de numéro de téléphone, etc, pensez à mettre à jour vos informations !</p>
+
+    <label for="user_ffck_number">Numéro<span class="labeltip">de licence</span></label>
+    <input type="text" name="user[ffck_number]" id="user_ffck_number" value="<%= @me.ffck_number %>" readonly />
+
+    <label for="user_ffck_number_year">Année<span class="labeltip"></span></label>
+    <input type="text" name="user[ffck_number_year]" id="user_ffck_number_year" value="<%= @me.ffck_number_year %>" readonly />
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="niceform" style="margin: 10px auto; float: none;">
     <button type="submit">Envoyer !</button>
     <div class="spacer"></div>
-  </form>
-</div>
+  </div>
+</form>
 

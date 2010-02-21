@@ -442,7 +442,8 @@ Form
 ***/
 
 .niceform {
-  margin: 0 auto;
+  float: left;
+  margin: 0 24px;
   width: 400px;
   padding: 14px;
   border: solid 2px #b7ddf2;
@@ -496,6 +497,11 @@ Form
 
 .niceform input[readonly], .niceform select[readonly] {
   background-color: #dcdcdc;
+}
+
+.niceform .ui-datepicker-trigger {
+  float: left;
+  margin: 5px 0px 5px 5px;
 }
 
 .niceform .action {
