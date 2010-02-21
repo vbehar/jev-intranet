@@ -59,10 +59,6 @@ get '/admin/stats' do
   erb :admin_stats
 end
 
-get '/admin/stats/graphs' do
-  erb :admin_stats_graphs
-end
-
 get '/admin/stats/data/ffck_category_repartition.json' do
   content_type 'application/json', :charset => 'utf-8'
   users = User.find(:all, :attributes => ['cn','ffckCategory']).collect{|u| u.ffck_category.to_s}
@@ -70,6 +66,16 @@ get '/admin/stats/data/ffck_category_repartition.json' do
   categories.sort!{|a,b| ffck_categories.index(a.first) <=> ffck_categories.index(b.first)}
   rows = categories.map{|k,v| {:c => [{:v => k},{:v => v}]}}
   {:cols => [{:id => 'cat', :label => 'Catégorie', :type => 'string'},
+             {:id => 'nb', :label => 'Nombre', :type => 'number'}],
+   :rows => rows }.to_json
+end
+
+get '/admin/stats/data/age_repartition.json' do
+  content_type 'application/json', :charset => 'utf-8'
+  users = User.find(:all, :attributes => ['cn','birthDate']).collect{|u| u.age}
+  ages = users.group_by{|u| u}.collect{|k,v| [k,v.size]}.sort
+  rows = ages.map{|k,v| {:c => [{:v => k},{:v => v}]}}
+  {:cols => [{:id => 'age', :label => 'Age', :type => 'number'},
              {:id => 'nb', :label => 'Nombre', :type => 'number'}],
    :rows => rows }.to_json
 end
