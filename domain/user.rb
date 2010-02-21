@@ -20,7 +20,7 @@ class User < LdapBase
     self.search(params).collect do |user|
       attrs = user[1].to_a
       # don't use an array for uid
-      attrs.collect!{ |k,v| k == "uid" ? [k,v.to_s] : [k,v] }
+      attrs.collect!{ |k,v| k == 'uid' ? [k,v.to_s] : [k,v] }
       User.new(Hash[attrs])
     end
   end
@@ -28,7 +28,7 @@ class User < LdapBase
   # return the actual age of the user
   def age
     days = (Date.today - birth_date).to_i
-    (Date.parse("1970-01-01") + days).year - 1970
+    (Date.parse('1970-01-01') + days).year - 1970
   end
 
   # return the category for the current season
@@ -36,28 +36,28 @@ class User < LdapBase
     season_year = Date.today.month >= 8 ? Date.today.year + 1 : Date.today.year
     user_birth_year = birth_date.year rescue Date.today.year
     case season_year - user_birth_year
-      when 0..8; "Pitchoun"
-      when 9; "Poussin 1"
-      when 10; "Poussin 2"
-      when 11; "Benjamin 1"
-      when 12; "Benjamin 2"
-      when 13; "Minime 1"
-      when 14; "Minime 2"
-      when 15; "Cadet 1"
-      when 16; "Cadet 2"
-      when 17; "Junior 1"
-      when 18; "Junior 2"
-      when 19..34; "Senior"
-      when 35..39; "Veteran 1"
-      when 40..44; "Veteran 2"
-      when 45..49; "Veteran 3"
-      when 50..999; "Veteran +"
-      else "Inconnu"
+      when 0..8; 'Pitchoun'
+      when 9; 'Poussin 1'
+      when 10; 'Poussin 2'
+      when 11; 'Benjamin 1'
+      when 12; 'Benjamin 2'
+      when 13; 'Minime 1'
+      when 14; 'Minime 2'
+      when 15; 'Cadet 1'
+      when 16; 'Cadet 2'
+      when 17; 'Junior 1'
+      when 18; 'Junior 2'
+      when 19..34; 'Senior'
+      when 35..39; 'Veteran 1'
+      when 40..44; 'Veteran 2'
+      when 45..49; 'Veteran 3'
+      when 50..999; 'Veteran +'
+      else 'Inconnu'
     end
   end
 
-  def male?; gender == "M"; end
-  def female?; gender == "F"; end
+  def male?; gender == 'M'; end
+  def female?; gender == 'F'; end
 
 end
 
