@@ -10,6 +10,7 @@ Dependencies (and their tested versions) :
 - rack-contrib  0.9.2
 - rack-cache    0.5.2
 - sinatra       0.9.4
+- fastercsv     1.5.1
 
 Dev mode :
 - racksh        0.9.7

@@ -1,3 +1,4 @@
+require 'fastercsv'
 
 get '/admin' do
   erb :admin_index
@@ -5,6 +6,31 @@ end
 
 get '/admin/about' do
   "Environment : " + ( options.environment.to_s rescue "undefined" )
+end
+
+get '/admin/users.csv' do
+  expires 0, :private, :no_cache, :no_store
+  content_type 'text/csv', :charset => 'utf-8'
+  FasterCSV.generate(:col_sep => ";") do |csv|
+    csv << %w( uid firstname lastname displayName status
+               ffckNumber ffckNumberYear ffckNumberDate ffckCategory ffckClubNumber ffckClubName
+               medicalCertificateDate medicalCertificateType socialSecurityNumber tetanusVaccineDate
+               gender birthDate occupation title description
+               address postalCode city
+               mail homePhone mobilePhone proPhone fax
+               mainContactName mainContactPhone mainContactHomePhone mainContactMobilePhone mainContactMail mainContactRelationship
+               secContactName secContactPhone secContactHomePhone secContactMobilePhone secContactMail secContactRelationship )
+    User.find(:all).each do |u|
+      csv << [ u.uid, u.firstname, u.lastname, u.display_name, u.status,
+               u.ffck_number, u.ffck_number_year, u.ffck_number_date, u.ffck_category, u.ffck_club_number, u.ffck_club_name,
+               u.medical_certificate_date, u.medical_certificate_type, u.social_security_number, u.tetanus_vaccine_date,
+               u.gender, u.birth_date, u.occupation, u.title, u.description,
+               u.street, u.postal_code, u.l,
+               u.mail(true).join('|'), u.home_phone(true).join('|'), u.mobile(true).join('|'), u.telephone_number(true).join('|'), u.fax,
+               u.main_contact_name, u.main_contact_phone, u.main_contact_home_phone, u.main_contact_mobile_phone, u.main_contact_mail, u.main_contact_relationship,
+               u.sec_contact_name, u.sec_contact_phone, u.sec_contact_home_phone, u.sec_contact_mobile_phone, u.sec_contact_mail, u.sec_contact_relationship ]
+    end
+  end
 end
 
 get '/admin/users' do
