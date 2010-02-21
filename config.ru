@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 # startup file for our rack-based application
-# 'rackup' in dev mode
-# and whatever you want in prod
+# 'rackup' or 'shotgun config.ru' in dev mode
+# and whatever you want in prod (tested with webroar)
 
 # frameworks
 require 'rack'
