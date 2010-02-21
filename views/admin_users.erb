@@ -59,7 +59,7 @@
       <th>uid</th>
       <th>Prénom</th>
       <th>Nom</th>
-      <th>Code postal</th>
+      <th>Ville</th>
       <th>Date naiss.</th>
       <th>Age</th>
       <th>Catégorie</th>
@@ -73,7 +73,7 @@
         <td><a href="/admin/user/<%= u.uid %>"><%= u.uid %></a></td>
         <td><%= u.firstname %></td>
         <td><%= u.lastname %></td>
-        <td><%= u.postal_code %></td>
+        <td><span title="<%= u.l %>"><%= u.postal_code %></span></td>
         <td><%= birth_date(u.birth_date) %></td>
         <td><%= u.age %></td>
         <td><%= u.ffck_category %></td>
