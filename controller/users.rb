@@ -1,12 +1,4 @@
 
-get '/birthdays' do
-  @current_month = Date.today
-  @next_month = @current_month.next_month
-  @current_birthdays = users_birthdays_for @current_month
-  @next_birthdays = users_birthdays_for @next_month
-  erb :birthdays
-end
-
 get '/users' do
   @users = User.find(:all, :attributes => [:uid, :cn, :sn, :gn, :displayName, :title, :ffckCategory])
   erb :users
@@ -15,6 +7,16 @@ end
 get '/user/:uid' do |uid|
   @user = User.find(uid)
   erb :user
+end
+
+get '/users/birthdays' do
+  expires 1.hour, :public
+
+  @current_month = Date.today
+  @next_month = @current_month.next_month
+  @current_birthdays = users_birthdays_for @current_month
+  @next_birthdays = users_birthdays_for @next_month
+  erb :users_birthdays
 end
 
 # return an array of users born in the given month
