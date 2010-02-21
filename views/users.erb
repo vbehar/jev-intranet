@@ -44,6 +44,7 @@
       <th>Nom</th>
       <th>Fonction</th>
       <th>Catégorie</th>
+      <th>Sexe</th>
     </tr>
   </thead>
   <tbody>
@@ -54,6 +55,7 @@
         <td><%= u.lastname %></td>
         <td><%= u.title %></td>
         <td><%= u.ffck_category %></td>
+        <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
       </tr>
     <% end %>
   </tbody>

@@ -60,11 +60,11 @@
       <th>Prénom</th>
       <th>Nom</th>
       <th>Code postal</th>
-      <th>Sexe</th>
       <th>Date naiss.</th>
       <th>Age</th>
       <th>Catégorie</th>
       <th>Licence</th>
+      <th>Sexe</th>
     </tr>
   </thead>
   <tbody>
@@ -74,11 +74,11 @@
         <td><%= u.firstname %></td>
         <td><%= u.lastname %></td>
         <td><%= u.postal_code %></td>
-        <td><%= u.male? ? "Homme" : "Femme" %></td>
         <td><%= birth_date(u.birth_date) %></td>
         <td><%= u.age %></td>
         <td><%= u.ffck_category %></td>
         <td><%= u.ffck_number %></td>
+        <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
       </tr>
     <% end %>
   </tbody>
