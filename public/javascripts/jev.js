@@ -5,7 +5,7 @@ if(typeof Intranet == "undefined") {
 $(document).ready(function() {
   $.getJSON('/account.json', function(user) {
     Intranet.current_user = user;
-    $('#current_user_name').html(user.name);
+    $('#intranet').trigger('current_user-loaded');
   });
 });
 

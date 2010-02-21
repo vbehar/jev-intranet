@@ -18,6 +18,8 @@
 
 <body>
 
+<div id="intranet"></div>
+
 <div id="wrap">
   <div id="header">
     <div id="sitelogo">
@@ -30,7 +32,14 @@
     </div>
     <div id="mainmenu">
       <dl class="nav">
-        <dt><a href="/account"><span id="current_user_name">Mon compte</span></a></dt>
+        <dt><a href="/account"><span id="current_user_name"><img src="/images/icons/load.gif" alt="Chargement en cours..." />&nbsp;Chargement...</span></a></dt>
+        <script type="text/javascript">
+          //<![CDATA[
+          $('#intranet').bind('current_user-loaded', function(e) {
+            $('#current_user_name').html(Intranet.current_user.displayName);
+          });
+          //]]>
+        </script>
         <dd><a href="/account">Mon compte</a></dd>
         <dd><a href="/subscription">Mes cotisations</a></dd>
         <dd><a href="/events/my">Mes participations</a></dd>
