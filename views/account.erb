@@ -42,10 +42,10 @@
     <div id="user_mail_block_<%= index %>">
       <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
-      <span class="action"><a href="javascript:$('#user_mail_block_<%= index %>').remove();">x</a></span>
+      <span class="input-action"><a href="javascript:$('#user_mail_block_<%= index %>').remove();"><img src="/images/icons/delete.png" alt="Supprimer cet email !" /></a></span>
     </div>
     <% end %>
-    <!--<a href="javascript:$('<p>plop</p>').insertBefore('#mail')" id='mail'>add mail</a>-->
+    <span class="action" id="mail"><a href="javascript:$('<div><label>plop</label><input type=\'text\' /></div>').insertBefore('#mail')"><img src="/images/icons/add.png" alt="Ajouter un email" />Ajouter une nouvelle adresse email</a></span>
 
     <h4 class="separator">Adresse</h4>
 
@@ -60,8 +60,11 @@
 
     <h4 class="separator">Téléphone portable</h4>
     <% @me.mobile(true).each_with_index do |mobile, index| %>
-    <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
+    <div id="user_mobile_block_<%= index %>">
+      <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action"><a href="javascript:$('#user_mobile_block_<%= index %>').remove();"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone portable !" /></a></span>
+    </div>
     <% end %>
 
     <h4 class="separator">Téléphone domicile</h4>
