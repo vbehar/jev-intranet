@@ -16,9 +16,20 @@ end
   require File.dirname(__FILE__) + "/controller/#{f}"
 end
 
-# initialize connections
+# initialization
 configure do
-  # ldap
+  # git status
+  git_branch = `git branch | grep '*' | awk '{print $2}'`.strip
+  git_infos = `git log HEAD^1..HEAD --pretty=format:"%h|%H|%ai|%cn"`.split('|')
+  # status variables
+  set :start_time, Time.now
+  set :git_branch, git_branch
+  set :git_version, git_infos[0]
+  set :git_version_full, git_infos[1]
+  set :git_version_date, Time.parse(git_infos[2])
+  set :git_version_author, git_infos[3]
+
+  # ldap connection
   ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
   ActiveLdap::Base.setup_connection ldap_config
 end

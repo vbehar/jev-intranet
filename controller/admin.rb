@@ -4,10 +4,6 @@ get '/admin' do
   erb :admin_index
 end
 
-get '/admin/about' do
-  "Environment : " + ( options.environment.to_s rescue "undefined" )
-end
-
 get '/admin/users.csv' do
   expires 0, :private, :no_cache, :no_store
   content_type 'text/csv', :charset => 'utf-8'
