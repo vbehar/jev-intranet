@@ -38,7 +38,8 @@
     </script>
 
     <h4 class="separator">Adresses e-mail</h4>
-    <% @me.mail(true).each_with_index do |mail, index| %>
+    <% mails = @me.mail(true).empty? ? [""] : @me.mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
     <div>
       <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
@@ -59,7 +60,8 @@
     <input type="text" name="user[l]" id="user_l" value="<%= @me.l %>" />
 
     <h4 class="separator">Téléphone portable</h4>
-    <% @me.mobile(true).each_with_index do |mobile, index| %>
+    <% mobiles = @me.mobile(true).empty? ? [""] : @me.mobile(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
     <div>
       <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
@@ -69,7 +71,8 @@
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
 
     <h4 class="separator">Téléphone domicile</h4>
-    <% @me.home_phone(true).each_with_index do |home_phone, index| %>
+    <% home_phones = @me.home_phone(true).empty? ? [""] : @me.home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
     <div>
       <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
@@ -79,7 +82,8 @@
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
 
     <h4 class="separator">Téléphone professionnel</h4>
-    <% @me.telephone_number(true).each_with_index do |telephone_number, index| %>
+    <% telephone_numbers = @me.telephone_number(true).empty? ? [""] : @me.telephone_number(true) %>
+    <% telephone_numbers.each_with_index do |telephone_number, index| %>
     <div>
       <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
