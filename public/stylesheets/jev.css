@@ -507,12 +507,26 @@ Form
 .niceform .input-action {
   float: left;
   margin: 5px 0px 5px 5px;
+  cursor: pointer;
+  color: #4D699D;
+  font-weight: 400;
+}
+
+.niceform .input-action:hover {
+  color: #444444;
 }
 
 .niceform .action {
   clear: both;
   float: left;
   margin-bottom: 10px;
+  cursor: pointer;
+  color: #4D699D;
+  font-weight: 400;
+}
+
+.niceform .action:hover {
+  color: #444444;
 }
 
 .niceform .action img {
