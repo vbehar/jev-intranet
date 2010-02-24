@@ -60,24 +60,33 @@
 
     <h4 class="separator">Téléphone portable</h4>
     <% @me.mobile(true).each_with_index do |mobile, index| %>
-    <div id="user_mobile_block_<%= index %>">
+    <div>
       <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
-      <span class="input-action"><a href="javascript:$('#user_mobile_block_<%= index %>').remove();"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone portable !" /></a></span>
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone portable !" /></span>
     </div>
     <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
 
     <h4 class="separator">Téléphone domicile</h4>
     <% @me.home_phone(true).each_with_index do |home_phone, index| %>
-    <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
+    <div>
+      <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
     <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
 
     <h4 class="separator">Téléphone professionnel</h4>
     <% @me.telephone_number(true).each_with_index do |telephone_number, index| %>
-    <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
-    <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
+    <div>
+      <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone professionnel !" /></span>
+    </div>
     <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone professionnel" />Ajouter un nouveau numéro de téléphone professionnel</span>
   </div>
 
   <div class="niceform">
