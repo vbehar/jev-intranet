@@ -111,7 +111,7 @@
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready(function(){
-    $('#account').delegate("span.input-action.remove-block", "click", function(){ $(this).parent().remove(); });
+    $('#account').delegate("span.input-action.remove-block", "click", function() { Intranet.removeInputForm($(this).parent()); });
     $('#account').delegate("span.action.duplicate-block", "click", function() { Intranet.dupInputForm($(this).prev()); });
   });
   //]]>

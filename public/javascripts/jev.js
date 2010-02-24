@@ -17,6 +17,19 @@ Intranet.dupInputForm = function(elem) {
   dup.insertAfter(orig);
 }
 
+// remove the given input form
+// unless it is the last one
+Intranet.removeInputForm = function(elem) {
+  if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
+    // can't remove the last one ! let's just clear the value
+    var html = elem.html();
+    html = html.replace(/value="(.*)"/, "value=\"\"");
+    elem.html(html);
+    return;
+  }
+  elem.remove();
+}
+
 $(document).ready(function() {
   $.getJSON('/account.json', function(user) {
     Intranet.current_user = user;
