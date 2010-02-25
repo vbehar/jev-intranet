@@ -39,8 +39,8 @@
 
     <h4 class="separator">Adresse</h4>
 
-    <label for="user_street">Adresse<span class="labeltip"></span></label>
-    <input type="text" name="user[street]" id="user_street" value="<%= @me.street %>" />
+    <label for="user_street">Adresse<span class="labeltip">Numéro et rue</span></label>
+    <textarea name="user[street]" id="user_street"><%= @me.street %></textarea>
 
     <label for="user_postal_code">Code postal<span class="labeltip"></span></label>
     <input type="text" name="user[postal_code]" id="user_postal_code" value="<%= @me.postal_code %>" />

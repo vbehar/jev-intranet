@@ -486,7 +486,7 @@ Form
   width: 140px;
 }
 
-.niceform input, .niceform select {
+.niceform input, .niceform select, .niceform textarea {
   float: left;
   font-size: 12px;
   padding: 4px 2px;
