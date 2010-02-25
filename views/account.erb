@@ -37,17 +37,6 @@
       //]]>
     </script>
 
-    <h4 class="separator">Adresses e-mail</h4>
-    <% mails = @me.mail(true).empty? ? [""] : @me.mail(true) %>
-    <% mails.each_with_index do |mail, index| %>
-    <div>
-      <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
-      <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
-      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer cet email !" /></span>
-    </div>
-    <% end %>
-    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un email" />Ajouter une nouvelle adresse email</span>
-
     <h4 class="separator">Adresse</h4>
 
     <label for="user_street">Adresse<span class="labeltip"></span></label>
@@ -58,6 +47,17 @@
 
     <label for="user_l">Ville<span class="labeltip"></span></label>
     <input type="text" name="user[l]" id="user_l" value="<%= @me.l %>" />
+
+    <h4 class="separator">Adresses e-mail</h4>
+    <% mails = @me.mail(true).empty? ? [""] : @me.mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un email" />Ajouter une nouvelle adresse email</span>
 
     <h4 class="separator">Téléphone portable</h4>
     <% mobiles = @me.mobile(true).empty? ? [""] : @me.mobile(true) %>
