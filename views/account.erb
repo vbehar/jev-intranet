@@ -48,7 +48,7 @@
     <label for="user_l">Ville<span class="labeltip"></span></label>
     <input type="text" name="user[l]" id="user_l" value="<%= @me.l %>" />
 
-    <h4 class="separator">Adresses e-mail</h4>
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
     <% mails = @me.mail(true).empty? ? [""] : @me.mail(true) %>
     <% mails.each_with_index do |mail, index| %>
     <div>
@@ -59,7 +59,7 @@
     <% end %>
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un email" />Ajouter une nouvelle adresse email</span>
 
-    <h4 class="separator">Téléphone portable</h4>
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% mobiles = @me.mobile(true).empty? ? [""] : @me.mobile(true) %>
     <% mobiles.each_with_index do |mobile, index| %>
     <div>
@@ -70,7 +70,7 @@
     <% end %>
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
 
-    <h4 class="separator">Téléphone domicile</h4>
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% home_phones = @me.home_phone(true).empty? ? [""] : @me.home_phone(true) %>
     <% home_phones.each_with_index do |home_phone, index| %>
     <div>
@@ -81,7 +81,7 @@
     <% end %>
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
 
-    <h4 class="separator">Téléphone professionnel</h4>
+    <h4 class="separator">Téléphone professionnel<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% telephone_numbers = @me.telephone_number(true).empty? ? [""] : @me.telephone_number(true) %>
     <% telephone_numbers.each_with_index do |telephone_number, index| %>
     <div>
