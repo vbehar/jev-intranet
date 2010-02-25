@@ -14,6 +14,8 @@ class User < LdapBase
   attr_mapping :lastname, :sn
   attr_mapping :firstname, :gn
   attr_mapping :birth_date, :birth_date, :date
+  attr_mapping :ffck_number_date, :ffck_number_date, :date
+  attr_mapping :medical_certificate_date, :medical_certificate_date, :date
 
   # search users with the given params (:filter and :attributes)
   def self.search_users(params = {})

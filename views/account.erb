@@ -95,13 +95,35 @@
 
   <div class="niceform">
     <h3>Licence FFCK</h3>
-    <p>En cas de changement d'adresse, de numéro de téléphone, etc, pensez à mettre à jour vos informations !</p>
+    <p>Informations concernant votre licence fédérale (FFCK). En cas de données incorrectes, contactez-nous.</p>
 
     <label for="user_ffck_number">Numéro<span class="labeltip">de licence</span></label>
     <input type="text" name="user[ffck_number]" id="user_ffck_number" value="<%= @me.ffck_number %>" readonly />
 
-    <label for="user_ffck_number_year">Année<span class="labeltip"></span></label>
+    <label for="user_ffck_number_year">Année<span class="labeltip">de la dernière licence</span></label>
     <input type="text" name="user[ffck_number_year]" id="user_ffck_number_year" value="<%= @me.ffck_number_year %>" readonly />
+
+    <label for="user_ffck_number_date">Date de la licence<span class="labeltip">Prise de la licence</span></label>
+    <input type="text" name="user[ffck_number_date]" id="user_ffck_number_date" value="<%= @me.ffck_number_date.strftime('%d/%m/%Y') rescue '' %>" readonly />
+
+    <label for="user_ffck_category">Catégorie<span class="labeltip">pour la saison en cours</span></label>
+    <input type="text" name="user[ffck_category]" id="user_ffck_category" value="<%= @me.ffck_category %>" readonly />
+
+    <h4 class="separator">Club</h4>
+
+    <label for="user_ffck_club_number">Numéro<span class="labeltip"></span></label>
+    <input type="text" name="user[ffck_club_number]" id="user_ffck_club_number" value="<%= @me.ffck_club_number %>" readonly />
+
+    <label for="user_ffck_club_name">Nom<span class="labeltip"></span></label>
+    <input type="text" name="user[ffck_club_name]" id="user_ffck_club_name" value="<%= @me.ffck_club_name %>" readonly />
+
+    <h4 class="separator">Certificat médical</h4>
+
+    <label for="user_medical_certificate_date">Date<span class="labeltip"></span></label>
+    <input type="text" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @me.medical_certificate_date.strftime('%d/%m/%Y') rescue 'Non fourni' %>" readonly />
+
+    <label for="user_medical_certificate_type">Type<span class="labeltip">Compétition ou Loisirs</span></label>
+    <input type="text" name="user[medical_certificate_type]" id="user_medical_certificate_type" value="<%= @me.medical_certificate_type %>" readonly />
   </div>
 
   <div class="spacer"></div>
