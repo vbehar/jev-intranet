@@ -12,6 +12,7 @@ objectIdentifier statusAttr             jevAttributeType:1
 objectIdentifier extraPersonAttr        jevAttributeType:2
 objectIdentifier contactPersonAttr      jevAttributeType:3
 objectIdentifier ffckMemberAttr         jevAttributeType:4
+objectIdentifier jevMemberAttr          jevAttributeType:5
 
 #
 # Attribute type
@@ -241,6 +242,23 @@ attributetype ( ffckMemberAttr:8
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
     SINGLE-VALUE )
 
+attributetype ( jevMemberAttr:1
+    NAME 'jevNumberType'
+    DESC 'JEV member type'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128}
+    SINGLE-VALUE )
+
+attributetype ( jevMemberAttr:2
+    NAME 'jevMemberYear'
+    DESC 'Year of the JEV member, format : YYYY'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    ORDERING caseIgnoreOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{4} )
+
 #
 # Object class
 #
@@ -283,4 +301,11 @@ objectclass ( jevObjectClass:4
         medicalCertificateDate $ medicalCertificateType )
     )
 
+objectclass ( jevObjectClass:5
+    NAME 'jevMember'
+    DESC 'Attributes for a JEV member'
+    AUXILIARY
+    MAY (
+        jevMemberType $ jevMemberYear )
+    )
 
