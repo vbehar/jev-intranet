@@ -7,7 +7,7 @@
 end
 
 # domain classes
-%w(user group).each do |f|
+%w(user group post).each do |f|
   require File.dirname(__FILE__) + "/domain/#{f}"
 end
 
@@ -32,5 +32,10 @@ configure do
   # ldap connection
   ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
   ActiveLdap::Base.setup_connection ldap_config
+
+  # mongodb connection
+  mongo_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/mongo.yml")).result)
+  MongoMapper.connection = Mongo::Connection.new(mongo_config['host'], mongo_config['port'])
+  MongoMapper.database = mongo_config['db']
 end
 

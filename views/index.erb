@@ -5,3 +5,7 @@
 
 <h2>Bienvenue sur l'intranet de JEV !</h2>
 
+<% @posts.each do |p| %>
+<%= p.text %> by <%= p.user.display_name %>
+<% end %>
+

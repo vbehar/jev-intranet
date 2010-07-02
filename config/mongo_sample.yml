@@ -1,0 +1,6 @@
+# YAML config for MongoDB connection
+
+host: localhost
+port: 27017
+db: intranet
+
