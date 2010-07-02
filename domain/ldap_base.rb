@@ -11,7 +11,7 @@ class LdapBase < ActiveLdap::Base
       value = self[ldap_attr.to_s]
       case clazz
         when :string; value
-        when :date; Date.parse(value)
+        when :date; Date.parse(value) rescue nil
         else nil
       end
     end
