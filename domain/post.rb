@@ -4,8 +4,9 @@ require 'mongo_mapper'
 class Post
   include MongoMapper::Document
 
-  key :text, String
   key :user_id, String
+  key :text, String
+  key :twitter_id, Bignum
   timestamps!
 
   def user=(user)
