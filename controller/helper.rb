@@ -1,5 +1,7 @@
 require 'md5'
 
+URL_REGEXP = /(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?[^ ]*)?/ix
+
 helpers do 
 
   # return the full birth_date
@@ -13,14 +15,19 @@ helpers do
   end
 
   # return the gravatar url for the given mail address
-  def gravatar_for(mail)
+  def gravatar_for(mail, size = 80)
     encoded_mail = MD5::md5(mail.downcase) rescue nil
-    "http://www.gravatar.com/avatar/#{encoded_mail}?s=80"
+    "http://www.gravatar.com/avatar/#{encoded_mail}?s=#{size}"
   end
 
   # return an ordered array of all ffck categories
   def ffck_categories()
     %w(Pitchoun Poussin Benjamin Minime Cadet Junior Senior Veteran Inconnu)
+  end
+
+  # linkify the given text
+  def linkify(text)
+    text.gsub(URL_REGEXP, '<a href="\0">\0</a>') rescue text
   end
 
   # ADMIN HELPERS
