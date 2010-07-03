@@ -28,7 +28,7 @@ Page <strong><%= @page %></strong> sur <strong><%= @pages %></strong>
 </span>
 
 <% if @page > 1 %>
-<a href="?page=<%= (@page - 1) %>">messages plus récents</a>
+<a href="/posts/<%= (@page - 1) %>">messages plus récents</a>
 <% end %>
 
 <% if @page.between?(2,@pages-1) %>
@@ -36,6 +36,6 @@ Page <strong><%= @page %></strong> sur <strong><%= @pages %></strong>
 <% end %>
 
 <% if @page < @pages %>
-<a href="?page=<%= (@page + 1) %>">messages plus anciens</a>
+<a href="/posts/<%= (@page + 1) %>">messages plus anciens</a>
 <% end %>
 
