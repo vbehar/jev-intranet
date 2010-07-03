@@ -29,6 +29,7 @@ class User < LdapBase
 
   # return the actual age of the user
   def age
+    return nil if birth_date.nil?
     days = (Date.today - birth_date).to_i
     (Date.parse('1970-01-01') + days).year - 1970
   end
