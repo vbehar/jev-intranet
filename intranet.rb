@@ -2,7 +2,7 @@
 # load classes and initialize connections
 
 # extra, aka monkey patches
-%w(string date).each do |f|
+%w(string date time).each do |f|
   require(File.join(File.dirname(__FILE__), 'extra', f))
 end
 
