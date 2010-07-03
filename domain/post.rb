@@ -10,11 +10,11 @@ class Post
   timestamps!
 
   def user=(user)
-    write_key(:user_id, user.user_id) unless user.nil?
+    self.user_id = user.user_id unless user.nil?
   end
 
   def user
-    User.find(user_id) 
+    User.find(self.user_id)
   end
 
 end
