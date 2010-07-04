@@ -9,7 +9,7 @@ namespace :twitter do
     task :jevck do
       twitter_api = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=jevck&count=20"
 
-      last_tweet = Post.where(:user_id => "jev").where(:twitter_id.ne => nil).sort(:created_at).last
+      last_tweet = Post.from_twitter.where(:user_id => "jev").sort(:created_at).last
       if last_tweet.nil?
         # we need to import all tweets
         page = 1

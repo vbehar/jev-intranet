@@ -4,12 +4,13 @@ require 'mongo_mapper'
 class Post
   include MongoMapper::Document
 
-  scope :deleted, :deleted => true
+  scope :deleted,      :deleted => true
+  scope :from_twitter, :twitter_id.ne => nil
 
-  key :user_id, String
-  key :text, String
+  key :user_id,    String
+  key :text,       String
   key :twitter_id, Bignum
-  key :deleted, Boolean
+  key :deleted,    Boolean
   timestamps!
 
   def user=(user)
