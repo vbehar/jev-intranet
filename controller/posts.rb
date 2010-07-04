@@ -21,6 +21,6 @@ def load_posts(page = 1)
   posts_count = Post.count
   @pages = posts_count / options.posts_per_page
   @pages += 1 if (posts_count % options.posts_per_page) > 0
-  @posts = Post.sort(:created_at.desc).limit(options.posts_per_page).skip((@page-1)*options.posts_per_page).all
+  @posts = Post.paginate(:per_page => options.posts_per_page, :page => @page, :order => :created_at.desc)
 end
 
