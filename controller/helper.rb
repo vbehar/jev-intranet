@@ -1,4 +1,5 @@
 require 'md5'
+require 'sanitize'
 
 URL_REGEXP = /(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?[^ ]*)?/ix
 
@@ -37,6 +38,11 @@ helpers do
   # linkify the given text
   def linkify(text)
     text.gsub(URL_REGEXP, '<a href="\0">\0</a>') rescue text
+  end
+
+  # clean (sanitize) the given html
+  def clean_html(html)
+    Sanitize.clean(html) rescue html
   end
 
   # ADMIN HELPERS

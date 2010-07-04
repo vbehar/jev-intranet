@@ -11,6 +11,7 @@ Dependencies (and their tested versions) :
 - rack-cache    0.5.2
 - sinatra       1.0
 - fastercsv     1.5.3
+- sanitize      1.2.1
 
 Dev mode :
 - racksh        0.9.7
