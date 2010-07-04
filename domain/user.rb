@@ -62,5 +62,10 @@ class User < LdapBase
   def male?; gender == 'M'; end
   def female?; gender == 'F'; end
 
+  # return all posts that belongs to the user
+  def posts
+    Post.where(:user_id => user_id).all
+  end
+
 end
 
