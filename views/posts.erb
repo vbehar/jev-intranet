@@ -7,7 +7,7 @@
 <h2>Derniers messages</h2>
 
 <div class="new_post">
-  <form id="post" name="post" method="post" action="/posts">
+  <form id="post" method="post" action="/posts">
     <div class="simpleform">
       <label for="text">Un message à faire passer ?</label>
       <textarea name="text" id="text" rows="3" cols="70"></textarea>
@@ -20,7 +20,7 @@
 <% @posts.each do |post| %>
   <li class="post">
     <span class="icon">
-      <img src="<%= gravatar_for(post.user.mail(true).first, 48) %>" />
+      <img src="<%= gravatar_for(post.user.mail(true).first, 48) %>" alt="<%= post.user.display_name %>" />
     </span>
     <span class="content">
       <span class="user"><%= post.user.display_name %></span>
