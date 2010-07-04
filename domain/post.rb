@@ -17,6 +17,11 @@ class Post
     User.find(self.user_id)
   end
 
+  # return a random post
+  def self.random
+    Post.skip(rand(Post.count)).first
+  end
+
 end
 
 
