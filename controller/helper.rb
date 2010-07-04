@@ -27,7 +27,7 @@ helpers do
   # return the gravatar url for the given mail address
   def gravatar_for(mail, size = 80)
     encoded_mail = MD5::md5(mail.downcase) rescue nil
-    "http://www.gravatar.com/avatar/#{encoded_mail}?s=#{size}&d=wavatar"
+    "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
   end
 
   # return an ordered array of all ffck categories
