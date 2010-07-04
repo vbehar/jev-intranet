@@ -479,8 +479,8 @@ Form
   color: #FFFFFF;
   font-size: 11px;
   font-weight: bold;
-  margin: 0 0 15px 20px;
-  padding: 0 0 15px 0;
+  margin-left: 15px;
+  position: absolute;
 }
 
 .niceform {
@@ -633,10 +633,10 @@ ol.posts li.post span.icon {
   position: absolute;
 }
 ol.posts li.post span.content {
-  overflow: visible;
   display: block;
-  margin-left: 65px;
   min-height: 46px;
+  margin-left: 65px;
+  overflow: visible;
 }
 ol.posts li.post span.content span.user {
   font-weight: bolder;
