@@ -4,6 +4,15 @@ URL_REGEXP = /(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]
 
 helpers do 
 
+  # return the current logged user
+  def current_user
+    uid = case options.environment.to_sym
+      when :development; "vincent.behar"
+      when :production; request.env['REMOTE_USER']
+    end
+    User.find(uid)
+  end
+
   # return the full birth_date
   def birth_date(user_birth_date)
     user_birth_date.strftime("%d %B %Y") rescue ""

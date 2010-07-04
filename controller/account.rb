@@ -8,12 +8,7 @@ before do
     # do not cache
     expires 0, :private, :no_cache, :no_store
 
-    # current user
-    uid = case options.environment.to_sym
-      when :development; "vincent.behar"
-      when :production; request.env['REMOTE_USER']
-    end
-    @me = User.find(uid)
+    @me = current_user
   end
 end
 
