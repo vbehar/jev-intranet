@@ -8,7 +8,11 @@ before do
   @full_width = true
 
   # default cache
-  expires 10.minutes, :public
+  if(request.get? || request.head?)
+    expires 10.minutes, :public
+  else
+    expires 0, :private, :no_cache, :no_store
+  end
 end
 
 ['/', '/posts', '/posts/'].each do |path|
@@ -18,6 +22,14 @@ end
 end
 get '/posts/:page' do |page|
   display_posts(page)
+end
+
+post '/posts' do
+  post = Post.new
+  post.user = current_user
+  post.text = params['text']
+  post.save
+  redirect '/posts'
 end
 
 get '/about' do

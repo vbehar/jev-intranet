@@ -8,6 +8,16 @@
 
 <h3>Derniers messages :</h3>
 
+<div class="new_post">
+  <form id="post" name="post" method="post" action="/posts">
+    <div class="simpleform">
+      <label for="text">Un message à faire passer ?</label>
+      <textarea name="text" id="text" rows="3" cols="70"></textarea>
+      <button type="submit">Envoyer !</button>
+    </div>
+  </form>
+</div>
+
 <ol class="posts">
 <% @posts.each do |post| %>
   <li class="post">
