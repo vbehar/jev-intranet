@@ -638,6 +638,14 @@ ol.posts li.post span.content {
   margin-left: 65px;
   overflow: visible;
 }
+ol.posts li.post span.content span.post-id {
+  display: none;
+  visibility: hidden;
+}
+ol.posts li.post span.content span.user-id {
+  display: none;
+  visibility: hidden;
+}
 ol.posts li.post span.content span.user {
   font-weight: bolder;
   font-size: 14px;

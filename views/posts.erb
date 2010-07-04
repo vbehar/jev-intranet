@@ -23,13 +23,35 @@
       <img src="<%= gravatar_for(post.user.mail(true).first, 48) %>" alt="<%= post.user.display_name %>" />
     </span>
     <span class="content">
+      <span class="post-id"><%= post.id.to_s %></span>
+      <span class="user-id"><%= post.user.uid %></span>
       <span class="user"><%= post.user.display_name %></span>
       <span class="text"><%= linkify(post.text) %></span>
       <span class="date"><%= post.created_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+      <span class="actions hide">
+        <span class="remove-post"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce message !" /></span>
+      </span>
     </span>
   </li>
 <% end %>
 </ol>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready( function() {
+    $('.post').delegate(".remove-post", "click", function() {
+      console.log("deleting post " + $(this).parent().siblings('.post-id').html());
+    });
+  });
+  $('#intranet').bind('current_user-loaded', function(e) {
+    $('.user-id').each( function(i) {
+      if (Intranet.current_user.uid == $(this).text() || Intranet.current_user.is_admin) {
+        $(this).parentsUntil('.post').children('.actions').removeClass('hide');
+      }
+    });
+  });
+  //]]>
+</script>
 
 <ul class="pagination">
   <% if(@page > 1) %>
