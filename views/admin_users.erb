@@ -5,12 +5,13 @@
 
 <h2>Admin - Utilisateurs</h2>
 
-<div class="niceform">
+<div class="ldap_search" style="width: 700px;">
   <form method="post">
-    <label for="filter">Recherche<span class="labeltip">Filtre LDAP</span></label>
-    <input type="text" name="filter" value="" />
-    <button type="submit">Envoyer !</button>
-    <div class="spacer"></div>
+    <div class="simpleform">
+      <label for="filter">Recherche<span class="labeltip">via un filtre LDAP</span></label>
+      <textarea name="filter" id="filter" rows="3" cols="70"></textarea>
+      <button type="submit">Rechercher !</button>
+    </div>
   </form>
 </div>
 
