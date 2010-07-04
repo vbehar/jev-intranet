@@ -20,7 +20,7 @@
     <% [[0,12],[12,18],[18,25],[25,40],[40,999],[0,999]].each do |low,high| %>
       <% selected_users = @users.select{|u| u.age > low && u.age <= high} %>
       <tr>
-        <th><%= "#{low} < x <= #{high}" %></th>
+        <th><%= "#{low} &lt; x &lt;= #{high}" %></th>
         <td><%= selected_users.select{|u| u.postal_code == "94340"}.size.to_s %></td>
         <td><%= selected_users.select{|u| u.postal_code != "94340"}.size.to_s %></td>
         <td><%= selected_users.size.to_s %></td>
@@ -44,7 +44,7 @@
     <% [[0,18],[18,999],[0,999]].each do |low,high| %>
       <% selected_users = @users.select{|u| u.age > low && u.age <= high} %>
       <tr>
-        <th><%= "#{low} < x <= #{high}" %></th>
+        <th><%= "#{low} &lt; x &lt;= #{high}" %></th>
         <td><%= selected_users.select{|u| u.male?}.size.to_s %></td>
         <td><%= selected_users.select{|u| u.female?}.size.to_s %></td>
         <td><%= selected_users.size.to_s %></td>
