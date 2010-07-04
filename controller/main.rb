@@ -1,6 +1,4 @@
 
-POSTS_PER_PAGE = 10
-
 before do
   # default values
   @title = request.path_info
@@ -42,9 +40,9 @@ def display_posts(page)
   @page = page.to_i
   @page = 1 unless @page.is_a?(Fixnum) && @page > 0
   posts_count = Post.count
-  @pages = posts_count / POSTS_PER_PAGE
-  @pages += 1 if (posts_count % POSTS_PER_PAGE) > 0
-  @posts = Post.sort(:created_at.desc).limit(POSTS_PER_PAGE).skip((@page-1)*POSTS_PER_PAGE).all
+  @pages = posts_count / options.posts_per_page
+  @pages += 1 if (posts_count % options.posts_per_page) > 0
+  @posts = Post.sort(:created_at.desc).limit(options.posts_per_page).skip((@page-1)*options.posts_per_page).all
   erb :posts
 end
 

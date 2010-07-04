@@ -31,21 +31,23 @@
 <% end %>
 </ol>
 
-<span class="pagination">
-Page <strong><%= @page %></strong> sur <strong><%= @pages %></strong>
-</span>
-
-<% if @page == 2 %>
-<a href="/posts">messages plus récents</a>
-<% elsif @page > 2 %>
-<a href="/posts/<%= (@page - 1) %>">messages plus récents</a>
-<% end %>
-
-<% if @page.between?(2,@pages-1) %>
- | 
-<% end %>
-
-<% if @page < @pages %>
-<a href="/posts/<%= (@page + 1) %>">messages plus anciens</a>
-<% end %>
+<ul class="pagination">
+  <% if(@page > 1) %>
+    <li class="previous"><a href="/posts<%= (@page>2) ? "/#{@page-1}" : '' %>">« plus récents</a></li>
+  <% else %>
+    <li class="previous-off">« plus récents</li>
+  <% end %>
+  <% pagination(@page, @pages).each do |p| %>
+    <% if(@page == p) %>
+      <li class="active"><%= p %></li>
+    <% else %>
+      <li><a href="/posts<%= (p>1) ? "/#{p}" : '' %>"><%= p %></a></li>
+    <% end %>
+  <% end %>
+  <% if(@page < @pages) %>
+    <li class="next"><a href="/posts/<%= (@page+1) %>">plus anciens - <%= @pages %> pages »</a></li>
+  <% else %>
+    <li class="next-off">plus anciens »</li>
+  <% end %>
+</ul>
 

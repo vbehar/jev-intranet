@@ -29,6 +29,9 @@ configure do
   set :git_version_date, Time.parse(git_infos[2])
   set :git_version_author, git_infos[3]
 
+  # app config
+  set :posts_per_page, 10
+
   # ldap connection
   ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
   ActiveLdap::Base.setup_connection ldap_config

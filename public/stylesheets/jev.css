@@ -644,6 +644,53 @@ ol.posts li.post span.content span.date {
   margin-top: 2px;
 }
 
+/*********
+Pagination
+*********/
+
+.pagination li {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  list-style: none;
+  margin-right: 2px;
+}
+#content .pagination a {
+  border: solid 1px #9aafe5;
+  margin-right: 2px;
+}
+.pagination .previous-off, .pagination .next-off {
+  border: solid 1px #DEDEDE;
+  color: #888888;
+  display: block;
+  float: left;
+  font-weight: bold;
+  margin-right: 2px;
+  padding: 3px 4px;
+}
+#content .pagination .next a, .pagination .previous a {
+  font-weight: bold;
+}
+.pagination .active {
+  background: #2e6ab1;
+  color: #FFFFFF;
+  font-weight: bold;
+  display: block;
+  float: left;
+  padding: 4px 6px;
+}
+#content .pagination a:link, .pagination a:visited {
+  color: #0e509e;
+  display: block;
+  float: left;
+  padding: 3px 6px;
+  text-decoration: none;
+}
+#content .pagination a:hover {
+  border: solid 1px #0e509e;
+}
+
 /****
 Links
 ****/

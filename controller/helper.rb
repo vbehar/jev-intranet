@@ -45,6 +45,15 @@ helpers do
     Sanitize.clean(html) rescue html
   end
 
+  # return an array of pages to display for pagination
+  # based on the current_page (number)
+  def pagination(current_page, total_pages)
+    index = current_page % options.posts_per_page
+    offset = current_page - index
+    offset -= options.posts_per_page if index == 0
+    0.upto(options.posts_per_page + 1).collect{|p| offset + p }.delete_if{|p| p < 1 || p > total_pages }
+  end
+
   # ADMIN HELPERS
 
   # retrieve the uid of the previous user (based on the list of users present in session)
