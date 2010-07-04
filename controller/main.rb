@@ -21,6 +21,7 @@ end
 
 ['/posts', '/posts/', '/posts/:page'].each do |path|
   get path do
+    expires 1.minutes, :public
     display_posts(params[:page])
   end
 end
