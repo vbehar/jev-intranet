@@ -1,12 +1,10 @@
 <% 
-  @title = "Accueil"
-  @breadcrumb = [['/', @title]]
+  @title = "Messages"
+  @breadcrumb = [['/', 'Accueil'], ['/posts', @title]]
   @full_width = false
 %>
 
-<h2>Bienvenue sur l'intranet de JEV !</h2>
-
-<h3>Derniers messages :</h3>
+<h2>Derniers messages :</h2>
 
 <div class="new_post">
   <form id="post" name="post" method="post" action="/posts">
@@ -37,7 +35,9 @@
 Page <strong><%= @page %></strong> sur <strong><%= @pages %></strong>
 </span>
 
-<% if @page > 1 %>
+<% if @page == 2 %>
+<a href="/posts">messages plus récents</a>
+<% elsif @page > 2 %>
 <a href="/posts/<%= (@page - 1) %>">messages plus récents</a>
 <% end %>
 

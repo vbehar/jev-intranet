@@ -15,13 +15,14 @@ before do
   end
 end
 
-['/', '/posts', '/posts/'].each do |path|
+get '/' do
+  redirect '/posts'
+end
+
+['/posts', '/posts/', '/posts/:page'].each do |path|
   get path do
     display_posts(params[:page])
   end
-end
-get '/posts/:page' do |page|
-  display_posts(page)
 end
 
 post '/posts' do
@@ -43,6 +44,6 @@ def display_posts(page)
   @pages = posts_count / POSTS_PER_PAGE
   @pages += 1 if (posts_count % POSTS_PER_PAGE) > 0
   @posts = Post.sort(:created_at.desc).limit(POSTS_PER_PAGE).skip((@page-1)*POSTS_PER_PAGE).all
-  erb :index
+  erb :posts
 end
 
