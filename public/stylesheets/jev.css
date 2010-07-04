@@ -143,14 +143,15 @@ sub menu
   margin: 0;
   padding: 0;
 }
-#submenu li {
+#submenu ul li {
   display: block;
   float: left;
+  margin: 0;
   padding: 0 5px;
   font-size: 80%;
   border-left: solid 1px #AAAAAA;
 }
-#submenu li.first {
+#submenu ul li.first {
   border-left: none;
 }
 #submenu a {
@@ -219,11 +220,11 @@ Content
   border-bottom: 1px dotted #000000;
   color: #222222;
 }
-#content ul, #content ol, #contentfull ul, #contentfull ol {
+ul, ol, ul, ol {
   margin: 0 0 15px 10px;
   padding: 0 0 0 10px;
 }
-#content ul li, #content ol li, #contentfull ul li, #contentfull ol li {
+ul li, ol li, ul li, ol li {
   margin: 0 0 10px 10px;
 }
 #content ul ul, #content ol ol, #contentfull ul ul, #contentfull ol ol {
@@ -564,6 +565,49 @@ Form
   color: #FFFFFF;
   font-size: 11px;
   font-weight: bold;
+}
+
+/****
+Posts
+****/
+
+ol.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ol.posts li.post {
+  border-bottom: 1px solid #EEE;
+  line-height: 16px;
+  padding: 10px 0px 8px;
+  margin: 0;
+  display: list-item;
+}
+ol.posts li.post span.icon {
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: 0 10px 0 5px;
+  overflow: hidden;
+  position: absolute;
+}
+ol.posts li.post span.content {
+  overflow: visible;
+  display: block;
+  margin-left: 65px;
+  min-height: 46px;
+}
+ol.posts li.post span.content span.user {
+  font-weight: bolder;
+  font-size: 14px;
+  margin-right: 5px;
+}
+ol.posts li.post span.content span.text {
+}
+ol.posts li.post span.content span.date {
+  display: block;
+  color: #999;
+  margin-top: 2px;
 }
 
 /****
