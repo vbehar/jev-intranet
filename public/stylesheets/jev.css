@@ -747,7 +747,7 @@ Pagination
   padding: 4px 6px;
 }
 #content .pagination a:link, #contentfull .pagination a:link,
-#content .pagination a:visited, #contentfull .paginsation a:visited {
+#content .pagination a:visited, #contentfull .pagination a:visited {
   color: #0e509e;
   display: block;
   float: left;
