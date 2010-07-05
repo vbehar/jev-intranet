@@ -9,18 +9,26 @@ get '/user/:uid' do |uid|
   erb :user
 end
 
-get '/users/birthdays' do
-  expires 1.hour, :public
+['/users/birthdays', '/users/birthdays/', '/users/birthdays/:month'].each do |path|
+  get path do
+    expires 1.hour, :public
 
-  current_month = Date.today
-  next_month = current_month.next_month
-  @months_and_birthdays = [ [current_month, users_birthdays_for(current_month)],
-                            [next_month,    users_birthdays_for(next_month)] ]
-  erb :users_birthdays
+    if ((not params[:month].nil?) && params[:month].to_i.between?(1,12))
+      @current_month = Date.strptime params[:month], '%m'
+    else
+      @current_month = Date.today.at_beginning_of_month
+    end
+
+    @months_and_birthdays = -1.upto(1).collect do |i|
+      month = @current_month.months_since i
+      [month, users_birthdays_for(month)]
+    end
+    erb :users_birthdays
+  end
 end
 
 # return an array of users born in the given month
 def users_birthdays_for(date)
-  User.find(:all, :attribute => 'birthDate', :value => date.strftime("*-%m-*"), :attributes => [:uid, :cn, :displayName, :birthDate]).sort{|a,b| a.birth_date.day <=> b.birth_date.day}
+  User.find(:all, :attribute => 'birthDate', :value => date.strftime("*-%m-*"), :attributes => [:uid, :cn, :displayName, :mail, :birthDate]).sort{|a,b| a.birth_date.day <=> b.birth_date.day}
 end
 

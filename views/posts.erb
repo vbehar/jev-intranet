@@ -61,7 +61,7 @@
   <% else %>
     <li class="previous-off">« plus récents</li>
   <% end %>
-  <% pagination(@page, @pages).each do |p| %>
+  <% pagination(@page, options.posts_per_page, @pages).each do |p| %>
     <% if(@page == p) %>
       <li class="active"><%= p %></li>
     <% else %>

@@ -25,7 +25,7 @@ helpers do
 
   # return the day and month of the birth_date
   def birth_day(user_birth_date)
-    user_birth_date.strftime("%d %B") rescue ""
+    Date.strptime(user_birth_date.strftime('%d/%m'), '%d/%m').strftime("%A %d %B") rescue ""
   end
 
   # return the gravatar url for the given mail address
@@ -51,11 +51,11 @@ helpers do
 
   # return an array of pages to display for pagination
   # based on the current_page (number)
-  def pagination(current_page, total_pages)
-    index = current_page % options.posts_per_page
+  def pagination(current_page, items_per_page, total_pages)
+    index = current_page % items_per_page
     offset = current_page - index
-    offset -= options.posts_per_page if index == 0
-    0.upto(options.posts_per_page + 1).collect{|p| offset + p }.delete_if{|p| p < 1 || p > total_pages }
+    offset -= items_per_page if index == 0
+    0.upto(items_per_page + 1).collect{|p| offset + p }.delete_if{|p| p < 1 || p > total_pages }
   end
 
   # ADMIN HELPERS

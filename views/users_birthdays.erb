@@ -6,25 +6,34 @@
 <h2>Anniversaires</h2>
 
 <% @months_and_birthdays.each do |month, birthdays| %>
+<div class="birthdays">
+  <h3><%= month.strftime("%B") %></h3>
 
-<h3><%= month.strftime("%B %Y") %></h3>
-
-<table class="fullwidth nicetable">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Pseudo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% birthdays.each_with_index do |u,i| %>
-      <tr class="<%= i%2==0 ? "even" : "odd" %>">
-        <th><%= birth_day(u.birth_date) %></th>
-        <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+  <ol class="birthdays">
+  <% birthdays.each do |user| %>
+    <li class="birthday">
+      <span class="icon">
+        <a href="/user/<%= user.uid %>">
+          <img src="<%= gravatar_for(user.mail(true).first, 48) %>" alt="<%= user.display_name %>" />
+        </a>
+      </span>
+      <span class="content">
+        <span class="user"><%= user.display_name %></span>
+        <span class="date"><%= birth_day(user.birth_date) %></span>
+      </span>
+    </li>
+  <% end %>
+  </ol>
+</div>
 <% end %>
+
+<ul class="pagination">
+  <% pagination(@current_month.month, 12, 12).each do |month_number| %>
+    <% if(@current_month.month == month_number) %>
+      <li class="active"><%= Date::MONTHNAMES_FR[month_number] %></li>
+    <% else %>
+      <li><a href="/users/birthdays/<%= month_number %>"><%= Date::MONTHNAMES_FR[month_number] %></a></li>
+    <% end %>
+  <% end %>
+</ul>
 

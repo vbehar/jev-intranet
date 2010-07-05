@@ -608,6 +608,53 @@ Form
   font-weight: bold;
 }
 
+/********
+Birthdays
+********/
+
+div.birthdays {
+  float: left;
+  margin: 20px 0 0 0;
+  text-align: left;
+  width: 320px;
+}
+ol.birthdays {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+ol.birthdays li.birthday {
+  border-bottom: 1px solid #EEE;
+  line-height: 16px;
+  padding: 10px 0px 8px;
+  margin: 0;
+  display: list-item;
+}
+ol.birthdays li.birthday span.icon {
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: 0 10px 0 5px;
+  overflow: hidden;
+  position: absolute;
+}
+ol.birthdays li.birthday span.content {
+  display: block;
+  min-height: 46px;
+  margin-left: 65px;
+  overflow: visible;
+}
+ol.birthdays li.birthday span.content span.user {
+  font-weight: bolder;
+  font-size: 14px;
+  margin-right: 5px;
+}
+ol.birthdays li.birthday span.content span.date {
+  display: block;
+  color: #999;
+  margin-top: 2px;
+}
+
 /****
 Posts
 ****/
@@ -663,6 +710,9 @@ ol.posts li.post span.content span.date {
 Pagination
 *********/
 
+.pagination {
+  clear: both;
+}
 .pagination li {
   border: 0;
   margin: 0;
@@ -671,7 +721,7 @@ Pagination
   list-style: none;
   margin-right: 2px;
 }
-#content .pagination a {
+#content .pagination a, #contentfull .pagination a {
   border: solid 1px #9aafe5;
   margin-right: 2px;
 }
@@ -684,7 +734,8 @@ Pagination
   margin-right: 2px;
   padding: 3px 4px;
 }
-#content .pagination .next a, .pagination .previous a {
+#content .pagination .previous a, #contentfull .pagination .previous a,
+#content .pagination .next a, #contentfull .pagination .next a {
   font-weight: bold;
 }
 .pagination .active {
@@ -695,14 +746,15 @@ Pagination
   float: left;
   padding: 4px 6px;
 }
-#content .pagination a:link, .pagination a:visited {
+#content .pagination a:link, #contentfull .pagination a:link,
+#content .pagination a:visited, #contentfull .paginsation a:visited {
   color: #0e509e;
   display: block;
   float: left;
   padding: 3px 6px;
   text-decoration: none;
 }
-#content .pagination a:hover {
+#content .pagination a:hover, #contentfull .pagination a:hover {
   border: solid 1px #0e509e;
 }
 
