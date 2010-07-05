@@ -20,7 +20,9 @@
 <% @posts.each do |post| %>
   <li class="post">
     <span class="icon">
-      <img src="<%= gravatar_for(post.user.mail(true).first, 48) %>" alt="<%= post.user.display_name %>" />
+      <a href="/user/<%= post.user.uid %>">
+        <img src="<%= gravatar_for(post.user.mail(true).first, 48) %>" alt="<%= post.user.display_name %>" />
+      </a>
     </span>
     <span class="content">
       <span class="post-id"><%= post.id.to_s %></span>
