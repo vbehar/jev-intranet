@@ -5,7 +5,9 @@
 
 <h2>Anniversaires</h2>
 
-<h3>Mois en cours (<%= @current_month.strftime("%B") %>)</h3>
+<% @months_and_birthdays.each do |month, birthdays| %>
+
+<h3><%= month.strftime("%B %Y") %></h3>
 
 <table class="fullwidth nicetable">
   <thead>
@@ -15,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @current_birthdays.each_with_index do |u,i| %>
+    <% birthdays.each_with_index do |u,i| %>
       <tr class="<%= i%2==0 ? "even" : "odd" %>">
         <th><%= birth_day(u.birth_date) %></th>
         <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
@@ -24,23 +26,5 @@
   </tbody>
 </table>
 
-<h3>Mois prochain (<%= @next_month.strftime("%B") %>)</h3>
-
-<table class="fullwidth nicetable">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Pseudo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @next_birthdays.each_with_index do |u,i| %>
-      <tr class="<%= i%2==0 ? "even" : "odd" %>">
-        <th><%= birth_day(u.birth_date) %></th>
-        <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<% end %>
 
