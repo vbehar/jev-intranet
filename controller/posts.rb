@@ -9,7 +9,7 @@ end
 
 post '/posts' do
   post = Post.new
-  post.user = current_user
+  post.user_id = current_user_id
   post.text = clean_html(params['text'])
   post.save
   redirect '/posts'

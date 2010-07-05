@@ -30,6 +30,7 @@ configure do
   set :git_version_author, git_infos[3]
 
   # app config
+  set :default_user_id, 'vincent.behar' # in dev mode
   set :posts_per_page, 10
 
   # ldap connection
