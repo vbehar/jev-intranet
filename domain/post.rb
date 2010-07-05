@@ -14,11 +14,15 @@ class Post
   timestamps!
 
   def user=(user)
-    self.user_id = user.user_id unless user.nil?
+    unless user.nil?
+      self.user_id = user.user_id
+      @user = user
+    end
   end
 
   def user
-    User.find(self.user_id)
+    return @user unless @user.nil?
+    @user = User.find(self.user_id)
   end
 
   # return a random post
