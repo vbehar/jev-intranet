@@ -34,7 +34,7 @@ def import_tweets(tweets)
   tweets.each do |tweet|
     post = Post.new
     post.user_id = "jev"
-    post.twitter_id = tweet["id"]
+    post.twitter_id = tweet["id"].to_i
     post.created_at = Time.parse(tweet["created_at"])
     post.text = tweet["text"]
     post.save
