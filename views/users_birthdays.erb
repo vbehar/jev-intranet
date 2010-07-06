@@ -5,6 +5,16 @@
 
 <h2>Anniversaires</h2>
 
+<ul class="pagination">
+  <% pagination(@current_month.month, 12, 12).each do |month_number| %>
+    <% if(@current_month.month == month_number) %>
+      <li class="active"><%= Date::MONTHNAMES_FR[month_number] %></li>
+    <% else %>
+      <li><a href="/users/birthdays/<%= month_number %>"><%= Date::MONTHNAMES_FR[month_number] %></a></li>
+    <% end %>
+  <% end %>
+</ul>
+
 <% @months_and_birthdays.each do |month, birthdays| %>
 <div class="birthdays">
   <h3><%= month.strftime("%B") %></h3>
@@ -26,14 +36,4 @@
   </ol>
 </div>
 <% end %>
-
-<ul class="pagination">
-  <% pagination(@current_month.month, 12, 12).each do |month_number| %>
-    <% if(@current_month.month == month_number) %>
-      <li class="active"><%= Date::MONTHNAMES_FR[month_number] %></li>
-    <% else %>
-      <li><a href="/users/birthdays/<%= month_number %>"><%= Date::MONTHNAMES_FR[month_number] %></a></li>
-    <% end %>
-  <% end %>
-</ul>
 
