@@ -66,6 +66,11 @@ class User < LdapBase
     Group.find('admin').members.member?(self)
   end
 
+  def avatar_url(size = 80)
+    encoded_mail = MD5::md5(mail(true).first.downcase) rescue nil
+    "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
+  end
+
   # return all posts that belongs to the user
   def posts
     Post.where(:user_id => user_id).all

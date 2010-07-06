@@ -28,12 +28,6 @@ helpers do
     Date.strptime(user_birth_date.strftime('%d/%m'), '%d/%m').strftime("%A %d %B") rescue ""
   end
 
-  # return the gravatar url for the given mail address
-  def gravatar_for(mail, size = 80)
-    encoded_mail = MD5::md5(mail.downcase) rescue nil
-    "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
-  end
-
   # return an ordered array of all ffck categories
   def ffck_categories()
     %w(Pitchoun Poussin Benjamin Minime Cadet Junior Senior Veteran Inconnu)

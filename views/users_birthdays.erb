@@ -24,7 +24,7 @@
     <li class="birthday">
       <span class="icon">
         <a href="/user/<%= user.uid %>">
-          <img src="<%= gravatar_for(user.mail(true).first, 48) %>" alt="<%= user.display_name %>" />
+          <img src="<%= user.avatar_url(48) %>" alt="<%= user.display_name %>" />
         </a>
       </span>
       <span class="content">
