@@ -30,6 +30,7 @@ Intranet.removeInputForm = function(elem) {
     // can't remove the last one ! let's just clear the value
     var html = elem.html();
     html = html.replace(/value="(.*)"/, "value=\"\"");
+    html = html.replace(/(\d+)/g, 1);
     elem.html(html);
     // and hide it
     elem.addClass("hide");
