@@ -62,10 +62,12 @@ class User < LdapBase
   def male?; gender == 'M'; end
   def female?; gender == 'F'; end
 
+  # return true if the user is admin, false otherwise
   def admin?
     Group.find('admin').members.member?(self)
   end
 
+  # return the url of the avatar image for the user, in the given size (width)
   def avatar_url(size = 80)
     encoded_mail = MD5::md5(mail(true).first.downcase) rescue nil
     "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
