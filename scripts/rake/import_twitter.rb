@@ -31,6 +31,12 @@ end
 
 # convert tweets to posts and save them
 def import_tweets(tweets)
+  # check for errors before importing
+  if tweets.is_a?(Hash) && (not tweets["error"].nil?)
+    $stderr.puts tweets
+    return
+  end
+
   tweets.each do |tweet|
     post = Post.new
     post.user_id = "jev"
