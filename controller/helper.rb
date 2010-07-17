@@ -7,10 +7,16 @@ helpers do
 
   # return the id of the current logged user
   def current_user_id
-    case options.environment.to_sym
+    current_user_id = case options.environment.to_sym
       when :development; options.default_user_id
       when :production; request.env['REMOTE_USER']
     end
+    # allow user-switching only if (real) current_user is admin
+    unless session['logged-user'].nil?
+      current_user = User.find(current_user_id)
+      current_user_id = User.find(session['logged-user']).uid rescue current_user_id if current_user.admin?
+    end
+    current_user_id
   end
 
   # return the current logged user

@@ -4,6 +4,11 @@ get '/admin' do
   erb :admin_index
 end
 
+get '/admin/login-as/:login_as' do |login_as|
+  session['logged-user'] = login_as == 'me' ? nil : login_as
+  redirect '/'
+end
+
 get '/admin/users.csv' do
   expires 0, :private, :no_cache, :no_store
   content_type 'text/csv', :charset => 'utf-8'
