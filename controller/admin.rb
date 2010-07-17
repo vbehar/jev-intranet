@@ -1,5 +1,17 @@
 require 'fastercsv'
 
+#
+# admin-related actions
+# not cacheable !!
+#
+
+before do
+  if request.path_info.match(/^\/admin/)
+    # do not cache
+    expires 0, :private, :no_cache, :no_store
+  end
+end
+
 get '/admin' do
   erb :admin_index
 end
