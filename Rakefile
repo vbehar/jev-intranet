@@ -6,8 +6,11 @@ require 'rake'
 # so we need to overload sinatra dsl
 def helpers; end
 def before; end
+def after; end
 def get(*args); end
 def post(*args); end
+def put(*args); end
+def delete(*args); end
 def set(*args); end
 # make sure the config block is executed
 def configure; yield; end
