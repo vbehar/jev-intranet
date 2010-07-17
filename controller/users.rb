@@ -5,7 +5,8 @@ get '/users' do
 end
 
 get '/user/:uid' do |uid|
-  @user = User.find(uid)
+  expires 0, :private, :no_cache, :no_store if uid.eql?('me')
+  @user = ( uid.eql?('me') ? current_user : User.find(uid) )
   erb :user
 end
 
