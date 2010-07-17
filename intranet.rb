@@ -16,6 +16,11 @@ end
   require(File.join(File.dirname(__FILE__), 'controller', f))
 end
 
+# helper method for loading a config file in YAML
+def load_yaml_config(yaml_config_file_name)
+  YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/#{yaml_config_file_name}.yml")).result) rescue {}
+end
+
 # initialization
 configure do
   # git status
@@ -30,15 +35,13 @@ configure do
   set :git_version_author, git_infos[3]
 
   # app config
-  set :default_user_id, 'vincent.behar' # in dev mode
-  set :posts_per_page, 10
+  load_yaml_config('application').each{|k,v| set k.to_sym, v}
 
   # ldap connection
-  ldap_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/ldap.yml")).result)
-  ActiveLdap::Base.setup_connection ldap_config
+  ActiveLdap::Base.setup_connection load_yaml_config('ldap')
 
   # mongodb connection
-  mongo_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/mongo.yml")).result)
+  mongo_config = load_yaml_config 'mongo'
   MongoMapper.connection = Mongo::Connection.new(mongo_config['host'], mongo_config['port'])
   MongoMapper.database = mongo_config['db']
 end
