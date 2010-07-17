@@ -42,7 +42,9 @@
   //<![CDATA[
   $(document).ready( function() {
     $('.post').delegate(".remove-post", "click", function() {
-      console.log("deleting post " + $(this).parent().siblings('.post-id').html());
+      var post_id = $(this).parent().siblings('.post-id').html();
+      var post_elem = $(this).parentsUntil('.posts');
+      Intranet.deletePost(post_id, post_elem);
     });
   });
   $('#intranet').bind('current_user-loaded', function(e) {

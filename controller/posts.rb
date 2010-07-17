@@ -22,6 +22,18 @@ post '/posts' do
   redirect '/posts'
 end
 
+delete '/post/:id' do |id|
+  @post = Post.find_by_id(id) rescue nil
+  pass if @post.nil?
+
+  @user = current_user
+  halt 403 unless @user.admin? || @post.user_id.eql?(@user.uid)
+
+  @post.deleted = true
+  @post.save
+  halt 204
+end
+
 def load_posts(page = 1, query_params = {})
   @page = page.to_i
   @page = 1 unless @page.is_a?(Fixnum) && @page > 0

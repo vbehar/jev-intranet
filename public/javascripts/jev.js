@@ -40,6 +40,16 @@ Intranet.removeInputForm = function(elem) {
   elem.remove();
 }
 
+// ask the server to delete the post identified by the given post_id
+// and remove the given element from the page in case of success
+Intranet.deletePost = function(post_id, element) {
+  $.post('/post/'+post_id, {_method:"delete"}, function(data) {
+    if(element != null) {
+      element.remove();
+    }
+  });
+}
+
 $(document).ready(function() {
   $.getJSON('/account.json', function(user) {
     Intranet.current_user = user;
