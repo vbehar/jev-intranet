@@ -22,7 +22,6 @@ get '/admin/login-as/:login_as' do |login_as|
 end
 
 get '/admin/users.csv' do
-  expires 0, :private, :no_cache, :no_store
   content_type 'text/csv', :charset => 'utf-8'
   FasterCSV.generate(:col_sep => ";") do |csv|
     csv << %w( uid firstname lastname displayName status
