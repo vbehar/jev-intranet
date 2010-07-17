@@ -17,8 +17,8 @@ get '/admin' do
 end
 
 get '/admin/login-as/:login_as' do |login_as|
-  session['logged-user'] = login_as == 'me' ? nil : login_as
-  redirect '/'
+  session['logged-user'] = ( login_as.eql?('me') ? nil : login_as )
+  redirect '/user/me'
 end
 
 get '/admin/users.csv' do
