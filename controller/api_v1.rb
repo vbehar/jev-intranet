@@ -28,7 +28,9 @@ get '/api/v1/users/:attr/:value' do |attr, value|
 end
 
 get '/api/v1/user/:uid' do |uid|
-  convert_return_value User.find(uid)
+  user = User.find(uid) rescue nil
+  pass if user.nil?
+  convert_return_value user
 end
 
 def convert_return_value(value)

@@ -62,7 +62,8 @@ post '/admin/users' do
 end
 
 get '/admin/user/:uid' do |uid|
-  @user = User.find(uid)
+  @user = User.find(uid) rescue nil
+  pass if @user.nil?
   erb :admin_user
 end
 
