@@ -1,5 +1,9 @@
 # YAML config for Rack::Cache
 
+# is Rack::Cache active or not ?
+active: false
+
+# stores
 metastore: 'heap:/'
 entitystore: 'heap:/'
 

@@ -22,16 +22,18 @@ configure :development do
   use ::Sinatra::Reloader
 end
 configure :production do
-  require 'rack/cache'
   cache_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/cache.yml")).result)
-  use ::Rack::Cache,
-    :verbose            => true,
-    :default_ttl        => 0,
-    :private_headers    => [],
-    :allow_reload       => false,
-    :allow_revalidate   => false,
-    :metastore          => cache_config['metastore'],
-    :entitystore        => cache_config['entitystore']
+  if cache_config['active']
+    require 'rack/cache'
+    use ::Rack::Cache,
+      :verbose            => true,
+      :default_ttl        => 0,
+      :private_headers    => [],
+      :allow_reload       => false,
+      :allow_revalidate   => false,
+      :metastore          => cache_config['metastore'],
+      :entitystore        => cache_config['entitystore']
+  end
   require 'rack/contrib'
   use ::Rack::ETag
   require File.dirname(__FILE__) + '/middleware/remote_user'
