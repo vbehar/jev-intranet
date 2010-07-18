@@ -665,6 +665,7 @@ ol.posts {
   padding: 0;
 }
 ol.posts li.post {
+  clear: both;
   border-bottom: 1px solid #EEE;
   line-height: 16px;
   padding: 10px 0px 8px;
@@ -704,6 +705,13 @@ ol.posts li.post span.content span.date {
   display: block;
   color: #999;
   margin-top: 2px;
+}
+ol.posts li.post span.actions {
+  cursor: pointer;
+  float: right;
+  right: 0px;
+  padding-right: 10px;
+  margin-top: -20px;
 }
 
 /*********
