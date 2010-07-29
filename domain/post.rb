@@ -10,7 +10,7 @@ class Post
   key :user_id,    String,  :required => true
   key :text,       String,  :required => true
   key :twitter_id, Bignum
-  key :deleted,    Boolean
+  key :deleted,    Boolean, :default  => false
   timestamps!
 
   def user=(user)

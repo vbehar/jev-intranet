@@ -15,7 +15,7 @@ class Participation
 
   key :user_id,     String,  :required => true
   key :status,      String,  :required => true
-  key :deleted,     Boolean
+  key :deleted,     Boolean, :default  => false
   timestamps!
 
   def user=(user)

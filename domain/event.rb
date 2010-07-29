@@ -4,9 +4,9 @@ require 'mongo_mapper'
 class Event
   include MongoMapper::Document
 
-  many :participations
+  many :participations, :class_name => 'Participation'
 
-  scope :deleted,      :deleted => true
+  scope :deleted,   :deleted => true
 
   key :creator_uid, String,  :required => true
   key :r1_uid,      String,  :required => true
@@ -14,7 +14,7 @@ class Event
   key :text,        String
   key :start,       Time,    :required => true
   key :end,         Time,    :required => true
-  key :deleted,     Boolean
+  key :deleted,     Boolean, :default  => false
   timestamps!
 
   def r1=(user)
