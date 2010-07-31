@@ -34,22 +34,22 @@ def import_ffck_from_csv(csv_file, separator = ";")
         m["street"] = d["ADRESSE"].capitalize
         m["postalCode"] = d["CODE POSTAL"]
         m["l"] = d["VILLE"].capitalize
-        m["homePhone"] = d["TEL"].gsub(".","") unless d["TEL"].nil? or d["TEL"].empty?
-        m["telephoneNumber"] = d["AUTRE TEL"].gsub(".","") unless d["AUTRE TEL"].nil? or d["AUTRE TEL"].empty?
+        m["homePhone"] = d["TEL"].gsub(".","") unless d["TEL"].blank?
+        m["telephoneNumber"] = d["AUTRE TEL"].gsub(".","") unless d["AUTRE TEL"].blank?
         m["mobile"] = []
-        m["mobile"] << d["MOBILE"].gsub(".","") unless d["MOBILE"].nil? or d["MOBILE"].empty?
-        m["mobile"] << d["AUTRE MOBILE"].gsub(".","") unless d["AUTRE MOBILE"].nil? or d["AUTRE MOBILE"].empty?
+        m["mobile"] << d["MOBILE"].gsub(".","") unless d["MOBILE"].blank?
+        m["mobile"] << d["AUTRE MOBILE"].gsub(".","") unless d["AUTRE MOBILE"].blank?
         m["fax"] = []
-        m["fax"] << d["FAX"].gsub(".","") unless d["FAX"].nil? or d["FAX"].empty?
-        m["fax"] << d["AUTRE FAX"].gsub(".","") unless d["AUTRE FAX"].nil? or d["AUTRE FAX"].empty?
+        m["fax"] << d["FAX"].gsub(".","") unless d["FAX"].blank?
+        m["fax"] << d["AUTRE FAX"].gsub(".","") unless d["AUTRE FAX"].blank?
         m["mail"] = []
-        m["mail"] << d["EMAIL"] unless d["EMAIL"].nil? or d["EMAIL"].empty?
-        m["mail"] << d["AUTRE EMAIL"] unless d["AUTRE EMAIL"].nil? or d["AUTRE EMAIL"].empty?
+        m["mail"] << d["EMAIL"] unless d["EMAIL"].blank?
+        m["mail"] << d["AUTRE EMAIL"] unless d["AUTRE EMAIL"].blank?
         m["ffckNumberYear"] = d["DERNIERE LICENCE"]
         m["ffckNumberDate"] = "20" + d["PRISE LE"].split("/").reverse.join("-")
         infos = Hash[ d["INFORMATION"].split("&").collect{|s| s.split("=", 2)} ] rescue {}
-        m["medicalCertificateDate"] = infos["DATECERTIFCK"].split("/").reverse.join("-") unless infos["DATECERTIFCK"].nil?
-        m["medicalCertificateDate"] = infos["DATECERTIFAPS"].split("/").reverse.join("-") unless infos["DATECERTIFAPS"].nil?
+        m["medicalCertificateDate"] = infos["DATECERTIFCK"].split("/").reverse.join("-") unless infos["DATECERTIFCK"].blank?
+        m["medicalCertificateDate"] = infos["DATECERTIFAPS"].split("/").reverse.join("-") unless infos["DATECERTIFAPS"].blank?
         m["medicalCertificateType"] = "Loisirs" if infos["CERTIFAPS"] == "O"
         m["medicalCertificateType"] = "Compétition" if infos["CERTIFCK"] == "O"
         m["status"] = "active"
@@ -64,7 +64,7 @@ def import_ffck_from_csv(csv_file, separator = ";")
              medicalCertificateDate medicalCertificateType status \
              ffckClubNumber ffckClubName).each do |k|
             unless u[k]
-              u[k] = m[k] unless m[k].nil? or m[k].empty?
+              u[k] = m[k] unless m[k].blank?
             end
           end
           u["ffckCategory"] = u.calculate_ffck_category unless u["ffckCategory"]
