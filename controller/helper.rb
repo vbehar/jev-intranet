@@ -48,6 +48,23 @@ helpers do
     Sanitize.clean(html) rescue html
   end
 
+  # pagination - fix actual page number (start at 1)
+  def fix_page(page)
+    page = page.to_i rescue 1
+    page = 1 unless page.is_a?(Fixnum) && page > 0
+    page
+  end
+
+  # pagination - calculate the total number of pages
+  # for the given entity_class and associated query
+  def calculate_total_pages(entity_class, query_params = {}, items_per_page = 10)
+    return nil unless !entity_class.nil? && entity_class.respond_to?(:where)
+    count = entity_class.send(:where, query_params.merge(:deleted.ne => true)).count
+    pages = count / items_per_page
+    pages += 1 if (count % items_per_page) > 0
+    pages
+  end
+
   # return an array of pages to display for pagination
   # based on the current_page (number)
   def pagination(current_page, items_per_page, total_pages)

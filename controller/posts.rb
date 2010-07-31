@@ -35,11 +35,8 @@ delete '/post/:id' do |id|
 end
 
 def load_posts(page = 1, query_params = {})
-  @page = page.to_i
-  @page = 1 unless @page.is_a?(Fixnum) && @page > 0
-  posts_count = Post.where(query_params.merge(:deleted.ne => true)).count
-  @pages = posts_count / options.posts_per_page
-  @pages += 1 if (posts_count % options.posts_per_page) > 0
+  @page  = fix_page(page)
+  @pages = calculate_total_pages(Post, query_params, options.posts_per_page)
   @posts = Post.paginate(query_params.merge(:per_page => options.posts_per_page, :page => @page,
                                             :deleted.ne => true, :order => :created_at.desc))
 end
