@@ -54,10 +54,10 @@
     <div>
       <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
-      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer cet email !" /></span>
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
     </div>
     <% end %>
-    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
 
     <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% mobiles = @me.mobile(true).blank? ? [""] : @me.mobile(true) %>
@@ -65,10 +65,10 @@
     <div>
       <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
-      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone portable !" /></span>
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
     </div>
     <% end %>
-    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
 
     <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% home_phones = @me.home_phone(true).blank? ? [""] : @me.home_phone(true) %>
@@ -76,10 +76,10 @@
     <div>
       <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
-      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone domicile !" /></span>
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
     </div>
     <% end %>
-    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
 
     <h4 class="separator">Téléphone professionnel<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
     <% telephone_numbers = @me.telephone_number(true).blank? ? [""] : @me.telephone_number(true) %>
@@ -87,10 +87,10 @@
     <div>
       <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
       <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
-      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="Supprimer ce numéro de téléphone professionnel !" /></span>
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone professionnel !" /></span>
     </div>
     <% end %>
-    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="Ajouter un numéro de téléphone professionnel" />Ajouter un nouveau numéro de téléphone professionnel</span>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone professionnel" />Ajouter un nouveau numéro de téléphone professionnel</span>
   </div>
 
   <div class="niceform">
