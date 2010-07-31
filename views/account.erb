@@ -32,7 +32,7 @@
     <script type="text/javascript">
       //<![CDATA[
       $(document).ready(function(){
-        $("#user_birth_date_fr").datepicker({altField:'#user_birth_date', altFormat:'yy-mm-dd', changeMonth:true, changeYear:true, yearRange:'1950:2010', showButtonPanel:true, closeText:'X', showOn:'both', buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true, buttonText:'Calendrier', currentText:'Aujourd\'hui'});
+        $("#user_birth_date_fr").datepicker({altField:'#user_birth_date', altFormat:'yy-mm-dd', changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>', showButtonPanel:true, closeText:'X', showOn:'both', buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true, buttonText:'Calendrier', currentText:'Aujourd\'hui'});
       });
       //]]>
     </script>
