@@ -36,7 +36,7 @@ end
 
 def load_posts(page = 1, query_params = {})
   @page  = fix_page(page)
-  @pages = calculate_total_pages(Post, query_params, options.posts_per_page)
+  @pages = calculate_total_pages(Post, query_params.merge(:deleted.ne => true), options.posts_per_page)
   @posts = Post.paginate(query_params.merge(:per_page => options.posts_per_page, :page => @page,
                                             :deleted.ne => true, :order => :created_at.desc))
 end

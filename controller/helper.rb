@@ -59,7 +59,9 @@ helpers do
   # for the given entity_class and associated query
   def calculate_total_pages(entity_class, query_params = {}, items_per_page = 10)
     return nil unless !entity_class.nil? && entity_class.respond_to?(:where)
-    count = entity_class.send(:where, query_params.merge(:deleted.ne => true)).count
+    query = entity_class.where(query_params)
+    return nil unless !query.nil? && query.respond_to?(:count)
+    count = query.count
     pages = count / items_per_page
     pages += 1 if (count % items_per_page) > 0
     pages
