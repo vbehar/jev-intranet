@@ -45,7 +45,9 @@
       if(confirm('Etes vous sur de vouloir supprimer ce message ?')) {
         var post_id = $(this).parentsUntil('.posts').find('.post-id').html();
         var post_elem = $(this).parentsUntil('.posts');
-        Intranet.deletePost(post_id, post_elem);
+        $.post('/post/'+post_id, {_method:"delete"}, function(data) {
+          if(post_elem != null) { post_elem.remove(); }
+        });
       }
     });
   });

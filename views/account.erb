@@ -137,8 +137,37 @@
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready(function(){
-    $('#account').delegate("span.input-action.remove-block", "click", function() { Intranet.removeInputForm($(this).parent()); });
-    $('#account').delegate("span.action.duplicate-block", "click", function() { Intranet.dupInputForm($(this).prev()); });
+    $('#account').delegate("span.input-action.remove-block", "click", function() {
+      var elem = $(this).parent();
+      if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
+        // can't remove the last one ! let's just clear the value
+        var html = elem.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, 1);
+        elem.html(html);
+        // and hide it
+        elem.addClass("hide");
+      } else {
+        elem.remove();
+      }
+    });
+    $('#account').delegate("span.action.duplicate-block", "click", function() {
+      var elem = $(this).prev();
+      if(elem.hasClass("hide")) {
+        // if it's hidden (last one), just display it
+        elem.removeClass("hide");
+      } else {
+        // duplicate it
+        var orig = elem;
+        var dup = orig.clone();
+        // and fix the html value
+        var html = dup.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, function(m,n) { return Number(n) + 1; });
+        dup.html(html);
+        dup.insertAfter(orig);
+      }
+    });
   });
   //]]>
 </script>

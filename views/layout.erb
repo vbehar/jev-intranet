@@ -11,7 +11,9 @@
   <script type="text/javascript" src="/javascripts/jquery.ui.datepicker-1.8rc2.min.js"></script>
   <script type="text/javascript" src="/javascripts/jquery.ui.datepicker-fr-1.8rc2.min.js"></script>
   <script type="text/javascript" src="/javascripts/jquery.dataTables-1.6.1.min.js"></script>
-  <script type="text/javascript" src="/javascripts/jev.js"></script>
+  <script type="text/javascript">
+    if(typeof Intranet == "undefined") { var Intranet = {}; }
+  </script>
   <style type="text/css" title="jev">
     @import "/stylesheets/jev.css";
     @import "/stylesheets/jquery-ui-1.7.2.custom.css";
@@ -43,6 +45,12 @@
       </dl>
       <script type="text/javascript">
         //<![CDATA[
+        $(document).ready(function() {
+          $.getJSON('/account.json', function(user) {
+            Intranet.current_user = user;
+            $('#intranet').trigger('current_user-loaded');
+          });
+        });
         $('#intranet').bind('current_user-loaded', function(e) {
           $('#current_user_name').html(Intranet.current_user.display_name);
         });
