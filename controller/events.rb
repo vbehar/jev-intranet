@@ -30,14 +30,14 @@ post '/events' do
 end
 
 delete '/event/:id' do |id|
-  @event = Event.find_by_id(id) rescue nil
-  pass if @event.nil? || @event.deleted?
+  event = Event.find_by_id(id) rescue nil
+  pass if event.nil? || event.deleted?
 
-  @user = current_user
-  halt 403 unless @user.admin? || @event.creator_uid.eql?(@user.uid) || @event.r1_uid.eql?(@user.uid)
+  user = current_user
+  halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
 
-  @event.deleted = true
-  @event.save
+  event.deleted = true
+  event.save
   halt 204
 end
 
