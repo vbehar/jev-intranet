@@ -23,14 +23,14 @@ post '/posts' do
 end
 
 delete '/post/:id' do |id|
-  @post = Post.find_by_id(id) rescue nil
-  pass if @post.nil? || @post.deleted?
+  post = Post.find_by_id(id) rescue nil
+  pass if post.nil? || post.deleted?
 
-  @user = current_user
-  halt 403 unless @user.admin? || @post.user_id.eql?(@user.uid)
+  user = current_user
+  halt 403 unless user.admin? || post.user_id.eql?(user.uid)
 
-  @post.deleted = true
-  @post.save
+  post.deleted = true
+  post.save
   halt 204
 end
 
