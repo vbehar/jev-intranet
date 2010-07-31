@@ -1,0 +1,66 @@
+<%
+  @title = @event.title
+  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/event/#{@event.slug}", @title]]
+%>
+
+<h2><%= @event.title %></h2>
+
+<div class="event">
+
+<div class="date">
+<% if @event.one_day? %>
+  Le <%= @event.start.getlocal.strftime "%A %d %B %Y " %>
+  <% unless @event.all_day? %>
+    de <%= @event.start.getlocal.strftime "%Hh%M " %>
+    à <%= @event.end.getlocal.strftime "%Hh%M" %>
+  <% end %>
+<% else %>
+  Du <%= @event.start.getlocal.strftime "%A %d %B %Y" %>
+  <%= @event.start.getlocal.strftime " (%Hh%M)" if @event.start.getlocal.hour > 0 %>
+  au <%= @event.end.getlocal.strftime "%A %d %B %Y" %>
+  <%= @event.end.getlocal.strftime " (%Hh%M)" if @event.end.getlocal.hour > 0 %>
+<% end %>
+</div>
+
+<div class="r1">Organisateur (R1) : <a href="/user/<%= @event.r1.uid %>"><%= @event.r1.display_name %></a></div>
+
+<div class="text"><p><%= linkify(@event.text) %></p></div>
+
+<div class="participations">
+<span class="title">Participations</span>
+<% if @event.has_participations?
+     [ [Participation::Status::PRESENT, 'participeront'],
+       [Participation::Status::UNKNOWN, 'participeront peut-être'],
+       [Participation::Status::ABSENT,  'ne participeront pas'] ].each do |status| %>
+    <% participations = @event.participations_for(status.first) %>
+    <% unless participations.empty? %>
+      <div class="<%= status.first %>">
+        <span class="status"><span class="count"><%= participations.count %></span> adhérents <%= status.last %> :</span>
+        <ul>
+          <% participations.each do |p| %>
+          <li>
+            <span class="user-icon">
+              <a href="/user/<%= p.user.uid %>">
+                <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %>" />
+              </a>
+            </span>
+            <span class="user"><a href="/user/<%= p.user.uid %>"><%= p.user.display_name %></a></span>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <span class="content">Il n'y a pas encore de participants...</span>
+<% end %>
+</div>
+
+<div class="metadata">
+  <span class="creator">Créé par <a href="/user/<%= @event.creator.uid %>"><%= @event.creator.display_name %></a></span>
+  <span class="created_at">Créé le <%= @event.created_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+  <span class="updated_at">Dernier changement le <%= @event.updated_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+</div>
+
+</div>
+

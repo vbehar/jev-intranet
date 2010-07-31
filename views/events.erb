@@ -1,0 +1,59 @@
+<% 
+  @title = "Evènements"
+  @breadcrumb = [['/', 'Accueil'], ['/events', @title]]
+  @full_width = false
+%>
+
+<h2>Prochains évènements</h2>
+
+<ol class="events">
+<% @events.each do |event| %>
+  <li class="event">
+    <span class="content">
+      <span class="event-id"><%= event.id.to_s %></span>
+      <span class="r1-uid"><%= event.r1_uid %></span>
+      <span class="creator-uid"><%= event.creator_uid %></span>
+      <span class="title"><a href="/event/<%= event.slug %>"><%= event.title %></a></span>
+      <span class="text"><%= linkify(event.text) %></span>
+      <span class="participations">
+        <%= event.participations_for(Participation::Status::PRESENT).count %> participants
+      </span>
+      <span class="date">
+        <% if event.one_day? %>
+          Le <%= event.start.getlocal.strftime "%A %d %B %Y " %>
+          <% unless event.all_day? %>
+            de <%= event.start.getlocal.strftime "%Hh%M " %>
+            à <%= event.end.getlocal.strftime "%Hh%M" %>
+          <% end %>
+        <% else %>
+          Du <%= event.start.getlocal.strftime "%A %d %B %Y" %>
+          <%= event.start.getlocal.strftime " (%Hh%M)" if event.start.getlocal.hour > 0 %>
+          au <%= event.end.getlocal.strftime "%A %d %B %Y" %>
+          <%= event.end.getlocal.strftime " (%Hh%M)" if event.end.getlocal.hour > 0 %>
+        <% end %>
+      </span>
+    </span>
+  </li>
+<% end %>
+</ol>
+
+<ul class="pagination">
+  <% if(@page > 1) %>
+    <li class="previous"><a href="/events/<%= @page>2 ? "/#{@page-1}" : '' %>">« précédent</a></li>
+  <% else %>
+    <li class="previous-off">« précédent</li>
+  <% end %>
+  <% pagination(@page, options.events_per_page, @pages).each do |p| %>
+    <% if(@page == p) %>
+      <li class="active"><%= p %></li>
+    <% else %>
+      <li><a href="/events/<%= p>1 ? "/#{p}" : '' %>"><%= p %></a></li>
+    <% end %>
+  <% end %>
+  <% if(@page < @pages) %>
+    <li class="next"><a href="/events/<%= (@page+1).to_s %>">suivant - <%= @pages %> pages »</a></li>
+  <% else %>
+    <li class="next-off">suivant »</li>
+  <% end %>
+</ul>
+

@@ -6,3 +6,6 @@ default_user_id: john.doe
 # number of posts that should be displayed per page
 posts_per_page: 10
 
+# number of events that should be displayed per page
+events_per_page: 10
+

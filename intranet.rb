@@ -1,6 +1,9 @@
 # Our sinatra application - main entry point
 # load classes and initialize connections
 
+# external third-party libs
+%w(md5 sanitize babosa).each{ |lib| require lib }
+
 # extra, aka monkey patches
 %w(string date time).each do |f|
   require(File.join(File.dirname(__FILE__), 'extra', f))
@@ -12,7 +15,7 @@ end
 end
 
 # controllers (sinatra routes)
-%w(helper main account users posts admin api_v1).each do |f|
+%w(helper main account users posts events admin api_v1).each do |f|
   require(File.join(File.dirname(__FILE__), 'controller', f))
 end
 

@@ -714,6 +714,139 @@ ol.posts li.post span.actions {
   margin-top: -20px;
 }
 
+/*****
+Events
+*****/
+
+ol.events {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+ol.events li.event {
+  clear: both;
+  border-bottom: 1px solid #EEE;
+  line-height: 16px;
+  padding: 10px 0px 8px;
+  margin: 0;
+  display: list-item;
+}
+ol.events li.event span.content {
+  display: block;
+  min-height: 40px;
+  margin-left: 20px;
+  overflow: visible;
+}
+ol.events li.event span.content span.event-id {
+  display: none;
+  visibility: hidden;
+}
+ol.events li.event span.content span.r1-uid {
+  display: none;
+  visibility: hidden;
+}
+ol.events li.event span.content span.creator-uid {
+  display: none;
+  visibility: hidden;
+}
+ol.events li.event span.content span.title a {
+  font-weight: bolder;
+  font-size: 14px;
+  margin-left: -10px;
+}
+ol.events li.event span.content span.text {
+  display: block;
+  margin-top: 5px;
+}
+ol.events li.event span.content span.participations {
+  display: block;
+  color: #999;
+  margin-top: 2px;
+}
+ol.events li.event span.content span.date {
+  display: block;
+  font-weight: bolder;
+  margin-top: 2px;
+}
+
+/****
+Event
+****/
+
+div.event div.date {
+  font-weight: bolder;
+  margin-top: 20px;
+}
+div.event div.r1 {
+  margin-top: 10px;
+}
+div.event div.r1 a {
+  font-weight: bolder;
+}
+div.event div.text {
+  margin: 20px;
+}
+div.event div.participations {
+  border-top: 2px dashed #CCC;
+  padding-top: 10px;
+}
+div.event div.participations span.title {
+  display: block;
+  font-weight: bolder;
+}
+div.event div.participations span.content {
+  display: block;
+  margin: 10px 0;
+}
+div.event div.participations div.present,
+div.event div.participations div.absent,
+div.event div.participations div.unknown {
+  margin: 10px 0;
+  clear: both;
+}
+div.event div.participations span.status {
+  margin: 10px 0 10px 10px;
+  text-decoration: underline;
+}
+div.event div.participations span.status span.count {
+  font-weight: bolder;
+}
+div.event div.participations ul {
+  list-style: none;
+  margin: 10px 0;
+}
+div.event div.participations ul li {
+  display: inline;
+  float: left;
+  height: 80px;
+  width: 84px;
+  margin: 5px;
+}
+div.event div.participations ul li span.user-icon {
+  display: block;
+}
+div.event div.participations ul li span.user {
+  display: block;
+}
+#content div.event div.participations ul li span.user-icon a,
+#contentfull div.event div.participations ul li span.user-icon a {
+  border-bottom: 0px none;
+}
+div.event div.metadata {
+  clear: both;
+  border-top: 2px dashed #CCC;
+  padding-top: 10px;
+}
+div.event div.metadata span.creator {
+  display: block;
+}
+div.event div.metadata span.created_at {
+  display: block;
+}
+div.event div.metadata span.updated_at {
+  display: block;
+}
+
 /*********
 Pagination
 *********/
