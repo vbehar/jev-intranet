@@ -15,7 +15,7 @@ end
   get path do
     expires 1.hour, :public
 
-    if ((not params[:month].nil?) && params[:month].to_i.between?(1,12))
+    if ((not params[:month].blank?) && params[:month].to_i.between?(1,12))
       @current_month = Date.strptime params[:month], '%m'
     else
       @current_month = Date.today.at_beginning_of_month

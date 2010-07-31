@@ -1,7 +1,7 @@
 
 ['/posts', '/posts/', '/posts/:user', '/posts/:user/', '/posts/:user/:page'].each do |path|
   get path do
-    if params[:user].nil? || params[:user].eql?('all')
+    if params[:user].blank? || params[:user].eql?('all')
       expires 1.minutes, :public
       @user = 'all'
       load_posts(params[:page])

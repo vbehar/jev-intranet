@@ -12,7 +12,7 @@ helpers do
       when :production; request.env['REMOTE_USER']
     end
     # allow user-switching only if the real current user (uid) is admin
-    unless session['logged-user'].nil?
+    unless session['logged-user'].blank?
       uid = User.find(session['logged-user']).uid rescue uid if User.find(uid).admin?
     end
     uid

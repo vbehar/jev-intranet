@@ -15,7 +15,7 @@ before do
       else @ext = nil; nil
     end
     content_type @content_type, :charset => 'utf-8' if @content_type
-    request.path_info = match[1] unless @ext.nil?
+    request.path_info = match[1] unless @ext.blank?
   end
 end
 
