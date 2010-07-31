@@ -58,6 +58,17 @@
       }
     });
   });
+  $('#intranet').ajaxError(function(e, xhr, options, error) {
+    if(options.url.indexOf("/post/") >= 0) {
+      if(xhr.status == 403) {
+        alert("Désolé, vous n'avez pas le droit d'effectuer cette opération...");
+      } else if(xhr.status == 404) {
+        alert("Ce message n'existe pas...");
+      } else {
+        alert("Une erreur est survenue : " + xhr.status + " - " + xhr.statusText);
+      }
+    }
+  });
   //]]>
 </script>
 
