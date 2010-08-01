@@ -20,7 +20,7 @@ Dev mode :
 - shotgun       0.8
 
 Config :
-- copy config/ldap_sample.yml to config/ldap.yml and adapt it to your env.
+- copy config/*_sample.yml to config/*.yml and adapt to your env.
 
 Running :
 it's just a rack-based webapp. rackup, webroar or anything will do the trick.
