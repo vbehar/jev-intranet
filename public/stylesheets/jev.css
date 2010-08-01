@@ -795,7 +795,6 @@ div.event div.participate span.title {
   font-weight: bolder;
 }
 div.event div.participate div.status {
-  display: block;
   margin-top: 10px;
 }
 div.event div.participate div.status span.present {
@@ -844,6 +843,12 @@ div.event div.participate div.actions span.unknown {
 }
 div.event div.participate div.actions span.delete {
   background-color: grey;
+}
+div.event div.loading {
+  clear: both;
+  margin-top: 10px;
+  padding-left: 20px;
+  background: url(../images/icons/load.gif) no-repeat;
 }
 div.event div.participations {
   clear: both;

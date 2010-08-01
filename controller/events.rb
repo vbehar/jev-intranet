@@ -13,6 +13,28 @@ get '/event/:slug' do |slug|
   erb :event
 end
 
+post '/event/:slug/participation/:status' do |slug, status|
+  pass unless Participation::Status.valid?(status)
+
+  event = Event.find_by_slug(slug) rescue nil
+  pass if event.nil? || event.deleted?
+
+  halt 403 unless event.participate!(current_user_id, status)
+  halt 204
+end
+
+delete '/event/:slug/participation' do |slug|
+  event = Event.find_by_slug(slug) rescue nil
+  pass if event.nil? || event.deleted?
+
+  participation = event.participations.select{|p| p.user_id == current_user_id}.first
+  pass if participation.nil? || participation.deleted?
+
+  participation.deleted = true
+  participation.save
+  halt 204
+end
+
 post '/events' do
   event = Event.new
   event.creator_uid = current_user_id
@@ -36,8 +58,7 @@ delete '/event/:id' do |id|
   user = current_user
   halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
 
-  event.deleted = true
-  event.save
+  event.delete!
   halt 204
 end
 

@@ -21,10 +21,20 @@ class Event
   before_validation_on_create :set_slug
 
   # add a new participation for the given user
-  def participate!(user_id, status = Participation::Status::PRESENT)
+  def participate(user_id, status = Participation::Status::PRESENT)
+    return unless Participation::Status.valid?(status)
     return if user_id.nil? || !User.exist?(user_id)
-    return unless participations.select{|p| p.user_id == user_id}.empty?
-    participations << Participation.new({:user_id => user_id, :status => status})
+    participation = participations.select{|p| p.user_id == user_id}.first
+    participation = Participation.new({:user_id => user_id}) if participation.nil?
+    participation.status = status
+    participation.deleted = false
+    participations << participation unless participations.include?participation
+  end
+
+  # add a new participation for the given user, and save
+  def participate!(user_id, status = Participation::Status::PRESENT)
+    participate(user_id, status)
+    save
   end
 
   # return true if this event has participations (whatever the status)
@@ -35,6 +45,12 @@ class Event
   # return an array of participations that match the given status
   def participations_for(status)
     participations.select{ |p| p.status == status && !p.deleted? }
+  end
+
+  # mark the event as deleted, and save it
+  def delete!
+    self.deleted = true
+    save
   end
 
   # return true if this event has a duration of entire days (no hours/minutes)
