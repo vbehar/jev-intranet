@@ -74,12 +74,28 @@
   <% end %>
 </div>
 
+<div class="metadata">
+  <span class="slug hide"><%= @event.slug %></span>
+  <span class="creator-uid hide"><%= @event.creator_uid %></span>
+  <span class="r1-uid hide"><%= @event.r1_uid %></span>
+  <span class="creator">Créé par <a href="/user/<%= @event.creator.uid %>"><%= @event.creator.display_name %></a></span>
+  <span class="created_at">Créé le <%= @event.created_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+  <span class="updated_at">Dernier changement le <%= @event.updated_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+</div>
+
+<div class="actions hide">
+  <div class="loading hide">Chargement en cours...</div>
+  <div><a href="/events" class="remove">Supprimer cet évènement !</a></div>
+</div>
+
+</div>
+
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready( function() {
+    var slug = $('.metadata .slug').text();
     $('.participate .actions').delegate("span", "click", function() {
       var action = $(this).attr('className');
-      var slug = $('.metadata .slug').text();
       var callback = function(data) {
         window.location.reload();
       }
@@ -91,6 +107,16 @@
       $('.participate .status').addClass('hide');
       $('.participate .actions').addClass('hide');
       $('.participate .loading').removeClass('hide');
+      return false;
+    });
+    $('.event > .actions').delegate("a", "click", function() {
+      if(confirm('Etes vous sur de vouloir supprimer cet évènement ?')) {
+        $.post('/event/'+slug, {_method:"delete"}, function(data) {
+          window.location = '/events';
+        });
+      }
+      $('.event > .actions div').addClass('hide');
+      $('.event > .actions .loading').removeClass('hide');
       return false;
     });
   });
@@ -111,6 +137,11 @@
       $('.participate .status .none').removeClass('hide');
       $('.participate .actions .delete').addClass('hide');
     }
+    var creator_uid = $('.metadata .creator-uid').text();
+    var r1_uid = $('.metadata .r1-uid').text();
+    if(Intranet.current_user.uid == creator_uid || Intranet.current_user.uid == r1_uid || Intranet.current_user.is_admin) {
+      $('.event > .actions').removeClass('hide');
+    }
   });
   $('#intranet').ajaxError(function(e, xhr, options, error) {
     if(options.url.indexOf("/event") >= 0) {
@@ -125,13 +156,4 @@
   });
   //]]>
 </script>
-
-<div class="metadata">
-  <span class="slug hide"><%= @event.slug %></span>
-  <span class="creator">Créé par <a href="/user/<%= @event.creator.uid %>"><%= @event.creator.display_name %></a></span>
-  <span class="created_at">Créé le <%= @event.created_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
-  <span class="updated_at">Dernier changement le <%= @event.updated_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
-</div>
-
-</div>
 

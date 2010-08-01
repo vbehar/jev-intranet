@@ -50,8 +50,8 @@ post '/events' do
   end
 end
 
-delete '/event/:id' do |id|
-  event = Event.find_by_id(id) rescue nil
+delete '/event/:slug' do |slug|
+  event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
 
   user = current_user

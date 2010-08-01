@@ -914,6 +914,13 @@ div.event div.metadata span.created_at {
 div.event div.metadata span.updated_at {
   display: block;
 }
+div.event div.actions {
+  margin-top: 5px;
+}
+div.event div.actions div a.remove {
+  padding-left: 20px;
+  background: url(../images/icons/trash.png) no-repeat;
+}
 
 /*********
 Pagination
