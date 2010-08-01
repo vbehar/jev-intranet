@@ -30,8 +30,7 @@ delete '/event/:slug/participation' do |slug|
   participation = event.participations.select{|p| p.user_id == current_user_id}.first
   pass if participation.nil? || participation.deleted?
 
-  participation.deleted = true
-  participation.save
+  participation.delete!
   halt 204
 end
 
