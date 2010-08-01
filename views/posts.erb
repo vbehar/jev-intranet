@@ -1,10 +1,15 @@
 <% 
-  @title = "Messages"
-  @breadcrumb = [['/', 'Accueil'], ['/posts', @title]]
+  if @user.eql?'all'
+    @title = 'Messages'
+    @breadcrumb = [['/', 'Accueil'], ['/posts', @title]]
+  else
+    @title = "Messages de #{@user.display_name}"
+    @breadcrumb = [['/', 'Accueil'], ['/posts', 'Messages'], ["/posts/#{@user.uid}", @title]]
+  end
   @full_width = false
 %>
 
-<h2>Derniers messages</h2>
+<h2>Derniers messages<%= " de #{@user.display_name}" unless @user.eql?'all' %></h2>
 
 <div class="new_post">
   <form id="post" method="post" action="/posts">
@@ -74,7 +79,7 @@
 
 <ul class="pagination">
   <% if(@page > 1) %>
-    <li class="previous"><a href="/posts/<%= @user + (@page>2 ? "/#{@page-1}" : '') %>">« plus récents</a></li>
+    <li class="previous"><a href="/posts/<%= @user.uid + (@page>2 ? "/#{@page-1}" : '') %>">« plus récents</a></li>
   <% else %>
     <li class="previous-off">« plus récents</li>
   <% end %>
@@ -82,11 +87,11 @@
     <% if(@page == p) %>
       <li class="active"><%= p %></li>
     <% else %>
-      <li><a href="/posts/<%= @user + (p>1 ? "/#{p}" : '') %>"><%= p %></a></li>
+      <li><a href="/posts/<%= @user.uid + (p>1 ? "/#{p}" : '') %>"><%= p %></a></li>
     <% end %>
   <% end %>
   <% if(@page < @pages) %>
-    <li class="next"><a href="/posts/<%= @user + '/' + (@page+1).to_s %>">plus anciens - <%= @pages %> pages »</a></li>
+    <li class="next"><a href="/posts/<%= @user.uid + '/' + (@page+1).to_s %>">plus anciens - <%= @pages %> pages »</a></li>
   <% else %>
     <li class="next-off">plus anciens »</li>
   <% end %>
