@@ -7,20 +7,7 @@
 
 <div class="event">
 
-<div class="date">
-<% if @event.one_day? %>
-  Le <%= @event.start.getlocal.strftime "%A %d %B %Y " %>
-  <% unless @event.all_day? %>
-    de <%= @event.start.getlocal.strftime "%Hh%M " %>
-    à <%= @event.end.getlocal.strftime "%Hh%M" %>
-  <% end %>
-<% else %>
-  Du <%= @event.start.getlocal.strftime "%A %d %B %Y" %>
-  <%= @event.start.getlocal.strftime " (%Hh%M)" if @event.start.getlocal.hour > 0 %>
-  au <%= @event.end.getlocal.strftime "%A %d %B %Y" %>
-  <%= @event.end.getlocal.strftime " (%Hh%M)" if @event.end.getlocal.hour > 0 %>
-<% end %>
-</div>
+<div class="date"><%= duration_date(@event.start, @event.end) %></div>
 
 <div class="r1">Organisateur (R1) : <a href="/user/<%= @event.r1.uid %>"><%= @event.r1.display_name %></a></div>
 

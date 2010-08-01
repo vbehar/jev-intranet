@@ -20,6 +20,26 @@ helpers do
     User.find(current_user_id)
   end
 
+  # return a formatted string representing a duration between the 2 given dates
+  def duration_date(start_date, end_date)
+    str = ""
+    if start_date.is_a?(Time) && end_date.is_a?(Time)
+      if start_date.strftime("%x") == end_date.strftime("%x")
+        str += start_date.getlocal.strftime "Le %A %d %B %Y"
+        unless start_date.getlocal.hour == 0 && end_date.getlocal.hour == 0
+          str += start_date.getlocal.strftime " de %Hh%M"
+          str += end_date.getlocal.strftime " à %Hh%M"
+        end
+      else
+        str += start_date.getlocal.strftime "Du %A %d %B %Y"
+        str += start_date.getlocal.strftime " (%Hh%M)" if start_date.getlocal.hour > 0
+        str += end_date.getlocal.strftime " au %A %d %B %Y"
+        str += end_date.getlocal.strftime " (%Hh%M)" if end_date.getlocal.hour > 0
+      end
+    end
+    str
+  end
+
   # return the full birth_date
   def birth_date(user_birth_date)
     user_birth_date.strftime("%d %B %Y") rescue ""
