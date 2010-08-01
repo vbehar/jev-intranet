@@ -32,8 +32,7 @@ delete '/post/:id' do |id|
   user = current_user
   halt 403 unless user.admin? || post.user_id.eql?(user.uid)
 
-  post.deleted = true
-  post.save
+  post.delete!
   halt 204
 end
 

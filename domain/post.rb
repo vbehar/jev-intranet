@@ -13,6 +13,12 @@ class Post
   key :deleted,    Boolean, :default  => false
   timestamps!
 
+  # mark the post as deleted, and save it
+  def delete!
+    self.deleted = true
+    save
+  end
+
   def user=(user)
     unless user.nil?
       self.user_id = user.user_id
