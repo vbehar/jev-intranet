@@ -1,13 +1,14 @@
 
 ['/posts', '/posts/', '/posts/:user', '/posts/:user/', '/posts/:user/:page'].each do |path|
   get path do
+    redirect "/posts/#{current_user_id}/#{params[:page]}" if(params[:user].eql?('mine') rescue false)
     if params[:user].blank? || params[:user].eql?('all')
       expires 1.minutes, :public
       @user = 'all'
       load_posts(params[:page])
     else
       expires 0, :private, :no_cache, :no_store
-      @user = ( params[:user].eql?('mine') ? current_user_id : params[:user] )
+      @user = params[:user]
       load_posts(params[:page], :user_id => @user)
     end
     erb :posts

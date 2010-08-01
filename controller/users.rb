@@ -5,8 +5,8 @@ get '/users' do
 end
 
 get '/user/:uid' do |uid|
-  expires 0, :private, :no_cache, :no_store if uid.eql?('me')
-  @user = ( uid.eql?('me') ? current_user : User.find(uid) ) rescue nil
+  redirect "/user/#{current_user_id}" if uid.eql?('me')
+  @user = User.find(uid) rescue nil
   pass if @user.nil?
   erb :user
 end
