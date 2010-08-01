@@ -786,8 +786,69 @@ div.event div.r1 a {
 div.event div.text {
   margin: 20px;
 }
-div.event div.participations {
+div.event div.participate {
   border-top: 2px dashed #CCC;
+  padding-top: 10px;
+}
+div.event div.participate span.title {
+  display: block;
+  font-weight: bolder;
+}
+div.event div.participate div.status {
+  display: block;
+  margin-top: 10px;
+}
+div.event div.participate div.status span.present {
+  padding-left: 20px;
+  background: url(../images/icons/flag_green.png) no-repeat;
+}
+div.event div.participate div.status span.unknown {
+  padding-left: 20px;
+  background: url(../images/icons/flag_orange.png) no-repeat;
+}
+div.event div.participate div.status span.absent {
+  padding-left: 20px;
+  background: url(../images/icons/flag_red.png) no-repeat;
+}
+div.event div.participate div.actions > span {
+  float: left;
+  margin: 10px;
+  padding: 0 0 0 10px;
+  background: url(../images/util/btn_left.png) no-repeat;
+}
+div.event div.participate div.actions > span a {
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bolder;
+  text-decoration: none;
+  background: url(../images/util/btn_stretch.png) repeat-x left top;
+}
+div.event div.participate div.actions > span span {
+  float: left;
+  width: 10px;
+  height: 40px;
+  background: url(../images/util/btn_right.png) no-repeat;
+}
+div.event div.participate div.actions span.present {
+  background-color: green;
+}
+div.event div.participate div.actions span.absent {
+  background-color: red;
+}
+div.event div.participate div.actions span.unknown {
+  background-color: orange;
+}
+div.event div.participate div.actions span.delete {
+  background-color: grey;
+}
+div.event div.participations {
+  clear: both;
+  border-top: 2px dashed #CCC;
+  margin-top: 10px;
   padding-top: 10px;
 }
 div.event div.participations span.title {
@@ -798,9 +859,7 @@ div.event div.participations span.content {
   display: block;
   margin: 10px 0;
 }
-div.event div.participations div.present,
-div.event div.participations div.absent,
-div.event div.participations div.unknown {
+div.event div.participations > div {
   margin: 10px 0;
   clear: both;
 }
@@ -827,6 +886,10 @@ div.event div.participations ul li span.user-icon {
 }
 div.event div.participations ul li span.user {
   display: block;
+}
+div.event div.participations ul li span.user-id {
+  display: none;
+  visibility: hidden;
 }
 #content div.event div.participations ul li span.user-icon a,
 #contentfull div.event div.participations ul li span.user-icon a {

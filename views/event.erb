@@ -26,35 +26,86 @@
 
 <div class="text"><p><%= linkify(@event.text) %></p></div>
 
-<div class="participations">
-<span class="title">Participations</span>
-<% if @event.has_participations?
-     [ [Participation::Status::PRESENT, 'participeront'],
-       [Participation::Status::UNKNOWN, 'participeront peut-être'],
-       [Participation::Status::ABSENT,  'ne participeront pas'] ].each do |status| %>
-    <% participations = @event.participations_for(status.first) %>
-    <% unless participations.empty? %>
-      <div class="<%= status.first %>">
-        <span class="status"><span class="count"><%= participations.count %></span> adhérents <%= status.last %> :</span>
-        <ul>
-          <% participations.each do |p| %>
-          <li>
-            <span class="user-icon">
-              <a href="/user/<%= p.user.uid %>">
-                <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %>" />
-              </a>
-            </span>
-            <span class="user"><a href="/user/<%= p.user.uid %>"><%= p.user.display_name %></a></span>
-          </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  <% end %>
-<% else %>
-  <span class="content">Il n'y a pas encore de participants...</span>
-<% end %>
+<div class="participate">
+  <span class="title">Participer</span>
+  <div class="status">
+    <span class="none">Voulez-vous participer à cet évènement ?</span>
+    <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement. Voulez-vous toujours y participer ?</span>
+    <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation. Voulez-vous participer à cet évènement ?</span>
+    <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement. Voulez-vous y participer ?</span>
+  </div>
+  <div class="actions">
+    <span class="present"><a href="">OUI !</a><span></span></span>
+    <span class="unknown"><a href="">Peux-être...</a><span></span></span>
+    <span class="absent"><a href="">NON</a><span></span></span>
+    <span class="delete hide"><a href="">Je veux supprimer ma participation</a><span></span></span>
+  </div>
 </div>
+
+<div class="participations">
+  <span class="title">Participations</span>
+  <% if @event.has_participations?
+       [ [Participation::Status::PRESENT, 'participeront'],
+         [Participation::Status::UNKNOWN, 'participeront peut-être'],
+         [Participation::Status::ABSENT,  'ne participeront pas'] ].each do |status| %>
+      <% participations = @event.participations_for(status.first) %>
+      <% unless participations.empty? %>
+        <div class="<%= status.first %>">
+          <span class="status"><span class="count"><%= participations.count %></span> adhérents <%= status.last %> :</span>
+          <ul>
+            <% participations.each do |p| %>
+            <li>
+              <span class="user-icon">
+                <a href="/user/<%= p.user.uid %>">
+                <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %>" />
+                </a>
+              </span>
+              <span class="user-id"><%= p.user.id %></span>
+              <span class="user"><a href="/user/<%= p.user.uid %>"><%= p.user.display_name %></a></span>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <span class="content">Il n'y a pas encore de participants...</span>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $('#intranet').bind('current_user-loaded', function(e) {
+    if($('.user-id:contains(' + Intranet.current_user.uid + ')').length > 0) {
+      $('.participate .status .none').addClass('hide');
+      $('.participate .actions .delete').removeClass('hide');
+      $.each(['present', 'absent', 'unknown'], function(index, value) {
+        if($('.participations .' + value).find(".user-id:contains(" + Intranet.current_user.uid + ")").length > 0) {
+          $('.participate .status .' + value).removeClass('hide');
+          $('.participate .actions .' + value).addClass('hide');
+        } else {
+          $('.participate .status .' + value).addClass('hide');
+          $('.participate .actions .' + value).removeClass('hide');
+        }
+      });
+    } else {
+      $('.participate .status .none').removeClass('hide');
+      $('.participate .actions .delete').addClass('hide');
+    }
+  });
+  $('#intranet').ajaxError(function(e, xhr, options, error) {
+    if(options.url.indexOf("/event") >= 0) {
+      if(xhr.status == 403) {
+        alert("Désolé, vous n'avez pas le droit d'effectuer cette opération...");
+      } else if(xhr.status == 404) {
+        alert("Cet évènement n'existe pas...");
+      } else {
+        alert("Une erreur est survenue : " + xhr.status + " - " + xhr.statusText);
+      }
+    }
+  });
+  //]]>
+</script>
 
 <div class="metadata">
   <span class="creator">Créé par <a href="/user/<%= @event.creator.uid %>"><%= @event.creator.display_name %></a></span>
