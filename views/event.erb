@@ -5,6 +5,12 @@
 
 <h2><%= @event.title %></h2>
 
+<% if @event.passed? %>
+  <div class="msgbox msginfo">Cet évènement est déjà passé...</div>
+<% elsif @event.occurring? %>
+  <div class="msgbox msgwarning">Cet évènement est en train de se dérouler en ce moment...</div>
+<% end %>
+
 <div class="event">
 
 <div class="date"><%= duration_date(@event.start, @event.end) %></div>
@@ -15,37 +21,53 @@
 
 <div class="participate">
   <span class="title">Participer</span>
-  <div class="status">
-    <span class="none">Voulez-vous participer à cet évènement ?</span>
-    <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement. Mais vous pouvez changer d'avis. Voulez-vous toujours y participer ?</span>
-    <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation. Va falloir se décider ! Voulez-vous participer à cet évènement ?</span>
-    <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement. Il est encore temps de changer d'avis ! Voulez-vous y participer ?</span>
-  </div>
-  <div class="actions">
-    <span class="present"><a href="">OUI</a><span></span></span>
-    <span class="unknown"><a href="">Peux-être...</a><span></span></span>
-    <span class="absent"><a href="">NON</a><span></span></span>
-    <span class="delete hide"><a href="">Je veux supprimer ma participation !</a><span></span></span>
-  </div>
-  <div class="loading hide">Chargement en cours...</div>
+  <% if @event.passed? %>
+    <div class="status">
+      <span class="none">Cet évènement est déjà passé...</span>
+      <span class="present hide">Vous avez <strong>participé</strong> à cet évènement.</span>
+      <span class="unknown hide">Vous <strong>ne savez pas</strong> si vous avez participé à cet évènement. Enfin si, vous le savez, mais avez oublié de le dire ici...</span>
+      <span class="absent hide">Vous n'avez <strong>pas participé</strong> à cet évènement.</span>
+    </div>
+  <% elsif @event.occurring? %>
+    <div class="status">
+      <span class="none">Cet évènement est en train de se dérouler en ce moment...</span>
+      <span class="present hide">Vous êtes en train de <strong>participer</strong> à cet évènement. Mais alors qu'est ce que vous faites ici ?!</span>
+      <span class="unknown hide">Vous <strong>ne savez pas</strong> si vous participez à cet évènement. Enfin si vous êtes ici, c'est que vous ne participez pas...</span>
+      <span class="absent hide">Vous <strong>ne participez pas</strong> à cet évènement.</span>
+    </div>
+  <% elsif @event.future? %>
+    <div class="status">
+      <span class="none">Voulez-vous participer à cet évènement ?</span>
+      <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement. Mais vous pouvez changer d'avis. Voulez-vous toujours y participer ?</span>
+      <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation. Va falloir se décider ! Voulez-vous participer à cet évènement ?</span>
+      <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement. Il est encore temps de changer d'avis ! Voulez-vous y participer ?</span>
+    </div>
+    <div class="actions">
+      <span class="present"><a href="">OUI</a><span></span></span>
+      <span class="unknown"><a href="">Peux-être...</a><span></span></span>
+      <span class="absent"><a href="">NON</a><span></span></span>
+      <span class="delete hide"><a href="">Je veux supprimer ma participation !</a><span></span></span>
+    </div>
+    <div class="loading hide">Chargement en cours...</div>
+  <% end %>
 </div>
 
 <div class="participations">
   <span class="title">Participations</span>
   <% if @event.has_participations?
-       [ [Participation::Status::PRESENT, 'participeront'],
-         [Participation::Status::UNKNOWN, 'participeront peut-être'],
-         [Participation::Status::ABSENT,  'ne participeront pas'] ].each do |status| %>
+       [ [Participation::Status::PRESENT, 'ont participé', 'participent', 'participeront'],
+         [Participation::Status::UNKNOWN, 'ne savent pas s\'ils ont participé', 'ne savent pas s\'ils participent', 'participeront peut-être'],
+         [Participation::Status::ABSENT, 'n\'ont pas participé', 'ne participent pas', 'ne participeront pas'] ].each do |status| %>
       <% participations = @event.participations_for(status.first) %>
       <% unless participations.empty? %>
         <div class="<%= status.first %>">
-          <span class="status"><span class="count"><%= participations.count %></span> adhérents <%= status.last %> :</span>
+          <span class="status"><span class="count"><%= participations.count %></span> adhérents <%= status[@event.status] %> :</span>
           <ul>
             <% participations.each do |p| %>
             <li>
               <span class="user-icon">
                 <a href="/user/<%= p.user.uid %>">
-                  <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %> (<%= p.created_at.getlocal.strftime "Le %A %d %B %Y à %Hh%M" %>)" />
+                  <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %> (inscription <%= p.created_at.getlocal.strftime "le %A %d %B %Y à %Hh%M" %>)" />
                 </a>
               </span>
               <span class="user-id"><%= p.user.id %></span>
@@ -57,7 +79,13 @@
       <% end %>
     <% end %>
   <% else %>
-    <span class="content">Il n'y a pas encore de participants... Soyez le premier à participer !</span>
+    <% if @event.passed? %>
+      <span class="content">Visiblement cet évènement n'a pas eu beaucoup de succès...</span>
+    <% elsif @event.occurring? %>
+      <span class="content">Visiblement cet évènement n'a pas beaucoup de succès...</span>
+    <% elsif @event.future? %>
+      <span class="content">Il n'y a pas encore de participants... Soyez le premier à participer !</span>
+    <% end %>
   <% end %>
 </div>
 

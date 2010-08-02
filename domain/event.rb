@@ -63,6 +63,31 @@ class Event
     self.start.strftime("%x") == self.end.strftime("%x") rescue false
   end
 
+  # return true if this event is already passed/finished
+  def passed?
+    end_date = self.end.getlocal.hour == 0 ? self.end + 1.day : self.end
+    end_date < Time.now
+  end
+
+  # return true if this event is occurring right now
+  def occurring?
+    end_date = self.end.getlocal.hour == 0 ? self.end + 1.day : self.end
+    Time.now.between?(self.start, end_date)
+  end
+
+  # return true if this event is in the future
+  def future?
+    Time.now < self.start
+  end
+
+  # return the status of this event : 1 (passed), 2 (occurring) or 3 (future)
+  def status
+    return 1 if passed?
+    return 2 if occurring?
+    return 3 if future?
+    0
+  end
+
   def r1=(user)
     unless user.nil?
       self.r1_uid = user.uid

@@ -18,6 +18,7 @@ post '/event/:slug/participation/:status' do |slug, status|
 
   event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
+  halt 403 unless event.future?
 
   halt 403 unless event.participate!(current_user_id, status)
   halt 204
@@ -26,6 +27,7 @@ end
 delete '/event/:slug/participation' do |slug|
   event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
+  halt 403 unless event.future?
 
   participation = event.participations.select{|p| p.user_id == current_user_id}.first
   pass if participation.nil? || participation.deleted?
