@@ -15,6 +15,7 @@ class Event
   key :text,        String
   key :start,       Time,    :required => true
   key :end,         Time,    :required => true
+  key :closed,      Boolean, :default  => false
   key :deleted,     Boolean, :default  => false
   timestamps!
 
@@ -22,19 +23,21 @@ class Event
 
   # add a new participation for the given user
   def participate(user_id, status = Participation::Status::PRESENT)
-    return unless Participation::Status.valid?(status)
-    return if user_id.nil? || !User.exist?(user_id)
+    return false if closed?
+    return false unless future?
+    return false unless Participation::Status.valid?(status)
+    return false if user_id.nil? || !User.exist?(user_id)
     participation = participations.select{|p| p.user_id == user_id}.first
     participation = Participation.new({:user_id => user_id}) if participation.nil?
     participation.status = status
     participation.deleted = false
     participations << participation unless participations.include?participation
+    true
   end
 
   # add a new participation for the given user, and save
   def participate!(user_id, status = Participation::Status::PRESENT)
-    participate(user_id, status)
-    save
+    participate(user_id, status) ? save : false
   end
 
   # return true if this event has participations (whatever the status)
@@ -50,6 +53,12 @@ class Event
   # mark the event as deleted, and save it
   def delete!
     self.deleted = true
+    save
+  end
+
+  # mark the event as closed, and save it
+  def close!
+    self.closed = true
     save
   end
 

@@ -36,19 +36,29 @@
       <span class="absent hide">Vous <strong>ne participez pas</strong> à cet évènement.</span>
     </div>
   <% elsif @event.future? %>
-    <div class="status">
-      <span class="none">Voulez-vous participer à cet évènement ?</span>
-      <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement. Mais vous pouvez changer d'avis. Voulez-vous toujours y participer ?</span>
-      <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation. Va falloir se décider ! Voulez-vous participer à cet évènement ?</span>
-      <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement. Il est encore temps de changer d'avis ! Voulez-vous y participer ?</span>
-    </div>
-    <div class="actions">
-      <span class="present"><a href="">OUI</a><span></span></span>
-      <span class="unknown"><a href="">Peux-être...</a><span></span></span>
-      <span class="absent"><a href="">NON</a><span></span></span>
-      <span class="delete hide"><a href="">Je veux supprimer ma participation !</a><span></span></span>
-    </div>
-    <div class="loading hide">Chargement en cours...</div>
+    <% if @event.closed? %>
+      <div class="msgbox msgerror">Les inscriptions à cet évènement sont fermées !</div>
+      <div class="status">
+        <span class="none">Contactez directement le responsable de cet évènement pour plus d'informations...</span>
+        <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement.</span>
+        <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation.</span>
+        <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement.</span>
+      </div>
+    <% else %>
+      <div class="status">
+        <span class="none">Voulez-vous participer à cet évènement ?</span>
+        <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement. Mais vous pouvez changer d'avis. Voulez-vous toujours y participer ?</span>
+        <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation. Va falloir se décider ! Voulez-vous participer à cet évènement ?</span>
+        <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement. Il est encore temps de changer d'avis ! Voulez-vous y participer ?</span>
+      </div>
+      <div class="actions">
+        <span class="present"><a href="">OUI</a><span></span></span>
+        <span class="unknown"><a href="">Peux-être...</a><span></span></span>
+        <span class="absent"><a href="">NON</a><span></span></span>
+        <span class="delete hide"><a href="">Je veux supprimer ma participation !</a><span></span></span>
+      </div>
+      <div class="loading hide">Chargement en cours...</div>
+    <% end %>
   <% end %>
 </div>
 
