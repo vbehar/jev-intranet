@@ -1,10 +1,14 @@
 <% 
-  @title = "Evènements"
-  @breadcrumb = [['/', 'Accueil'], ['/events', @title]]
+  @title = case @type
+    when 'passed'; 'Evènements passés'
+    when 'occurring'; 'Evènements en cours'
+    when 'future'; 'Evènements à venir'
+  end
+  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/events/#{@type}", @title]]
   @full_width = false
 %>
 
-<h2>Prochains évènements</h2>
+<h2><%= @title %></h2>
 
 <ol class="events">
 <% @events.each do |event| %>
@@ -26,7 +30,7 @@
 
 <ul class="pagination">
   <% if(@page > 1) %>
-    <li class="previous"><a href="/events/<%= @page>2 ? "/#{@page-1}" : '' %>">« précédent</a></li>
+    <li class="previous"><a href="/events/<%= @type %>/<%= @page>2 ? "/#{@page-1}" : '' %>">« précédent</a></li>
   <% else %>
     <li class="previous-off">« précédent</li>
   <% end %>
@@ -34,11 +38,11 @@
     <% if(@page == p) %>
       <li class="active"><%= p %></li>
     <% else %>
-      <li><a href="/events/<%= p>1 ? "/#{p}" : '' %>"><%= p %></a></li>
+      <li><a href="/events/<%= @type %>/<%= p>1 ? "/#{p}" : '' %>"><%= p %></a></li>
     <% end %>
   <% end %>
   <% if(@page < @pages) %>
-    <li class="next"><a href="/events/<%= (@page+1).to_s %>">suivant - <%= @pages %> pages »</a></li>
+    <li class="next"><a href="/events/<%= @type %>/<%= (@page+1).to_s %>">suivant - <%= @pages %> pages »</a></li>
   <% else %>
     <li class="next-off">suivant »</li>
   <% end %>

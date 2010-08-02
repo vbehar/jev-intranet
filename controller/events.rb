@@ -1,8 +1,13 @@
 
-['/events', '/events/', '/events/:page'].each do |path|
+['/events', '/events/', '/events/:type', '/events/:type/', '/events/:type/:page'].each do |path|
   get path do
     expires 1.minutes, :public
-    load_events(params[:page])
+    @type, query_params = case params[:type]
+      when 'passed'; ['passed', {'$where' => 'function(){ endDate = this.end.getHours()==0 ? new Date(this.end.getTime()+86400000) : this.end; return endDate < new Date(); }'}]
+      when 'occurring'; ['occurring', {'$where' => 'function(){ now = new Date(); endDate = this.end.getHours()==0 ? new Date(this.end.getTime()+86400000) : this.end; return this.start < now && now < endDate; }'}]
+      else ['future', {:start.gte => Date.today.to_time}]
+    end
+    load_events(params[:page], query_params)
     erb :events
   end
 end
@@ -68,7 +73,7 @@ delete '/event/:slug' do |slug|
 end
 
 def load_events(page = 1, query_params = {})
-  common_params = {:deleted.ne => true, :start.gte => Date.today.to_time}
+  common_params = {:deleted.ne => true}
   @page  = fix_page(page)
   @pages = calculate_total_pages(Event, query_params.merge(common_params), options.posts_per_page)
   @events = Event.paginate(query_params.merge(common_params).merge(:per_page => options.events_per_page,
