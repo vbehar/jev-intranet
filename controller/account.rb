@@ -20,11 +20,11 @@ get '/account.json' do
   attrs.to_json
 end
 
-get '/account' do
+get '/account/?' do
   erb :account
 end
 
-post '/account' do
+post '/account/?' do
   puts params['user'].inspect
   redirect '/account'
 end

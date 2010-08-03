@@ -1,5 +1,5 @@
 
-['/events', '/events/', '/events/:type', '/events/:type/', '/events/:type/:page'].each do |path|
+['/events/?', '/events/:type/?', '/events/:type/:page/?'].each do |path|
   get path do
     expires 1.minutes, :public
     now = Time.now
@@ -13,13 +13,13 @@
   end
 end
 
-get '/event/:slug' do |slug|
+get '/event/:slug/?' do |slug|
   @event = Event.find_by_slug(slug) rescue nil
   pass if @event.nil? || @event.deleted?
   erb :event
 end
 
-post '/event/:slug/participation/:status' do |slug, status|
+post '/event/:slug/participation/:status/?' do |slug, status|
   pass unless Participation::Status.valid?(status)
 
   event = Event.find_by_slug(slug) rescue nil
@@ -32,7 +32,7 @@ post '/event/:slug/participation/:status' do |slug, status|
   halt 204
 end
 
-delete '/event/:slug/participation' do |slug|
+delete '/event/:slug/participation/?' do |slug|
   event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
 
@@ -46,7 +46,7 @@ delete '/event/:slug/participation' do |slug|
   halt 204
 end
 
-post '/events' do
+post '/events/?' do
   event = Event.new
   event.creator_uid = current_user_id
   event.r1_uid = params['r1']
@@ -62,7 +62,7 @@ post '/events' do
   end
 end
 
-delete '/event/:slug' do |slug|
+delete '/event/:slug/?' do |slug|
   event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
 

@@ -19,15 +19,15 @@ before do
   end
 end
 
-get '/api/v1/users' do
+get '/api/v1/users/?' do
   convert_return_value User.find(:all)
 end
 
-get '/api/v1/users/:attr/:value' do |attr, value|
+get '/api/v1/users/:attr/:value/?' do |attr, value|
   convert_return_value User.find(:all, :attribute => attr, :value => value)
 end
 
-get '/api/v1/user/:uid' do |uid|
+get '/api/v1/user/:uid/?' do |uid|
   user = User.find(uid) rescue nil
   pass if user.nil?
   convert_return_value user

@@ -1,5 +1,5 @@
 
-['/posts', '/posts/', '/posts/:user', '/posts/:user/', '/posts/:user/:page'].each do |path|
+['/posts/?', '/posts/:user/?', '/posts/:user/:page/?'].each do |path|
   get path do
     redirect "/posts/#{current_user_id}/#{params[:page]}" if(params[:user].eql?('mine') rescue false)
     if params[:user].blank? || params[:user].eql?('all')
@@ -17,7 +17,7 @@
   end
 end
 
-post '/posts' do
+post '/posts/?' do
   post = Post.new
   post.user_id = current_user_id
   post.text = clean_html(params['text'])
@@ -25,7 +25,7 @@ post '/posts' do
   redirect '/posts'
 end
 
-delete '/post/:id' do |id|
+delete '/post/:id/?' do |id|
   post = Post.find_by_id(id) rescue nil
   pass if post.nil? || post.deleted?
 

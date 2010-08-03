@@ -17,7 +17,7 @@ get '/' do
   redirect '/posts'
 end
 
-get '/about' do
+get '/about/?' do
   erb :about
 end
 

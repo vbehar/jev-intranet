@@ -1,17 +1,17 @@
 
-get '/users' do
+get '/users/?' do
   @users = User.find(:all, :attributes => [:uid, :cn, :sn, :gn, :displayName, :title, :ffckCategory, :gender])
   erb :users
 end
 
-get '/user/:uid' do |uid|
+get '/user/:uid/?' do |uid|
   redirect "/user/#{current_user_id}" if uid.eql?('me')
   @user = User.find(uid) rescue nil
   pass if @user.nil?
   erb :user
 end
 
-['/users/birthdays', '/users/birthdays/', '/users/birthdays/:month'].each do |path|
+['/users/birthdays/?', '/users/birthdays/:month/?'].each do |path|
   get path do
     expires 1.hour, :public
 

@@ -12,11 +12,11 @@ before do
   end
 end
 
-get '/admin' do
+get '/admin/?' do
   erb :admin_index
 end
 
-get '/admin/login-as/:login_as' do |login_as|
+get '/admin/login-as/:login_as/?' do |login_as|
   session['logged-user'] = ( login_as.eql?('me') ? nil : login_as )
   redirect '/user/me'
 end
@@ -45,14 +45,14 @@ get '/admin/users.csv' do
   end
 end
 
-get '/admin/users' do
+get '/admin/users/?' do
   @users = User.find(:all, :attributes => admin_user_attributes)
 
   session["users"] = @users.collect{|u| u.uid}
   erb :admin_users
 end
 
-post '/admin/users' do
+post '/admin/users/?' do
   @filter = params[:filter]
   @users = User.search_users(:filter => @filter, :attributes => admin_user_attributes)
   @users.sort!{ |a,b| a.uid <=> b.uid }
@@ -61,13 +61,13 @@ post '/admin/users' do
   erb :admin_users
 end
 
-get '/admin/user/:uid' do |uid|
+get '/admin/user/:uid/?' do |uid|
   @user = User.find(uid) rescue nil
   pass if @user.nil?
   erb :admin_user
 end
 
-get '/admin/stats' do
+get '/admin/stats/?' do
   @users = User.find(:all)
   erb :admin_stats
 end
