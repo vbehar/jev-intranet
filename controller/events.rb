@@ -3,12 +3,12 @@
   get path do
     expires 1.minutes, :public
     now = Time.now
-    @type, query_params = case params[:type]
-      when 'passed'; ['passed', {:end.lt => now}]
+    @type, query = case params[:type]
+      when 'passed'; ['passed', {:end.lt => now, :order => :start.desc}]
       when 'occurring'; ['occurring', {:start.lt => now, :end.gt => now}]
       else ['future', {:start.gt => now}]
     end
-    load_events(params[:page], query_params)
+    load_events(params[:page], query)
     erb :events
   end
 end
@@ -73,12 +73,12 @@ delete '/event/:slug/?' do |slug|
   halt 204
 end
 
-def load_events(page = 1, query_params = {})
-  common_params = {:deleted.ne => true}
+def load_events(page = 1, query = {})
+  query = {:deleted.ne => true, :per_page => options.events_per_page, :page => @page, :order => :start.asc}.merge(query)
+  query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
+
   @page  = fix_page(page)
-  @pages = calculate_total_pages(Event, query_params.merge(common_params), options.posts_per_page)
-  @events = Event.paginate(query_params.merge(common_params).merge(:per_page => options.events_per_page,
-                                                                   :page     => @page,
-                                                                   :order    => :start.asc))
+  @pages = calculate_total_pages(Event, query_for_count, options.posts_per_page)
+  @events = Event.paginate(query)
 end
 
