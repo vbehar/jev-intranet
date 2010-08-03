@@ -2,10 +2,11 @@
 ['/events', '/events/', '/events/:type', '/events/:type/', '/events/:type/:page'].each do |path|
   get path do
     expires 1.minutes, :public
+    now = Time.now
     @type, query_params = case params[:type]
-      when 'passed'; ['passed', {'$where' => 'function(){ endDate = this.end.getHours()==0 ? new Date(this.end.getTime()+86400000) : this.end; return endDate < new Date(); }'}]
-      when 'occurring'; ['occurring', {'$where' => 'function(){ now = new Date(); endDate = this.end.getHours()==0 ? new Date(this.end.getTime()+86400000) : this.end; return this.start < now && now < endDate; }'}]
-      else ['future', {:start.gte => Date.today.to_time}]
+      when 'passed'; ['passed', {:end.lt => now}]
+      when 'occurring'; ['occurring', {:start.lt => now, :end.gt => now}]
+      else ['future', {:start.gt => now}]
     end
     load_events(params[:page], query_params)
     erb :events

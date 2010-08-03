@@ -23,18 +23,33 @@ helpers do
   # return a formatted string representing a duration between the 2 given dates
   def duration_date(start_date, end_date)
     str = ""
+
+    start_date = start_date.to_time if start_date.respond_to?('to_time')
+    end_date = end_date.to_time if end_date.respond_to?('to_time')
+
     if start_date.is_a?(Time) && end_date.is_a?(Time)
-      if start_date.strftime("%x") == end_date.strftime("%x")
-        str += start_date.getlocal.strftime "Le %A %d %B %Y"
-        unless start_date.getlocal.hour == 0 && end_date.getlocal.hour == 0
-          str += start_date.getlocal.strftime " de %Hh%M"
-          str += end_date.getlocal.strftime " à %Hh%M"
+
+      start_date = start_date.getlocal if start_date.utc?
+      end_date = end_date.getlocal if end_date.utc?
+
+      if start_date.strftime("%x") == end_date.strftime("%x") # same day
+        str += start_date.strftime "Le %A %d %B %Y"
+        if start_date.strftime("%X") == "00:00:00" && end_date.strftime("%X") == "23:59:59"
+          # entire day - no need to display start/end times
+        elsif end_date.strftime("%X") == "23:59:59" # we only have a start time
+          str += start_date.strftime " à partir de %Hh%M"
+        elsif start_date.strftime("%X") == "00:00:00" # we only have an end time
+          str += end_date.strftime " jusqu'à %Hh%M"
+        else # we have both a start and an end time
+          str += start_date.strftime " de %Hh%M"
+          str += end_date.strftime " à %Hh%M"
         end
-      else
-        str += start_date.getlocal.strftime "Du %A %d %B %Y"
-        str += start_date.getlocal.strftime " (%Hh%M)" if start_date.getlocal.hour > 0
-        str += end_date.getlocal.strftime " au %A %d %B %Y"
-        str += end_date.getlocal.strftime " (%Hh%M)" if end_date.getlocal.hour > 0
+
+      else # different days
+        str += start_date.strftime "Du %A %d %B %Y"
+        str += start_date.strftime " (%Hh%M)" if start_date.strftime("%X") != "00:00:00"
+        str += end_date.strftime " au %A %d %B %Y"
+        str += end_date.strftime " (%Hh%M)" if end_date.strftime("%X") != "23:59:59"
       end
     end
     str

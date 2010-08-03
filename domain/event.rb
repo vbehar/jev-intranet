@@ -62,26 +62,14 @@ class Event
     save
   end
 
-  # return true if this event has a duration of entire days (no hours/minutes)
-  def all_day?
-    self.start.getlocal.hour == 0 && self.end.getlocal.hour == 0 rescue false
-  end
-
-  # return true if this event has a duration of 1 day (or less)
-  def one_day?
-    self.start.strftime("%x") == self.end.strftime("%x") rescue false
-  end
-
   # return true if this event is already passed/finished
   def passed?
-    end_date = self.end.getlocal.hour == 0 ? self.end + 1.day : self.end
-    end_date < Time.now
+    self.end < Time.now
   end
 
   # return true if this event is occurring right now
   def occurring?
-    end_date = self.end.getlocal.hour == 0 ? self.end + 1.day : self.end
-    Time.now.between?(self.start, end_date)
+    Time.now.between?(self.start, self.end)
   end
 
   # return true if this event is in the future
