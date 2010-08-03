@@ -52,3 +52,12 @@
 <hr class="clear" />
 </div>
 
+<div class="sidebox">
+  <h2>Evènements</h2>
+  <ul class="sidemenu">
+    <li class="<%= 'current' if @type == 'passed' %> first"><a href="/events/passed">Passés</a></li>
+    <li class="<%= 'current' if @type == 'occurring' %>"><a href="/events/occurring">En cours</a></li>
+    <li class="<%= 'current' if @type == 'future' %>"><a href="/events/future">A venir</a></li>
+  </ul>
+</div>
+
