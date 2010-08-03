@@ -44,6 +44,29 @@
 <% end %>
 </ol>
 
+<ul class="pagination">
+  <% if(@page > 1) %>
+    <li class="previous"><a href="/posts/<%= @user.uid + (@page>2 ? "/#{@page-1}" : '') %>">« plus récents</a></li>
+  <% else %>
+    <li class="previous-off">« plus récents</li>
+  <% end %>
+  <% pagination(@page, options.posts_per_page, @pages).each do |p| %>
+    <% if(@page == p) %>
+      <li class="active"><%= p %></li>
+    <% else %>
+      <li><a href="/posts/<%= @user.uid + (p>1 ? "/#{p}" : '') %>"><%= p %></a></li>
+    <% end %>
+  <% end %>
+  <% if(@page < @pages) %>
+    <li class="next"><a href="/posts/<%= @user.uid + '/' + (@page+1).to_s %>">plus anciens - <%= @pages %> pages »</a></li>
+  <% else %>
+    <li class="next-off">plus anciens »</li>
+  <% end %>
+</ul>
+
+<hr class="clear" />
+</div>
+
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready( function() {
@@ -77,27 +100,4 @@
   });
   //]]>
 </script>
-
-<ul class="pagination">
-  <% if(@page > 1) %>
-    <li class="previous"><a href="/posts/<%= @user.uid + (@page>2 ? "/#{@page-1}" : '') %>">« plus récents</a></li>
-  <% else %>
-    <li class="previous-off">« plus récents</li>
-  <% end %>
-  <% pagination(@page, options.posts_per_page, @pages).each do |p| %>
-    <% if(@page == p) %>
-      <li class="active"><%= p %></li>
-    <% else %>
-      <li><a href="/posts/<%= @user.uid + (p>1 ? "/#{p}" : '') %>"><%= p %></a></li>
-    <% end %>
-  <% end %>
-  <% if(@page < @pages) %>
-    <li class="next"><a href="/posts/<%= @user.uid + '/' + (@page+1).to_s %>">plus anciens - <%= @pages %> pages »</a></li>
-  <% else %>
-    <li class="next-off">plus anciens »</li>
-  <% end %>
-</ul>
-
-<hr class="clear" />
-</div>
 

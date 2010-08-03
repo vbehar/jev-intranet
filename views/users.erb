@@ -7,6 +7,34 @@
 
 <h2>Annuaire des adhérents</h2>
 
+<table id="users" class="fullwidth">
+  <thead>
+    <tr>
+      <th>Pseudo</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Fonction</th>
+      <th>Catégorie</th>
+      <th>Sexe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
+        <td><%= u.firstname %></td>
+        <td><%= u.lastname %></td>
+        <td><%= u.title %></td>
+        <td><%= u.ffck_category %></td>
+        <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr class="clear" />
+</div>
+
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     $('#users').dataTable( {
@@ -37,32 +65,4 @@
     } );
   } );
 </script>
-
-<table id="users" class="fullwidth">
-  <thead>
-    <tr>
-      <th>Pseudo</th>
-      <th>Prénom</th>
-      <th>Nom</th>
-      <th>Fonction</th>
-      <th>Catégorie</th>
-      <th>Sexe</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |u| %>
-      <tr>
-        <td><a href="/user/<%= u.uid %>"><%= u.display_name %></a></td>
-        <td><%= u.firstname %></td>
-        <td><%= u.lastname %></td>
-        <td><%= u.title %></td>
-        <td><%= u.ffck_category %></td>
-        <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<hr class="clear" />
-</div>
 

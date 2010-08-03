@@ -25,37 +25,6 @@
   <p>Liste complètes des <strong><%= @users.size %></strong> utilisateurs :</p>
 <% end %>
 
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function() {
-    $('#users').dataTable( {
-      "bJQueryUI": true,
-      "bAutoWidth": false,
-      "sPaginationType": "full_numbers",
-      "iDisplayLength": 50,
-      "oLanguage": {
-        "oPaginate": {
-          "sFirst": "Début",
-          "sLast": "Fin",
-          "sPrevious": "Précédent",
-          "sNext": "Suivant"
-        },
-        "sInfo": "Utilisateurs _START_ à _END_ (sur _TOTAL_)",
-        "sInfoEmpty": "Aucun utilisateur à afficher",
-        "sInfoFiltered": " - Nombre total d'utilisateurs : _MAX_",
-        "sLengthMenu": 'Afficher <select>' +
-                       '<option value="20">20</option>' +
-                       '<option value="50">50</option>' +
-                       '<option value="100">100</option>' +
-                       '<option value="-1">Tous</option>' +
-                       '</select> utilisateurs',
-        "sProcessing": "Veuillez patienter...",
-        "sSearch": "Rechercher :",
-        "sZeroRecords": "Aucun utilisateur à afficher"
-      }
-    } );
-  } );
-</script>
-
 <table id="users" class="fullwidth">
   <thead>
     <tr>
@@ -95,4 +64,35 @@
 
 <hr class="clear" />
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#users').dataTable( {
+      "bJQueryUI": true,
+      "bAutoWidth": false,
+      "sPaginationType": "full_numbers",
+      "iDisplayLength": 50,
+      "oLanguage": {
+        "oPaginate": {
+          "sFirst": "Début",
+          "sLast": "Fin",
+          "sPrevious": "Précédent",
+          "sNext": "Suivant"
+        },
+        "sInfo": "Utilisateurs _START_ à _END_ (sur _TOTAL_)",
+        "sInfoEmpty": "Aucun utilisateur à afficher",
+        "sInfoFiltered": " - Nombre total d'utilisateurs : _MAX_",
+        "sLengthMenu": 'Afficher <select>' +
+                       '<option value="20">20</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">Tous</option>' +
+                       '</select> utilisateurs',
+        "sProcessing": "Veuillez patienter...",
+        "sSearch": "Rechercher :",
+        "sZeroRecords": "Aucun utilisateur à afficher"
+      }
+    } );
+  } );
+</script>
 
