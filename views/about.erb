@@ -3,6 +3,8 @@
   @breadcrumb = [['/', 'Accueil'], ['/about', @title]]
 %>
 
+<div id="contentfull">
+
 <h2>A propos</h2>
 
 <p>
@@ -19,4 +21,7 @@ Application open-source, code disponible sur github : <a href="http://github.com
     (complète : <%= options.git_version_full rescue "inconnue" %>)</li>
 <li><strong>Date de la version</strong> : <%= options.git_version_date.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnue" %></li>
 </ul>
+
+<hr class="clear" />
+</div>
 

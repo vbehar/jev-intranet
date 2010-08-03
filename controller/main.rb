@@ -3,7 +3,6 @@ before do
   # default values
   @title = request.path_info
   @breadcrumb = {}
-  @full_width = true
 
   # default cache
   if(request.get? || request.head?)

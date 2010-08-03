@@ -5,8 +5,9 @@
     when 'future'; 'Evènements à venir'
   end
   @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/events/#{@type}", @title]]
-  @full_width = false
 %>
+
+<div id="content">
 
 <h2><%= @title %></h2>
 
@@ -47,4 +48,7 @@
     <li class="next-off">suivant »</li>
   <% end %>
 </ul>
+
+<hr class="clear" />
+</div>
 

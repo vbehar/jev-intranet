@@ -3,6 +3,8 @@
   @breadcrumb = [['/', 'Accueil'], ['/users', 'Annuaire des adhérents'], ["/user/#{@user.uid}", @title]]
 %>
 
+<div id="contentfull">
+
 <h2><%= @user.name %></h2>
 
 <img src="<%= @user.avatar_url %>" />
@@ -22,6 +24,6 @@
   <dd><%= birth_day(@user.birth_date) %></dd>
 </dl>
 
-
-
+<hr class="clear" />
+</div>
 

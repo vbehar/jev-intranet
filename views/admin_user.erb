@@ -3,6 +3,8 @@
   @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/users', 'Utilisateurs'], ["/admin/user/#{@user.uid}", @title]]
 %>
 
+<div id="contentfull">
+
 <h2><%= @user.name %></h2>
 
 <dl>
@@ -25,5 +27,6 @@
 <% if next_user(@user.uid) %><li><a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %></a></li><% end %>
 </ul>
 
-
+<hr class="clear" />
+</div>
 

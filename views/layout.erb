@@ -85,10 +85,7 @@
     <%= @breadcrumb.collect { |path, title| "<a href='#{path}' title='#{title}'>#{title}</a>" }.join(" > ") %>
   </div>
 
-  <div id="<%= @full_width ? "contentfull" : "content" %>">
-    <%= yield %>
-    <hr class="clear" />
-  </div>
+  <%= yield %>
  
   <hr class="clear" />
 </div>

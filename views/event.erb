@@ -3,6 +3,8 @@
   @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/event/#{@event.slug}", @title]]
 %>
 
+<div id="contentfull">
+
 <h2><%= @event.title %></h2>
 
 <% if @event.passed? %>
@@ -113,6 +115,9 @@
   <div><a href="/events" class="remove">Supprimer cet évènement !</a></div>
 </div>
 
+</div>
+
+<hr class="clear" />
 </div>
 
 <script type="text/javascript">

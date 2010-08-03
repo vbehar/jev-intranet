@@ -6,8 +6,9 @@
     @title = "Messages de #{@user.display_name}"
     @breadcrumb = [['/', 'Accueil'], ['/posts', 'Messages'], ["/posts/#{@user.uid}", @title]]
   end
-  @full_width = false
 %>
+
+<div id="content">
 
 <h2>Derniers messages<%= " de #{@user.display_name}" unless @user.eql?'all' %></h2>
 
@@ -96,4 +97,7 @@
     <li class="next-off">plus anciens »</li>
   <% end %>
 </ul>
+
+<hr class="clear" />
+</div>
 
