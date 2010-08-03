@@ -220,13 +220,6 @@ Content
   border-bottom: 1px dotted #000000;
   color: #222222;
 }
-ul, ol, ul, ol {
-  margin: 0 0 15px 10px;
-  padding: 0 0 0 10px;
-}
-ul li, ol li, ul li, ol li {
-  margin: 0 0 10px 10px;
-}
 #content ul ul, #content ol ol, #contentfull ul ul, #contentfull ol ol {
   margin: 5px 0 5px 10px;
 }
@@ -436,6 +429,18 @@ table.nicetable tbody tr.even th {
 table.nicetable tbody tr.even td {
   background-color: #FFFFFF;
   color: #6D929B;
+}
+
+/**********
+Simple list
+**********/
+
+ul.simplelist {
+  margin: 0 0 15px 10px;
+  padding: 0 0 0 10px;
+}
+ul.simplelist li {
+  margin: 0 0 10px 10px;
 }
 
 /***
@@ -928,6 +933,8 @@ Pagination
 
 .pagination {
   clear: both;
+  margin: 0 0 15px 10px;
+  padding: 0 0 0 10px;
 }
 .pagination li {
   border: 0;

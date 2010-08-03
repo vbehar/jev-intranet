@@ -13,13 +13,13 @@ Application open-source, code disponible sur github : <a href="http://github.com
 
 <h3>Statut de l'application</h3>
 
-<ul>
-<li><strong>Environnement</strong> : <%= options.environment.to_s rescue "inconnu" %></li>
-<li><strong>Dernier démarrage</strong> : <%= options.start_time.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnu" %></li>
-<li><strong>Branche</strong> : <%= options.git_branch rescue "inconnue" %></li>
-<li><strong>Version</strong> : <%= options.git_version rescue "inconnue" %> 
+<ul class="simplelist">
+  <li><strong>Environnement</strong> : <%= options.environment.to_s rescue "inconnu" %></li>
+  <li><strong>Dernier démarrage</strong> : <%= options.start_time.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnu" %></li>
+  <li><strong>Branche</strong> : <%= options.git_branch rescue "inconnue" %></li>
+  <li><strong>Version</strong> : <%= options.git_version rescue "inconnue" %> 
     (complète : <%= options.git_version_full rescue "inconnue" %>)</li>
-<li><strong>Date de la version</strong> : <%= options.git_version_date.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnue" %></li>
+  <li><strong>Date de la version</strong> : <%= options.git_version_date.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnue" %></li>
 </ul>
 
 <hr class="clear" />
