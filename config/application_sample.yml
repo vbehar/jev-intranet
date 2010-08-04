@@ -5,6 +5,10 @@ default_user_id: john.doe
 
 # number of posts that should be displayed per page
 posts_per_page: 10
+# number of 'most active users' to display on the page
+posts_most_active_users_page: 10
+# number of 'most active users' to display on the sidebox
+posts_most_active_users_box: 5
 
 # number of events that should be displayed per page
 events_per_page: 10

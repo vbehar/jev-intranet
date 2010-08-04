@@ -11,7 +11,7 @@
       pass if @user.nil?
       load_posts(params[:page], :user_id => @user.uid)
     end
-    @most_active_users = Post.most_active_users(3)
+    @most_active_users = Post.most_active_users(options.posts_most_active_users_box)
     expires 0, :private, :no_cache, :no_store
     erb :posts
   end
