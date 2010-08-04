@@ -65,6 +65,13 @@ helpers do
     Date.strptime(user_birth_date.strftime('%d/%m'), '%d/%m').strftime("%A %d %B") rescue ""
   end
 
+  # return a string representing the level of the poster, based on his posts count and the max count
+  def poster_level(poster_count, max_count)
+    levels = %w(Blanche Jaune Verte Bleue Rouge Noire)
+    level = poster_count / (max_count / (levels.length-1))
+    'Pagaie ' + levels[level]
+  end
+
   # return an ordered array of all ffck categories
   def ffck_categories()
     %w(Pitchoun Poussin Benjamin Minime Cadet Junior Senior Veteran Inconnu)

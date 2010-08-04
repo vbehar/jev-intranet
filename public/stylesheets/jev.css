@@ -718,6 +718,9 @@ ol.posts li.post span.content span.user {
 }
 ol.posts li.post span.content span.text {
 }
+ol.posts li.post span.content span.text a.extra-link {
+  float: right;
+}
 ol.posts li.post span.content span.date {
   display: block;
   color: #999;

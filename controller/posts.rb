@@ -17,6 +17,11 @@
   end
 end
 
+get '/posts/most-active-users/?' do
+  @most_active_users = Post.most_active_users(options.posts_most_active_users_page)
+  erb :posts_most_active_users
+end
+
 post '/posts/?' do
   post = Post.new
   post.user_id = current_user_id
