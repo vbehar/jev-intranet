@@ -3,17 +3,16 @@
   get path do
     redirect "/posts/#{current_user_id}/#{params[:page]}" if(params[:user].eql?('mine') rescue false)
     if params[:user].blank? || params[:user].eql?('all')
-      expires 1.minutes, :public
       @user = 'all'
       @user.instance_eval{ def uid(); self; end } # fake uid for constructing urls
       load_posts(params[:page])
     else
-      expires 0, :private, :no_cache, :no_store
       @user = User.find(params[:user]) rescue nil
       pass if @user.nil?
       load_posts(params[:page], :user_id => @user.uid)
     end
     @most_active_users = Post.most_active_users(3)
+    expires 0, :private, :no_cache, :no_store
     erb :posts
   end
 end
