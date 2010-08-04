@@ -73,10 +73,5 @@ class User < LdapBase
     "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
   end
 
-  # return all posts that belongs to the user
-  def posts
-    Post.where(:user_id => user_id).all
-  end
-
 end
 
