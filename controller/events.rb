@@ -74,7 +74,7 @@ delete '/event/:slug/?' do |slug|
 end
 
 def load_events(page = 1, query = {})
-  query = {:deleted.ne => true, :per_page => options.events_per_page, :page => @page, :order => :start.asc}.merge(query)
+  query = {:deleted => false, :per_page => options.events_per_page, :page => @page, :order => :start.asc}.merge(query)
   query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
 
   @page  = fix_page(page)
