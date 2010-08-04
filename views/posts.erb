@@ -67,6 +67,18 @@
 <hr class="clear" />
 </div>
 
+<div class="sidebox">
+  <h2>Les plus bavards</h2>
+  <ul class="sidemenu">
+    <% @most_active_users.each_with_index do |most_active_user, index| %>
+      <li class="<%= 'first' if index == 0 %>">
+        <a href="/posts/<%= most_active_user[:user].uid %>"><%= most_active_user[:user].display_name %></a>
+        (<%= most_active_user[:count] %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
+
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready( function() {

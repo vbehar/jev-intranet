@@ -13,6 +13,7 @@
       pass if @user.nil?
       load_posts(params[:page], :user_id => @user.uid)
     end
+    @most_active_users = Post.most_active_users(3)
     erb :posts
   end
 end
