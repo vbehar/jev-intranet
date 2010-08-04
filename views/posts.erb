@@ -71,11 +71,14 @@
   <h2>Les plus bavards</h2>
   <ul class="sidemenu">
     <% @most_active_users.each_with_index do |most_active_user, index| %>
-      <li class="<%= 'first' if index == 0 %>">
-        <a href="/posts/<%= most_active_user[:user].uid %>"><%= most_active_user[:user].display_name %></a>
-        (<%= most_active_user[:count] %>)
+      <li class="<%= 'first' if index == 0 %> <%= 'current' if @user.uid == most_active_user[:user].uid %>">
+        <a href="/posts/<%= most_active_user[:user].uid %>" title="Messages de <%= most_active_user[:user].display_name %>">
+          <%= most_active_user[:user].display_name %>
+          <span class="extra"><%= most_active_user[:count] %></span>
+        </a>
       </li>
     <% end %>
+    <li class="more"><a href="/posts/most-active-users">Liste complète</a></li>
   </ul>
 </div>
 
