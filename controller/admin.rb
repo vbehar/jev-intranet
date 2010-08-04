@@ -48,7 +48,7 @@ end
 get '/admin/users/?' do
   @users = User.find(:all, :attributes => admin_user_attributes)
 
-  session["users"] = @users.collect{|u| u.uid}
+  session["users"] = @users.map(&:uid)
   erb :admin_users
 end
 
@@ -57,7 +57,7 @@ post '/admin/users/?' do
   @users = User.search_users(:filter => @filter, :attributes => admin_user_attributes)
   @users.sort!{ |a,b| a.uid <=> b.uid }
 
-  session["users"] = @users.collect{|u| u.uid}
+  session["users"] = @users.map(&:uid)
   erb :admin_users
 end
 
@@ -74,8 +74,8 @@ end
 
 get '/admin/stats/data/ffck_category_repartition.json' do
   content_type 'application/json', :charset => 'utf-8'
-  users = User.find(:all, :attributes => ['cn','ffckCategory']).collect{|u| u.ffck_category.to_s}
-  categories = users.group_by{|u| u.split(' ').first}.collect{|k,v| [k,v.size]}
+  users = User.find(:all, :attributes => ['cn','ffckCategory']).map(&:ffck_category)
+  categories = users.group_by{|u| u.split(' ').first}.map{|k,v| [k,v.size]}
   categories.sort!{|a,b| ffck_categories.index(a.first) <=> ffck_categories.index(b.first)}
   rows = categories.map{|k,v| {:c => [{:v => k},{:v => v}]}}
   {:cols => [{:id => 'cat', :label => 'Catégorie', :type => 'string'},
@@ -85,8 +85,8 @@ end
 
 get '/admin/stats/data/age_repartition.json' do
   content_type 'application/json', :charset => 'utf-8'
-  users = User.find(:all, :attributes => ['cn','birthDate']).collect{|u| u.age}
-  ages = users.group_by{|u| u}.collect{|k,v| [k,v.size]}.sort
+  users = User.find(:all, :attributes => ['cn','birthDate']).map(&:age)
+  ages = users.group_by{|u| u}.map{|k,v| [k,v.size]}.sort
   rows = ages.map{|k,v| {:c => [{:v => k},{:v => v}]}}
   {:cols => [{:id => 'age', :label => 'Age', :type => 'number'},
              {:id => 'nb', :label => 'Nombre', :type => 'number'}],

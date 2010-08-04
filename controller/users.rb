@@ -21,7 +21,7 @@ end
       @current_month = Date.today.at_beginning_of_month
     end
 
-    @months_and_birthdays = -1.upto(1).collect do |i|
+    @months_and_birthdays = -1.upto(1).map do |i|
       month = @current_month.months_since i
       [month, users_birthdays_for(month)]
     end

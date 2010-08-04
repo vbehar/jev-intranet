@@ -82,7 +82,7 @@
   </div>
 
   <div id="breadcrumb">
-    <%= @breadcrumb.collect { |path, title| "<a href='#{path}' title='#{title}'>#{title}</a>" }.join(" > ") %>
+    <%= @breadcrumb.map { |path, title| "<a href='#{path}' title='#{title}'>#{title}</a>" }.join(" > ") %>
   </div>
 
   <%= yield %>

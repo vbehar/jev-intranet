@@ -105,7 +105,7 @@ helpers do
     index = current_page % items_per_page
     offset = current_page - index
     offset -= items_per_page if index == 0
-    0.upto(items_per_page + 1).collect{|p| offset + p }.delete_if{|p| p < 1 || p > total_pages }
+    0.upto(items_per_page + 1).map{|p| offset + p }.delete_if{|p| p < 1 || p > total_pages }
   end
 
   # ADMIN HELPERS

@@ -11,7 +11,7 @@ class Participation
 
     # return an array of all statuses
     def self.all
-      self.constants.collect{|s| eval s}
+      self.constants.map{|s| eval s}
     end
 
     # return true if the given status is valid

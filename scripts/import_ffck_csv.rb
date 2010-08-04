@@ -47,7 +47,7 @@ def import_ffck_from_csv(csv_file, separator = ";")
         m["mail"] << d["AUTRE EMAIL"] unless d["AUTRE EMAIL"].blank?
         m["ffckNumberYear"] = d["DERNIERE LICENCE"]
         m["ffckNumberDate"] = "20" + d["PRISE LE"].split("/").reverse.join("-")
-        infos = Hash[ d["INFORMATION"].split("&").collect{|s| s.split("=", 2)} ] rescue {}
+        infos = Hash[ d["INFORMATION"].split("&").map{|s| s.split("=", 2)} ] rescue {}
         m["medicalCertificateDate"] = infos["DATECERTIFCK"].split("/").reverse.join("-") unless infos["DATECERTIFCK"].blank?
         m["medicalCertificateDate"] = infos["DATECERTIFAPS"].split("/").reverse.join("-") unless infos["DATECERTIFAPS"].blank?
         m["medicalCertificateType"] = "Loisirs" if infos["CERTIFAPS"] == "O"

@@ -19,10 +19,10 @@ class User < LdapBase
 
   # search users with the given params (:filter and :attributes)
   def self.search_users(params = {})
-    self.search(params).collect do |user|
+    self.search(params).map do |user|
       attrs = user[1].to_a
       # don't use an array for uid
-      attrs.collect!{ |k,v| k == 'uid' ? [k,v.to_s] : [k,v] }
+      attrs.map!{ |k,v| k == 'uid' ? [k,v.to_s] : [k,v] }
       User.new(Hash[attrs])
     end
   end
