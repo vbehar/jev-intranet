@@ -74,11 +74,12 @@ delete '/event/:slug/?' do |slug|
 end
 
 def load_events(page = 1, query = {})
+  @page  = fix_page(page)
+
   query = {:deleted => false, :per_page => options.events_per_page, :page => @page, :order => :start.asc}.merge(query)
   query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
 
-  @page  = fix_page(page)
-  @pages = calculate_total_pages(Event, query_for_count, options.posts_per_page)
+  @pages = calculate_total_pages(Event, query_for_count, options.events_per_page)
   @events = Event.paginate(query)
 end
 

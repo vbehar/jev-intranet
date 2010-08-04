@@ -36,12 +36,13 @@ delete '/post/:id/?' do |id|
   halt 204
 end
 
-def load_posts(page = 1, query_params = {})
-  common_params = {:deleted => false}
+def load_posts(page = 1, query = {})
   @page  = fix_page(page)
-  @pages = calculate_total_pages(Post, query_params.merge(common_params), options.posts_per_page)
-  @posts = Post.paginate(query_params.merge(common_params).merge(:per_page => options.posts_per_page,
-                                                                 :page     => @page,
-                                                                 :order    => :created_at.desc))
+
+  query = {:deleted => false, :per_page => options.posts_per_page, :page => @page, :order => :created_at.desc}.merge(query)
+  query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
+
+  @pages = calculate_total_pages(Post, query_for_count, options.posts_per_page)
+  @posts = Post.paginate(query)
 end
 
