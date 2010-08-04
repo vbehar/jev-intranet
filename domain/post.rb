@@ -18,7 +18,7 @@ class Post
     Post.collection.group(%w(user_id),'{deleted : false}',{:count => 0},'function(doc,prev) {prev.count += 1;}')\
                    .sort{|a,b| b['count'] <=> a['count']}\
                    .slice(0,max_users)\
-                   .map{|o| { :user => User.find(o['user_id']), :count => o['count'] } }
+                   .map{|o| { :user => User.find(o['user_id']), :count => o['count'].to_i } }
   end
 
   # mark the post as deleted, and save it
