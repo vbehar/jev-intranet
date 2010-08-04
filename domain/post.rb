@@ -15,7 +15,7 @@ class Post
 
   # return an array of the most active users and their associated posts sum
   def self.most_active_users(max_users = 3)
-    Post.collection.group(%w(user_id),{:deleted => false},{:count => 0},'function(doc,prev) {prev.count += 1;}')\
+    Post.collection.group(%w(user_id),{:deleted => false},{:count => 0},'function(doc,prev) {prev.count++;}')\
                    .sort{|a,b| b['count'] <=> a['count']}\
                    .slice(0,max_users)\
                    .map{|o| { :user => User.find(o['user_id']), :count => o['count'].to_i } }
