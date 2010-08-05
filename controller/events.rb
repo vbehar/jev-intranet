@@ -1,14 +1,16 @@
 
 ['/events/?', '/events/:type/?', '/events/:type/:page/?'].each do |path|
   get path do
-    expires 1.minutes, :public
+    @type = params[:type].blank? ? 'future' : params[:type]
+    pass unless %w(passed occurring future).include?(@type)
     now = Time.now
-    @type, query = case params[:type]
-      when 'passed'; ['passed', {:end.lt => now, :order => :start.desc}]
-      when 'occurring'; ['occurring', {:start.lt => now, :end.gt => now}]
-      else ['future', {:start.gt => now}]
+    query = case @type
+      when 'passed'; {:end.lt => now, :order => :start.desc}
+      when 'occurring'; {:start.lt => now, :end.gt => now}
+      when 'future'; {:start.gt => now}
     end
     load_events(params[:page], query)
+    expires 1.minutes, :public
     erb :events
   end
 end
