@@ -17,7 +17,7 @@ class Post
   def self.most_active_posters(max_posters = 3)
     Post.collection.group(%w(user_id),{:deleted => false},{:count => 0},'function(doc,prev) {prev.count++;}')\
                    .sort{|a,b| b['count'] <=> a['count']}\
-                   .slice(0,max_users)\
+                   .slice(0,max_posters)\
                    .map{|o| { :user => User.find(o['user_id']), :count => o['count'].to_i } }
   end
 
