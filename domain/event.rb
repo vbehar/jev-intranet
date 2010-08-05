@@ -22,10 +22,27 @@ class Event
   before_validation_on_create :set_slug
 
   # return an array of the most active participants and their associated participations sum
-  def self.most_active_participants(max_participants = 10)
-    map = 'function() { this.participations.forEach(function(p) { emit(p.user_id,1); } ); }'
-    reduce = 'function(k,v) { var total = 0; for(var i=0;i<v.length;i++) {total+=v[i];} return total; }'
-    Event.collection.map_reduce(map, reduce).find().to_a\
+  def self.most_active_participants(max_participants = 10, status = Participation::Status::PRESENT)
+    map = <<-JS
+      function() {
+        this.participations.forEach( function(p) {
+          if(p.status == '#{status}') {
+            emit( p.user_id, 1 );
+          }
+        });
+      }
+    JS
+    reduce = <<-JS
+      function(key, values) {
+        var total = 0;
+        values.forEach( function(value) {
+          total += value;
+        });
+        return total;
+      }
+    JS
+    query = {:deleted => false}
+    Event.collection.map_reduce(map, reduce, :query => query).find().to_a\
                     .sort{|a,b| b['value'] <=> a['value']}\
                     .slice(0,max_participants)\
                     .map{|o| { :user => User.find(o['_id']), :count => o['value'].to_i } }
