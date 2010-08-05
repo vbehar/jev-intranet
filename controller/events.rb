@@ -15,6 +15,19 @@
   end
 end
 
+['/events/participations/:user/?', '/events/participations/:user/:page/?'].each do |path|
+  get path do
+    redirect "/events/participations/#{current_user_id}/#{params[:page]}" if(params[:user].eql?('mine') rescue false)
+    status = params[:status].blank? ? Participation::Status::PRESENT : params[:status]
+    pass unless Participation::Status.valid?(status)
+    @user = User.find(params[:user]) rescue nil
+    pass if @user.nil?
+    load_events(params[:page], { :participations => {'$elemMatch' => {:user_id => @user.uid, :status => status, :deleted => false} }, :order => :start.desc })
+    expires 1.minutes, :public
+    erb :participations
+  end
+end
+
 ['/events/most-active-participants/?', '/events/most-active-participants/:status/?'].each do |path|
   get path do
     status = params[:status].blank? ? Participation::Status::PRESENT : params[:status]

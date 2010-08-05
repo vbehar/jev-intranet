@@ -1,10 +1,6 @@
 <% 
-  @title = case @type
-    when 'passed'; 'Evènements passés'
-    when 'occurring'; 'Evènements en cours'
-    when 'future'; 'Evènements à venir'
-  end
-  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/events/#{@type}", @title]]
+  @title = "Participations de #{@user.display_name}"
+  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/events/participations/#{@user.uid}", @title]]
 %>
 
 <div id="content">
@@ -15,9 +11,6 @@
 <% @events.each do |event| %>
   <li class="event">
     <span class="content">
-      <span class="event-id"><%= event.id.to_s %></span>
-      <span class="r1-uid"><%= event.r1_uid %></span>
-      <span class="creator-uid"><%= event.creator_uid %></span>
       <span class="title"><a href="/event/<%= event.slug %>"><%= event.title %></a></span>
       <span class="text"><%= linkify(event.text) %></span>
       <span class="participations">
@@ -56,9 +49,9 @@
 <div class="sidebox">
   <h2>Evènements</h2>
   <ul class="sidemenu">
-    <li class="<%= 'current' if @type == 'passed' %> first"><a href="/events/passed">Passés</a></li>
-    <li class="<%= 'current' if @type == 'occurring' %>"><a href="/events/occurring">En cours</a></li>
-    <li class="<%= 'current' if @type == 'future' %>"><a href="/events/future">A venir</a></li>
+    <li class="first"><a href="/events/passed">Passés</a></li>
+    <li class=""><a href="/events/occurring">En cours</a></li>
+    <li class=""><a href="/events/future">A venir</a></li>
   </ul>
 </div>
 
@@ -69,4 +62,14 @@
     <li class=""><a href="/events/most-active-participants">Top <%= options.most_active_participants_on_page %> des participants</a></li>
   </ul>
 </div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $('#intranet').bind('current_user-loaded', function(e) {
+    if(window.location.pathname.indexOf(Intranet.current_user.uid) > -1) {
+      $('div.sidebox ul.sidemenu li.first').last().addClass('current');
+    }
+  });
+  //]]>
+</script>
 
