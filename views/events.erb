@@ -21,7 +21,8 @@
       <span class="title"><a href="/event/<%= event.slug %>"><%= event.title %></a></span>
       <span class="text"><%= linkify(event.text) %></span>
       <span class="participations">
-        <%= event.participations_for(Participation::Status::PRESENT).count %> participants
+        <% participants = event.participations_for(Participation::Status::PRESENT).count %>
+        <%= participants %> participant<%= 's' unless participants == 1 %>
       </span>
       <span class="date"><%= duration_date(event.start, event.end) %></span>
     </span>
