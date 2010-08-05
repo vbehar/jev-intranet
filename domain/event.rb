@@ -26,7 +26,7 @@ class Event
     map = <<-JS
       function() {
         this.participations.forEach( function(p) {
-          if(p.status == '#{status}') {
+          if(p.status == '#{status}' && !p.deleted) {
             emit( p.user_id, 1 );
           }
         });
