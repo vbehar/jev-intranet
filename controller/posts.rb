@@ -11,15 +11,15 @@
       pass if @user.nil?
       load_posts(params[:page], :user_id => @user.uid)
     end
-    @most_active_users = Post.most_active_users(options.posts_most_active_users_box)
+    @most_active_posters = Post.most_active_posters(options.most_active_posters_on_box)
     expires 0, :private, :no_cache, :no_store
     erb :posts
   end
 end
 
-get '/posts/most-active-users/?' do
-  @most_active_users = Post.most_active_users(options.posts_most_active_users_page)
-  erb :posts_most_active_users
+get '/posts/most-active-posters/?' do
+  @most_active_posters = Post.most_active_posters(options.most_active_posters_on_page)
+  erb :posts_most_active_posters
 end
 
 post '/posts/?' do

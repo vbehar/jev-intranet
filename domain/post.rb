@@ -13,8 +13,8 @@ class Post
   key :deleted,    Boolean, :default  => false
   timestamps!
 
-  # return an array of the most active users and their associated posts sum
-  def self.most_active_users(max_users = 3)
+  # return an array of the most active posters (users) and their associated posts sum
+  def self.most_active_posters(max_posters = 3)
     Post.collection.group(%w(user_id),{:deleted => false},{:count => 0},'function(doc,prev) {prev.count++;}')\
                    .sort{|a,b| b['count'] <=> a['count']}\
                    .slice(0,max_users)\
