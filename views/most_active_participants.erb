@@ -1,0 +1,32 @@
+<% 
+  @title = "Top #{options.most_active_participants_on_page} des adhérents qui participent le plus"
+  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ['/events/most-active-participants', @title]]
+%>
+
+<div id="content">
+
+<h2><%= @title %></h2>
+
+<ol class="posts">
+<% @most_active_participants.each do |most_active_participant| %>
+  <li class="post">
+    <span class="icon">
+      <a href="/user/<%= most_active_participant[:user].uid %>">
+        <img src="<%= most_active_participant[:user].avatar_url(48) %>" alt="<%= most_active_participant[:user].display_name %>" title="<%= most_active_participant[:user].display_name %>" />
+      </a>
+    </span>
+    <span class="content">
+      <span class="user"><%= most_active_participant[:user].display_name %></span>
+      <span class="text">
+        <%= most_active_participant[:count] %> participation<%= 's' if most_active_participant[:count] > 1 %>
+        <a class="extra-link" href="/events/participations/<%= most_active_participant[:user].uid %><%= "/#{@status}" unless @status == Participation::Status::PRESENT %>">Voir toutes les participations de <%= most_active_participant[:user].display_name %></a>
+      </span>
+      <span class="date"><%= participant_level(most_active_participant[:count], @most_active_participants.first[:count]) %></span>
+    </span>
+  </li>
+<% end %>
+</ol>
+
+<hr class="clear" />
+</div>
+

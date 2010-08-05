@@ -68,9 +68,14 @@ helpers do
   # return a string representing the level of the poster, based on his posts count and the max count
   def poster_level(poster_count, max_count)
     levels = %w(Blanche Jaune Verte Bleue Rouge Noire)
-    level = poster_count / (max_count / (levels.length-1))
+    step = max_count / ( levels.length - 1 )
+    step = 1 if step == 0
+    level = poster_count / step
     'Pagaie ' + levels[level]
   end
+
+  # return a string representing the level of the participant, based on his participations count and the max count
+  alias :participant_level :poster_level
 
   # return an ordered array of all ffck categories
   def ffck_categories()

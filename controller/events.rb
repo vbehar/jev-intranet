@@ -15,6 +15,15 @@
   end
 end
 
+['/events/most-active-participants/?', '/events/most-active-participants/:status/?'].each do |path|
+  get path do
+    @status = params[:status].blank? ? Participation::Status::PRESENT : params[:status]
+    pass unless Participation::Status.valid?(@status)
+    @most_active_participants = Event.most_active_participants(options.most_active_participants_on_page, @status)
+    erb :most_active_participants
+  end
+end
+
 get '/event/:slug/?' do |slug|
   @event = Event.find_by_slug(slug) rescue nil
   pass if @event.nil? || @event.deleted?

@@ -12,4 +12,8 @@ most_active_posters_on_box: 5
 
 # number of events that should be displayed per page
 events_per_page: 10
+# number of 'most active participants' to display on the page
+most_active_participants_on_page: 10
+# number of 'most active participants' to display on the sidebox
+most_active_participants_on_box: 5
 
