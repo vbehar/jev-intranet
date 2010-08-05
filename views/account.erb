@@ -113,11 +113,14 @@
 
     <h4 class="separator">Club</h4>
 
-    <label for="user_ffck_club_number">Numéro<span class="labeltip"></span></label>
+    <label for="user_ffck_club_number">Numéro<span class="labeltip">du club</span></label>
     <input type="text" name="user[ffck_club_number]" id="user_ffck_club_number" value="<%= @me.ffck_club_number %>" readonly="readonly" />
 
-    <label for="user_ffck_club_name">Nom<span class="labeltip"></span></label>
+    <label for="user_ffck_club_name">Nom<span class="labeltip">du club</span></label>
     <input type="text" name="user[ffck_club_name]" id="user_ffck_club_name" value="<%= @me.ffck_club_name %>" readonly="readonly" />
+
+    <label for="user_title">Fonction<span class="labeltip">au sein du club</span></label>
+    <input type="text" name="user[title]" id="user_title" value="<%= @me.title %>" />
 
     <h4 class="separator">Certificat médical</h4>
 
