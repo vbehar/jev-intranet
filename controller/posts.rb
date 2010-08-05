@@ -19,7 +19,7 @@ end
 
 get '/posts/most-active-posters/?' do
   @most_active_posters = Post.most_active_posters(options.most_active_posters_on_page)
-  erb :posts_most_active_posters
+  erb :most_active_posters
 end
 
 post '/posts/?' do
