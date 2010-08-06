@@ -5,11 +5,11 @@
     if params[:user].blank? || params[:user].eql?('all')
       @user = 'all'
       @user.instance_eval{ def uid(); self; end } # fake uid for constructing urls
-      load_posts(params[:page])
+      @page, @pages, @posts = load_paginated_posts(params[:page])
     else
       @user = User.find(params[:user]) rescue nil
       pass if @user.nil?
-      load_posts(params[:page], :user_id => @user.uid)
+      @page, @pages, @posts = load_paginated_posts(params[:page], :user_id => @user.uid)
     end
     @most_active_posters = Post.most_active_posters(options.most_active_posters_on_box)
     expires 0, :private, :no_cache, :no_store
@@ -41,13 +41,15 @@ delete '/post/:id/?' do |id|
   halt 204
 end
 
-def load_posts(page = 1, query = {})
-  @page  = fix_page(page)
+def load_paginated_posts(page = 1, query = {})
+  page = fix_page(page)
 
-  query = {:deleted => false, :per_page => options.posts_per_page, :page => @page, :order => :created_at.desc}.merge(query)
+  query = {:deleted => false, :per_page => options.posts_per_page, :page => page, :order => :created_at.desc}.merge(query)
   query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
 
-  @pages = calculate_total_pages(Post, query_for_count, options.posts_per_page)
-  @posts = Post.paginate(query)
+  pages = calculate_total_pages(Post, query_for_count, options.posts_per_page)
+  posts = Post.paginate(query)
+
+  [page, pages, posts]
 end
 
