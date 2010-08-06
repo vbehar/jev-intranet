@@ -1,31 +1,35 @@
 <%
-  @title = "Modification de l'évènement '#{@event.title}'"
-  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/event/#{@event.slug}", @event.title], ["/event/#{@event.slug}/edit", @title]]
+  if @new
+    @title = "Création d'un nouvel évènement"
+    @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'],['/events/new', @title]]
+  else
+    @title = "Modification de l'évènement '#{@event.title}'"
+    @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/event/#{@event.slug}", @event.title], ["/event/#{@event.slug}/edit", @title]]
+  end
 %>
 
 <div id="contentfull">
 
 <h2><%= @title %></h2>
 
-<% if @event.passed? %>
-  <div class="msgbox msginfo">Cet évènement est déjà passé...</div>
-<% elsif @event.occurring? %>
-  <div class="msgbox msgwarning">Cet évènement est en train de se dérouler en ce moment...</div>
+<% unless @new %>
+  <% if @event.passed? %>
+    <div class="msgbox msginfo">Cet évènement est déjà passé...</div>
+  <% elsif @event.occurring? %>
+    <div class="msgbox msgwarning">Cet évènement est en train de se dérouler en ce moment...</div>
+  <% end %>
 <% end %>
 
-<form id="event" method="post" action="/event/<%= @event.slug %>">
+<form id="event" method="post" action="<%= @new ? '/events' : "/event/#{@event.slug}" %>">
   <div class="largeform">
     <label for="event_title">Titre<span class="labeltip">de l'évènement</span></label>
     <input type="text" name="event[title]" id="event_title" value="<%= @event.title %>" />
 
-    <label for="event_slug">Slug<span class="labeltip">qui apparaît dans l'url</span></label>
-    <input type="text" name="event[slug]" id="event_slug" value="<%= @event.slug %>" readonly="readonly" />
-
     <label for="event_creator">Créé par<span class="labeltip"></span></label>
-    <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name %>" readonly="readonly" />
+    <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name unless @new %>" readonly="readonly" />
 
     <label for="event_r1">Responsable<span class="labeltip">R1 de l'évènement</span></label>
-    <input type="text" name="event[r1]" id="event_r1" value="<%= @event.r1.name %>" />
+    <input type="text" name="event[r1]" id="event_r1" value="<%= @event.r1.name unless @new %>" />
 
     <label for="event_start_fr">Date de début<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="event[start_fr]" id="event_start_fr" value="<%= @event.start.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
@@ -89,7 +93,7 @@
     <label for="event_updated_at">Date de dernière modification<span class="labeltip"></span></label>
     <input type="text" name="event[updated_at]" id="event_updated_at" value="<%= @event.updated_at.getlocal.strftime('%A %d %B %Y à %Hh%M') %>" readonly="readonly" />
 
-    <button type="submit">Modifier !</button>
+    <button type="submit"><%= @new ? 'Créer' : 'Modifier' %> !</button>
     <div class="spacer"></div>
   </div>
 </form>

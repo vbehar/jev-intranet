@@ -50,8 +50,8 @@ post '/event/:slug/?' do |slug|
   user = current_user
   halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
-  %w(title text start end).each{ |f| @event[f] = params['event'][f] }
-
+  %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
+  %w(start end).each{ |f| @event[f] = params['event'][f] }
   start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
   @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
   end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
@@ -70,7 +70,16 @@ get '/event/:slug/edit/?' do |slug|
   user = current_user
   halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
+  @new = false
   expires 0, :private, :no_cache, :no_store
+  erb :event_form
+end
+
+get '/events/new' do
+  @event = Event.new
+  @event.start = @event.end = @event.created_at = @event.updated_at = Time.now
+
+  @new = true
   erb :event_form
 end
 
@@ -102,18 +111,24 @@ delete '/event/:slug/participation/?' do |slug|
 end
 
 post '/events/?' do
-  event = Event.new
-  event.creator_uid = current_user_id
-  event.r1_uid = params['r1']
-  event.r1_uid = current_user_id if event.r1_uid.blank? || !User.exist?(event.r1_uid)
-  event.title = clean_html(params['title'])
-  event.text = clean_html(params['text'])
-  event.start = params['start']
-  event.end = params['end']
-  if(event.save)
-    redirect "/event/#{event.slug}"
+  @event = Event.new
+
+  %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
+  %w(start end).each{ |f| @event[f] = params['event'][f] }
+  start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
+  @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
+  end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
+  @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
+
+  @event.closed = (params['event']['closed'] == 'on')
+
+  if(false)
+    redirect "/event/#{@event.slug}"
   else
-    redirect '/events'
+    @new = true
+    @event.created_at = @event.updated_at = Time.now
+    expires 0, :private, :no_cache, :no_store
+    erb :event_form
   end
 end
 
