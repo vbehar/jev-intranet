@@ -43,6 +43,37 @@ get '/event/:slug/?' do |slug|
   erb :event
 end
 
+post '/event/:slug/?' do |slug|
+  @event = Event.find_by_slug(slug) rescue nil
+  pass if @event.nil? || @event.deleted?
+
+  user = current_user
+  halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+
+  %w(title text start end).each{ |f| @event[f] = params['event'][f] }
+
+  start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
+  @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
+  end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
+  @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
+
+  @event.closed = (params['event']['closed'] == 'on')
+
+  @event.save
+  redirect "/event/#{slug}"
+end
+
+get '/event/:slug/edit/?' do |slug|
+  @event = Event.find_by_slug(slug) rescue nil
+  pass if @event.nil? || @event.deleted?
+
+  user = current_user
+  halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+
+  expires 0, :private, :no_cache, :no_store
+  erb :event_form
+end
+
 post '/event/:slug/participation/:status/?' do |slug, status|
   pass unless Participation::Status.valid?(status)
 

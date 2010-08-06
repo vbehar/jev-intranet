@@ -459,6 +459,7 @@ ul.simplelist li {
 Form
 ***/
 
+/* simple form */
 .simpleform {
   border: solid 2px #b7ddf2;
   background: #ebf4fb;
@@ -500,43 +501,39 @@ Form
   position: absolute;
 }
 
-.niceform {
+/* tiny form : half screen */
+.tinyform {
   float: left;
-  margin: 0 24px;
   width: 400px;
+  margin: 0 24px;
   padding: 14px;
   border: solid 2px #b7ddf2;
   background: #ebf4fb;
 }
-
-.niceform h3 {
+.tinyform h3 {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 8px;
 }
-
-.niceform h4 {
+.tinyform h4 {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
-.niceform p {
+.tinyform p {
   font-size: 11px;
   color: #666666;
   margin-bottom: 20px;
   border-bottom: solid 1px #b7ddf2;
   padding-bottom: 10px;
 }
-
-.niceform label {
+.tinyform label {
   display: block;
   font-weight: bold;
   text-align: right;
   width: 140px;
   float: left;
 }
-
-.niceform .labeltip {
+.tinyform .labeltip {
   color: #666666;
   display: block;
   font-size: 11px;
@@ -544,8 +541,7 @@ Form
   text-align: right;
   width: 140px;
 }
-
-.niceform input, .niceform select, .niceform textarea {
+.tinyform input, .tinyform select, .tinyform textarea {
   float: left;
   font-size: 12px;
   padding: 4px 2px;
@@ -553,29 +549,24 @@ Form
   width: 200px;
   margin: 2px 0 20px 10px;
 }
-
-.niceform input[readonly], .niceform select[readonly] {
+.tinyform input[readonly], .tinyform select[readonly] {
   background-color: #dcdcdc;
 }
-
-.niceform .ui-datepicker-trigger {
+.tinyform .ui-datepicker-trigger {
   float: left;
   margin: 5px 0px 5px 5px;
 }
-
-.niceform .input-action {
+.tinyform .input-action {
   float: left;
   margin: 5px 0px 5px 5px;
   cursor: pointer;
   color: #4D699D;
   font-weight: 400;
 }
-
-.niceform .input-action:hover {
+.tinyform .input-action:hover {
   color: #444444;
 }
-
-.niceform .action {
+.tinyform .action {
   clear: both;
   float: left;
   margin-bottom: 10px;
@@ -583,37 +574,143 @@ Form
   color: #4D699D;
   font-weight: 400;
 }
-
-.niceform .action:hover {
+.tinyform .action:hover {
   color: #444444;
 }
-
-.niceform .action img {
+.tinyform .action img {
   margin-right: 5px;
 }
-
-#contentfull .niceform a {
+#contentfull .tinyform a {
   border-bottom: 0;
 }
-
-.niceform .separator {
+.tinyform .separator {
   clear: both;
   height: 1px;
   border-top: solid 1px #b7ddf2;
   margin-bottom: 20px;
 }
-
-.niceform span.tip {
+.tinyform span.tip {
   color: #666666;
   font-size: 11px;
   font-weight: normal;
   text-align: right;
   float: right;
 }
-
-.niceform button {
+.tinyform button {
   clear: both;
   margin-left: 150px;
+  width: 125px;
+  height: 31px;
+  border: 0;
+  background: #666666 url(../images/util/button.png) no-repeat;
+  text-align: center;
+  line-height: 31px;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* large form : full screen */
+.largeform {
+  margin: 0 24px;
+  padding: 14px;
+  border: solid 2px #b7ddf2;
+  background: #ebf4fb;
+}
+.largeform h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.largeform h4 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.largeform p {
+  font-size: 11px;
+  color: #666666;
+  margin-bottom: 20px;
+  border-bottom: solid 1px #b7ddf2;
+  padding-bottom: 10px;
+}
+.largeform label {
+  display: block;
+  font-weight: bold;
+  text-align: right;
+  width: 250px;
+  float: left;
+  clear: both;
+}
+.largeform .labeltip {
+  color: #666666;
+  display: block;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: right;
+  width: 250px;
+}
+.largeform input, .largeform select, .largeform textarea {
+  float: left;
+  font-size: 12px;
+  padding: 4px 2px;
+  border: solid 1px #aacfe4;
+  width: 500px;
+  margin: 5px 0 20px 50px;
+}
+.largeform input[type="checkbox"] {
+  width: 20px;
+}
+.largeform input[readonly], .largeform select[readonly] {
+  background-color: #dcdcdc;
+}
+.largeform .ui-datepicker-trigger {
+  float: left;
+  margin: 5px 0px 5px 5px;
+}
+.largeform .input-action {
+  float: left;
+  margin: 5px 0px 5px 5px;
+  cursor: pointer;
+  color: #4D699D;
+  font-weight: 400;
+}
+.largeform .input-action:hover {
+  color: #444444;
+}
+.largeform .action {
+  clear: both;
+  float: left;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #4D699D;
+  font-weight: 400;
+}
+.largeform .action:hover {
+  color: #444444;
+}
+.largeform .action img {
+  margin-right: 5px;
+}
+#contentfull .largeform a {
+  border-bottom: 0;
+}
+.largeform .separator {
+  clear: both;
+  height: 1px;
+  border-top: solid 1px #b7ddf2;
+  margin-bottom: 20px;
+}
+.largeform span.tip {
+  color: #666666;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: right;
+  float: right;
+}
+.largeform button {
+  clear: both;
+  display: block;
+  margin: 20px auto 0 auto;
   width: 125px;
   height: 31px;
   border: 0;
@@ -936,6 +1033,8 @@ div.event div.metadata span.updated_at {
 }
 div.event div.actions {
   margin-top: 5px;
+}
+div.event div.actions div a.edit {
 }
 div.event div.actions div a.remove {
   padding-left: 20px;

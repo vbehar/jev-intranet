@@ -41,7 +41,7 @@
     <% if @event.closed? %>
       <div class="msgbox msgerror">Les inscriptions à cet évènement sont fermées !</div>
       <div class="status">
-        <span class="none">Contactez directement le responsable de cet évènement pour plus d'informations...</span>
+        <span class="none">Contactez directement <a href="/user/<%= @event.r1.uid %>" title="<%= @event.r1.display_name %>">le responsable de cet évènement</a> pour plus d'informations...</span>
         <span class="present hide">Vous avez choisi de <strong>participer</strong> à cet évènement.</span>
         <span class="unknown hide">Vous êtes <strong>indécis</strong> sur votre participation.</span>
         <span class="absent hide">Vous avez choisi de <strong>ne pas participer</strong> à cet évènement.</span>
@@ -112,6 +112,7 @@
 
 <div class="actions hide">
   <div class="loading hide">Chargement en cours...</div>
+  <div><a href="/event/<%= @event.slug %>/edit" class="edit">Modifier cet évènement !</a></div>
   <div><a href="/events" class="remove">Supprimer cet évènement !</a></div>
 </div>
 
@@ -139,14 +140,14 @@
       $('.participate .loading').removeClass('hide');
       return false;
     });
-    $('.event > .actions').delegate("a", "click", function() {
+    $('.event > .actions').delegate("a.remove", "click", function() {
       if(confirm('Etes vous sur de vouloir supprimer cet évènement ?')) {
         $.post('/event/'+slug, {_method:"delete"}, function(data) {
           window.location = '/events';
         });
+        $('.event > .actions div').addClass('hide');
+        $('.event > .actions .loading').removeClass('hide');
       }
-      $('.event > .actions div').addClass('hide');
-      $('.event > .actions .loading').removeClass('hide');
       return false;
     });
   });
