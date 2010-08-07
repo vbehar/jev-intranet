@@ -84,6 +84,8 @@
     <label for="event_closed">Inscriptions fermées ?<span class="labeltip">Cocher pour fermer les inscriptions</span></label>
     <input type="checkbox" name="event[closed]" id="event_closed" <%= "checked=\"checked\"" if @event.closed? %> />
 
+    <div class="separator"></div>
+
     <label for="event_creator">Créé par<span class="labeltip"></span></label>
     <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name unless @new %>" readonly="readonly" />
 
