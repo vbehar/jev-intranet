@@ -70,6 +70,7 @@ get '/event/:slug/edit/?' do |slug|
   user = current_user
   halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
+  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
   @new = false
   expires 0, :private, :no_cache, :no_store
   erb :event_form
@@ -79,6 +80,7 @@ get '/events/new' do
   @event = Event.new
   @event.start = @event.end = @event.created_at = @event.updated_at = Time.now
 
+  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
   @new = true
   erb :event_form
 end

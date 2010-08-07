@@ -25,30 +25,12 @@
     <label for="event_title">Titre<span class="labeltip">de l'évènement</span></label>
     <input type="text" name="event[title]" id="event_title" value="<%= @event.title %>" />
 
-    <label for="event_r1">Responsable<span class="labeltip">R1 de l'évènement</span></label>
-    <input type="text" name="event[r1]" id="event_r1" value="<%= @event.r1.name unless @new %>" />
+    <label for="event_r1_uid">Responsable<span class="labeltip">R1 de l'évènement</span></label>
+    <input type="text" name="event[r1_uid]" id="event_r1_uid" value="<%= @event.r1_uid unless @new %>" />
 
     <label for="event_start_fr">Date de début<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="event[start_fr]" id="event_start_fr" value="<%= @event.start.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="event[start]" id="event_start" value="<%= @event.start.getlocal.strftime('%Y-%m-%d') rescue '' %>" />
-    <script type="text/javascript">
-      //<![CDATA[
-      $(document).ready(function(){
-        $('#event_start_fr').datepicker({
-          altField: '#event_start', altFormat: 'yy-mm-dd',
-          changeMonth: true, changeYear: true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year + 5 %>',
-          showButtonPanel: true, closeText: 'X', showOn: 'both',
-          buttonImage: '/images/icons/calendar.gif', buttonImageOnly: true,
-          buttonText: 'Calendrier', currentText: 'Aujourd\'hui',
-          onSelect: function(selectedDate) {
-            var instance = $(this).data('datepicker');
-            var date = $.datepicker.parseDate($.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-            $('#event_end_fr').datepicker('option', 'minDate', date);
-          }
-        });
-      });
-      //]]>
-    </script>
 
     <label for="event_start_time">Heure de début (optionnel)<span class="labeltip">format hh:mm</span></label>
     <input type="text" name="event[start_time]" id="event_start_time" value="<%= @event.start.getlocal.strftime('%H:%M') unless @event.start.getlocal.strftime('%X') == '00:00:00' %>" />
@@ -56,24 +38,6 @@
     <label for="event_end_fr">Date de fin<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="event[end_fr]" id="event_end_fr" value="<%= @event.end.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="event[end]" id="event_end" value="<%= @event.end.getlocal.strftime('%Y-%m-%d') rescue '' %>" />
-    <script type="text/javascript">
-      //<![CDATA[
-      $(document).ready(function(){
-        $('#event_end_fr').datepicker({
-          altField: '#event_end', altFormat: 'yy-mm-dd',
-          changeMonth: true, changeYear: true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year + 5 %>',
-          showButtonPanel: true, closeText: 'X', showOn: 'both',
-          buttonImage: '/images/icons/calendar.gif', buttonImageOnly: true,
-          buttonText: 'Calendrier', currentText: 'Aujourd\'hui',
-          onSelect: function(selectedDate) {
-            var instance = $(this).data('datepicker');
-            var date = $.datepicker.parseDate($.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-            $('#event_start_fr').datepicker('option', 'maxDate', date);
-          }
-        });
-      });
-      //]]>
-    </script>
 
     <label for="event_end_time">Heure de fin (optionnel)<span class="labeltip">format hh:mm</span></label>
     <input type="text" name="event[end_time]" id="event_end_time" value="<%= @event.end.getlocal.strftime('%H:%M') unless @event.end.getlocal.strftime('%X') == '23:59:59' %>" />
@@ -102,4 +66,45 @@
 
 <hr class="clear" />
 </div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $('#event_start_fr').datepicker({
+      altField: '#event_start', altFormat: 'yy-mm-dd',
+      changeMonth: true, changeYear: true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year + 5 %>',
+      showButtonPanel: true, closeText: 'X', showOn: 'both',
+      buttonImage: '/images/icons/calendar.gif', buttonImageOnly: true,
+      buttonText: 'Calendrier', currentText: 'Aujourd\'hui',
+      onSelect: function(selectedDate) {
+        var instance = $(this).data('datepicker');
+        var date = $.datepicker.parseDate($.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+        $('#event_end_fr').datepicker('option', 'minDate', date);
+      }
+    });
+    $('#event_end_fr').datepicker({
+      altField: '#event_end', altFormat: 'yy-mm-dd',
+      changeMonth: true, changeYear: true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year + 5 %>',
+      showButtonPanel: true, closeText: 'X', showOn: 'both',
+      buttonImage: '/images/icons/calendar.gif', buttonImageOnly: true,
+      buttonText: 'Calendrier', currentText: 'Aujourd\'hui',
+      onSelect: function(selectedDate) {
+        var instance = $(this).data('datepicker');
+        var date = $.datepicker.parseDate($.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+        $('#event_start_fr').datepicker('option', 'maxDate', date);
+      }
+    });
+    users = <%= @users.to_json %>;
+    users.forEach(function(u) {
+      u.label = u.display_name + " (" + u.uid + ")";
+      u.value = u.uid;
+    });
+    $('#event_r1_uid').autocomplete({
+      source: users,
+      minLength: 0,
+      delay: 0
+    });
+  });
+  //]]>
+</script>
 

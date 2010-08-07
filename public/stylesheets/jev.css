@@ -1161,6 +1161,19 @@ Various classes
 JQuery UI & Tables
 *****************/
 
+/* jQuery Autocomplete */
+
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+  height: 200px;
+}
+
 /*
  * jQuery UI specific styling
  */
