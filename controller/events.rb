@@ -51,11 +51,12 @@ post '/event/:slug/?' do |slug|
   halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
   %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
-  %w(start end).each{ |f| @event[f] = params['event'][f] }
+  %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
   start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
   @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
   end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
   @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
+  @event.r1_uid = current_user_id if @event.r1_uid.blank? || !User.exist?(@event.r1_uid)
 
   @event.closed = (params['event']['closed'] == 'on')
 
@@ -79,6 +80,7 @@ end
 get '/events/new' do
   @event = Event.new
   @event.start = @event.end = @event.created_at = @event.updated_at = Time.now
+  @event.r1_uid = @event.creator_uid = current_user_id
 
   @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
   @new = true
@@ -116,11 +118,12 @@ post '/events/?' do
   @event = Event.new
 
   %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
-  %w(start end).each{ |f| @event[f] = params['event'][f] }
+  %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
   start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
   @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
   end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
   @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
+  @event.r1_uid = current_user_id if @event.r1_uid.blank? || !User.exist?(@event.r1_uid)
 
   @event.closed = (params['event']['closed'] == 'on')
 
@@ -129,6 +132,8 @@ post '/events/?' do
   else
     @new = true
     @event.created_at = @event.updated_at = Time.now
+    @event.creator_uid = current_user_id
+    @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
     expires 0, :private, :no_cache, :no_store
     erb :event_form
   end

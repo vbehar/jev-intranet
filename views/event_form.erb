@@ -26,7 +26,7 @@
     <input type="text" name="event[title]" id="event_title" value="<%= @event.title %>" />
 
     <label for="event_r1_uid">Responsable<span class="labeltip">R1 de l'évènement</span></label>
-    <input type="text" name="event[r1_uid]" id="event_r1_uid" value="<%= @event.r1_uid unless @new %>" />
+    <input type="text" name="event[r1_uid]" id="event_r1_uid" value="<%= @event.r1_uid %>" />
 
     <label for="event_start_fr">Date de début<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="event[start_fr]" id="event_start_fr" value="<%= @event.start.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
@@ -51,7 +51,7 @@
     <div class="separator"></div>
 
     <label for="event_creator">Créé par<span class="labeltip"></span></label>
-    <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name unless @new %>" readonly="readonly" />
+    <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name %>" readonly="readonly" />
 
     <label for="event_created_at">Date de création<span class="labeltip"></span></label>
     <input type="text" name="event[created_at]" id="event_created_at" value="<%= @event.created_at.getlocal.strftime('%A %d %B %Y à %Hh%M') %>" readonly="readonly" />
