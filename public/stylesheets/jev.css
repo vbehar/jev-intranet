@@ -1271,12 +1271,13 @@ table.display {
   margin: 0 auto;
   width: 100%;
   clear: both;
+  border-collapse: collapse;
 }
 
 table.display tfoot th {
-  padding: 3px 10px;
-  border-top: 1px solid black;
+  padding: 3px 0px 3px 10px;
   font-weight: bold;
+  font-weight: normal;
 }
 
 table.display tr.heading2 td {
@@ -1362,6 +1363,10 @@ tr.even {
 /*
  * Misc
  */
+.dataTables_scroll {
+  clear: both;
+}
+
 .top, .bottom {
   padding: 15px;
   background-color: #F5F5F5;
