@@ -25,7 +25,7 @@
 
 <ul class="pagination">
   <% if(@page > 1) %>
-    <li class="previous"><a href="/events/<%= @type %>/<%= @page>2 ? "/#{@page-1}" : '' %>">« précédent</a></li>
+    <li class="previous"><a href="/events/<%= @type %>/<%= @page>2 ? (@page-1).to_s : '' %>">« précédent</a></li>
   <% else %>
     <li class="previous-off">« précédent</li>
   <% end %>
@@ -33,7 +33,7 @@
     <% if(@page == p) %>
       <li class="active"><%= p %></li>
     <% else %>
-      <li><a href="/events/<%= @type %>/<%= p>1 ? "/#{p}" : '' %>"><%= p %></a></li>
+      <li><a href="/events/<%= @type %>/<%= p>1 ? p : '' %>"><%= p %></a></li>
     <% end %>
   <% end %>
   <% if(@page < @pages) %>
