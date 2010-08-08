@@ -48,7 +48,7 @@ get '/event/:slug/participations/?' do |slug|
   pass if @event.nil? || @event.deleted?
 
   user = current_user
-  halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
+  halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
   @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
   expires 0, :private, :no_cache, :no_store
