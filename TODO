@@ -5,6 +5,6 @@ TODO :
   - edit posts ?
 
 - events
-  - limit number of participants
+  - add an optional 'max number of participants' field on events
   - add an optional comment on participations
 
