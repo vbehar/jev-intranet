@@ -25,7 +25,7 @@ end
 post '/posts/?' do
   post = Post.new
   post.user_id = current_user_id
-  post.text = clean_html(params['text'])
+  post.text = clean_html(clean_input(params['text']))
   post.save
   redirect '/posts'
 end
