@@ -18,8 +18,9 @@
     <span class="content">
       <span class="user"><%= most_active_participant[:user].display_name %></span>
       <span class="text">
-        <%= most_active_participant[:count] %> participation<%= 's' if most_active_participant[:count] > 1 %>
-        <a class="extra-link" href="/events/participations/<%= most_active_participant[:user].uid %>">Voir toutes les participations de <%= most_active_participant[:user].display_name %></a>
+        <a href="/events/participations/<%= most_active_participant[:user].uid %>" title="Voir toutes les participations de <%= most_active_participant[:user].display_name %>">
+          <%= most_active_participant[:count] %> participation<%= 's' if most_active_participant[:count] > 1 %>
+        </a>
       </span>
       <span class="date"><%= participant_level(most_active_participant[:count], @most_active_participants.first[:count]) %></span>
     </span>

@@ -3,7 +3,7 @@
   @breadcrumb = [['/', 'Accueil'], ['/posts', 'Messages'], ['/posts/most-active-posters', @title]]
 %>
 
-<div id="content">
+<div id="contentfull">
 
 <h2><%= @title %></h2>
 
@@ -18,8 +18,9 @@
     <span class="content">
       <span class="user"><%= most_active_poster[:user].display_name %></span>
       <span class="text">
-        <%= most_active_poster[:count] %> message<%= 's' if most_active_poster[:count] > 1 %>
-        <a class="extra-link" href="/posts/<%= most_active_poster[:user].uid %>">Voir tous les messages de <%= most_active_poster[:user].display_name %></a>
+        <a href="/posts/<%= most_active_poster[:user].uid %>" title="Voir tous les messages de <%= most_active_poster[:user].display_name %>">
+          <%= most_active_poster[:count] %> message<%= 's' if most_active_poster[:count] > 1 %>
+        </a>
       </span>
       <span class="date"><%= poster_level(most_active_poster[:count], @most_active_posters.first[:count]) %></span>
     </span>
