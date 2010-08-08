@@ -9,7 +9,7 @@
       when 'occurring'; {:start.lt => now, :end.gt => now}
       when 'future'; {:start.gt => now}
     end
-    load_events(params[:page], query)
+    @page, @pages, @posts = load_paginated_events(params[:page], query)
     expires 1.minutes, :public
     erb :events
   end
@@ -22,7 +22,7 @@ end
     pass unless Participation::Status.valid?(status)
     @user = User.find(params[:user]) rescue nil
     pass if @user.nil?
-    load_events(params[:page], { :participations => {'$elemMatch' => {:user_id => @user.uid, :status => status, :deleted => false} }, :order => :start.desc })
+    @page, @pages, @posts = load_paginated_events(params[:page], { :participations => {'$elemMatch' => {:user_id => @user.uid, :status => status, :deleted => false} }, :order => :start.desc })
     expires 1.minutes, :public
     erb :participations
   end
@@ -181,13 +181,15 @@ delete '/event/:slug/?' do |slug|
   halt 204
 end
 
-def load_events(page = 1, query = {})
-  @page  = fix_page(page)
+def load_paginated_events(page = 1, query = {})
+  page  = fix_page(page)
 
-  query = {:deleted => false, :per_page => options.events_per_page, :page => @page, :order => :start.asc}.merge(query)
+  query = {:deleted => false, :per_page => options.events_per_page, :page => page, :order => :start.asc}.merge(query)
   query_for_count = query.reject{|k,v| %w(per_page page order).include?(k.to_s)}
 
-  @pages = calculate_total_pages(Event, query_for_count, options.events_per_page)
-  @events = Event.paginate(query)
+  pages = calculate_total_pages(Event, query_for_count, options.events_per_page)
+  events = Event.paginate(query)
+
+  [page, pages, events]
 end
 
