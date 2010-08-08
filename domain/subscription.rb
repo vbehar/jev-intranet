@@ -30,13 +30,9 @@ class Subscription
     %w(accept pay).each do |method|
       (class << self; self; end).class_eval do
         define_method method do |user_id, *args|
-          workflow_action = WorkflowAction.new
-          workflow_action.user_id = user_id
-          workflow_action.event = method
-          workflow_action.previous_state = "old"
-          workflow_action.new_state = "new"
-          states << workflow_action
+          previous_state = state
           super
+          states << WorkflowAction.new(:user_id => user_id, :event => method, :previous_state => previous_state, :new_state => state) if state != previous_state
         end
       end
     end
