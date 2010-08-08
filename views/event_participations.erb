@@ -1,0 +1,125 @@
+<%
+  @title = "Gestion des participations pour l'évènement '#{@event.title}'"
+  @breadcrumb = [['/', 'Accueil'], ['/events', 'Evènements'], ["/event/#{@event.slug}", @event.title], ["/event/#{@event.slug}/participations", 'Gestion des participations']]
+%>
+
+<div id="contentfull">
+
+<h2><%= @event.title %></h2>
+
+<h3>Gestion des participations</h3>
+
+<% if @event.passed? %>
+  <div class="msgbox msginfo">Cet évènement est déjà passé...</div>
+<% elsif @event.occurring? %>
+  <div class="msgbox msgwarning">Cet évènement est en train de se dérouler en ce moment...</div>
+<% end %>
+
+<div class="event">
+  <div class="manage-participations">
+    <% [ [Participation::Status::PRESENT, 'OUI'],
+         [Participation::Status::UNKNOWN, 'peut-être'],
+         [Participation::Status::ABSENT, 'NON'] ].each do |status| %>
+      <% participations = @event.participations_for(status.first) %>
+      <div class="<%= status.first %>">
+        <span class="status">Participation '<%= status.last %>' : <span class="count"><%= participations.count %></span> adhérent<%= 's' if participations.count > 1 %></span>
+        <% unless participations.empty? %>
+          <ol>
+            <% participations.each do |p| %>
+              <li>
+                <span class="user-icon">
+                  <a href="/user/<%= p.user.uid %>">
+                    <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %>" />
+                  </a>
+                </span>
+                <span class="content">
+                  <span class="user-id"><%= p.user.uid %></span>
+                  <span class="user"><%= p.user.display_name %></span>
+                  <span class="text"></span>
+                  <span class="date"><%= p.created_at.getlocal.strftime "Inscription le %A %d %B %Y à %Hh%M" %></span>
+                </span>
+                <span class="actions">
+                  <span class="intro">Changer en : </span>
+                  <% unless status.first == 'present' %><span class="update-status present">OUI</span><% end %>
+                  <% unless status.first == 'unknown' %><span class="update-status unknown">peut-être</span><% end %>
+                  <% unless status.first == 'absent' %><span class="update-status absent">NON</span><% end %>
+                  <span class="remove-participation">Supprimer</span>
+                </span>
+                <div class="loading hide">Chargement en cours...</div>
+              </li>
+            <% end %>
+          </ol>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="add">
+      <span class="status">Ajouter une nouvelle participation</span>
+      <form method="post" action="/event/<%= @event.slug %>/participations">
+        <div class="tinyform">
+          <label for="participation_user_id">Adhérent</label>
+          <input type="text" name="user_id" id="participation_user_id" />
+          <label for="participation_status">Participation</label>
+          <select name="status" id="participation_status">
+            <option value="present">OUI</option>
+            <option value="unknown">peut-être</option>
+            <option value="absent">NON</option>
+          </select>
+          <button type="submit">Envoyer !</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr class="clear" />
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready( function() {
+    var callback = function(data) {
+      window.location.reload();
+    }
+    $('.actions').delegate(".update-status", "click", function() {
+      $(this).removeClass('update-status');
+      var actions = $(this).parent();
+      var user_id = actions.siblings('.content').children('.user-id').text();
+      var status = $(this).attr('class'); 
+      $.post('/event/<%= @event.slug %>/participations', {user_id:user_id, status:status}, callback);
+      actions.addClass('hide');
+      actions.siblings('.loading').removeClass('hide');
+    });
+    $('.actions').delegate(".remove-participation", "click", function() {
+      if(confirm('Etes vous sur de vouloir supprimer cette participation ?')) {
+        var actions = $(this).parent();
+        var user_id = actions.siblings('.content').children('.user-id').text();
+        $.post('/event/<%= @event.slug %>/participations/'+user_id, {_method:"delete"}, callback);
+        actions.addClass('hide');
+        actions.siblings('.loading').removeClass('hide');
+      }
+    });
+    users = <%= @users.to_json %>;
+    users.forEach(function(u) {
+      u.label = u.display_name + " (" + u.uid + ")";
+      u.value = u.uid;
+    });
+    $('#participation_user_id').autocomplete({
+      source: users,
+      minLength: 0,
+      delay: 0
+    });
+  });
+  $('#intranet').ajaxError(function(e, xhr, options, error) {
+    if(options.url.indexOf("/event") >= 0) {
+      if(xhr.status == 403) {
+        alert("Désolé, vous n'avez pas le droit d'effectuer cette opération...");
+      } else if(xhr.status == 404) {
+        alert("Cet évènement n'existe pas...");
+      } else {
+        alert("Une erreur est survenue : " + xhr.status + " - " + xhr.statusText);
+      }
+    }
+  });
+  //]]>
+</script>
+

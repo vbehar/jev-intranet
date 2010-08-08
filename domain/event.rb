@@ -50,10 +50,8 @@ class Event
 
   # add a new participation for the given user
   def participate(user_id, status = Participation::Status::PRESENT)
-    return false if closed?
-    return false unless future?
     return false unless Participation::Status.valid?(status)
-    return false if user_id.nil? || !User.exist?(user_id)
+    return false if user_id.blank? || !User.exist?(user_id)
     participation = participations.select{|p| p.user_id == user_id}.first
     participation = Participation.new({:user_id => user_id}) if participation.nil?
     participation.status = status

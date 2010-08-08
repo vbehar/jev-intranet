@@ -43,6 +43,18 @@ get '/event/:slug/?' do |slug|
   erb :event
 end
 
+get '/event/:slug/participations/?' do |slug|
+  @event = Event.find_by_slug(slug) rescue nil
+  pass if @event.nil? || @event.deleted?
+
+  user = current_user
+  halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
+
+  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+  expires 0, :private, :no_cache, :no_store
+  erb :event_participations
+end
+
 ['/events/new/?', '/event/:slug/edit/?'].each do |path|
   get path do
     @new = request.path_info.match(/^\/events\/new/)
@@ -98,6 +110,7 @@ end
   end
 end
 
+# user-initiated action to participate to an event
 post '/event/:slug/participation/:status/?' do |slug, status|
   pass unless Participation::Status.valid?(status)
 
@@ -111,6 +124,22 @@ post '/event/:slug/participation/:status/?' do |slug, status|
   halt 204
 end
 
+# creator/r1/admin-initiated action to add a participant to an event
+post '/event/:slug/participations/?' do |slug|
+  event = Event.find_by_slug(slug) rescue nil
+  pass if event.nil? || event.deleted?
+
+  user = current_user
+  halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
+
+  if event.participate!(params[:user_id], params[:status])
+    redirect "/event/#{event.slug}/participations"
+  else
+    halt 400, 'Invalid data'
+  end
+end
+
+# user-initiated action to delete his participation to an event
 delete '/event/:slug/participation/?' do |slug|
   event = Event.find_by_slug(slug) rescue nil
   pass if event.nil? || event.deleted?
@@ -120,6 +149,22 @@ delete '/event/:slug/participation/?' do |slug|
 
   halt 403 if event.closed?
   halt 403 unless event.future?
+
+  participation.delete!
+  halt 204
+end
+
+# creator/r1/admin-initiated action to remove a participation from an event
+delete '/event/:slug/participations/:participant/?' do |slug, participant|
+  event = Event.find_by_slug(slug) rescue nil
+  pass if event.nil? || event.deleted?
+  pass if participant.blank? || !User.exist?(participant)
+
+  user = current_user
+  halt 403 unless user.admin? || event.creator_uid.eql?(user.uid) || event.r1_uid.eql?(user.uid)
+
+  participation = event.participations.select{|p| p.user_id == participant}.first
+  pass if participation.nil? || participation.deleted?
 
   participation.delete!
   halt 204
