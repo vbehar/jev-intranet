@@ -9,7 +9,7 @@
       when 'occurring'; {:start.lt => now, :end.gt => now}
       when 'future'; {:start.gt => now}
     end
-    @page, @pages, @posts = load_paginated_events(params[:page], query)
+    @page, @pages, @events = load_paginated_events(params[:page], query)
     expires 1.minutes, :public
     erb :events
   end
@@ -22,7 +22,7 @@ end
     pass unless Participation::Status.valid?(status)
     @user = User.find(params[:user]) rescue nil
     pass if @user.nil?
-    @page, @pages, @posts = load_paginated_events(params[:page], { :participations => {'$elemMatch' => {:user_id => @user.uid, :status => status, :deleted => false} }, :order => :start.desc })
+    @page, @pages, @events = load_paginated_events(params[:page], { :participations => {'$elemMatch' => {:user_id => @user.uid, :status => status, :deleted => false} }, :order => :start.desc })
     expires 1.minutes, :public
     erb :participations
   end
