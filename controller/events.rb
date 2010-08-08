@@ -60,8 +60,14 @@ post '/event/:slug/?' do |slug|
 
   @event.closed = (params['event']['closed'] == 'on')
 
-  @event.save
-  redirect "/event/#{slug}"
+  if(@event.save)
+    redirect "/event/#{slug}"
+  else
+    @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+    @new = false
+    expires 0, :private, :no_cache, :no_store
+    erb :event_form
+  end
 end
 
 get '/event/:slug/edit/?' do |slug|
@@ -127,7 +133,7 @@ post '/events/?' do
 
   @event.closed = (params['event']['closed'] == 'on')
 
-  if(false)
+  if(@event.save)
     redirect "/event/#{@event.slug}"
   else
     @new = true

@@ -20,23 +20,27 @@
   <% end %>
 <% end %>
 
+<% unless @event.errors.empty? %>
+  <div class="msgbox msgerror">Merci de renseigner tous les champs en rouge !</div>
+<% end %>
+
 <form id="event" method="post" action="<%= @new ? '/events' : "/event/#{@event.slug}" %>">
   <div class="largeform">
     <label for="event_title">Titre<span class="labeltip">de l'évènement</span></label>
-    <input type="text" name="event[title]" id="event_title" value="<%= @event.title %>" />
+    <input type="text" name="event[title]" id="event_title" class="<%= 'error' if @event.errors.on :title %>" value="<%= @event.title %>" />
 
     <label for="event_r1_uid">Responsable<span class="labeltip">R1 de l'évènement</span></label>
-    <input type="text" name="event[r1_uid]" id="event_r1_uid" value="<%= @event.r1_uid %>" />
+    <input type="text" name="event[r1_uid]" id="event_r1_uid" class="<%= 'error' if @event.errors.on :r1_uid %>" value="<%= @event.r1_uid %>" />
 
     <label for="event_start_fr">Date de début<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="event[start_fr]" id="event_start_fr" value="<%= @event.start.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="text" name="event[start_fr]" id="event_start_fr" class="<%= 'error' if @event.errors.on :start %>" value="<%= @event.start.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="event[start]" id="event_start" value="<%= @event.start.getlocal.strftime('%Y-%m-%d') rescue '' %>" />
 
     <label for="event_start_time">Heure de début (optionnel)<span class="labeltip">format hh:mm</span></label>
     <input type="text" name="event[start_time]" id="event_start_time" value="<%= @event.start.getlocal.strftime('%H:%M') unless @event.start.getlocal.strftime('%X') == '00:00:00' %>" />
 
     <label for="event_end_fr">Date de fin<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="event[end_fr]" id="event_end_fr" value="<%= @event.end.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="text" name="event[end_fr]" id="event_end_fr" class="<%= 'error' if @event.errors.on :end %>" value="<%= @event.end.getlocal.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="event[end]" id="event_end" value="<%= @event.end.getlocal.strftime('%Y-%m-%d') rescue '' %>" />
 
     <label for="event_end_time">Heure de fin (optionnel)<span class="labeltip">format hh:mm</span></label>

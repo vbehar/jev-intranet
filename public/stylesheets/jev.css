@@ -663,6 +663,12 @@ Form
 .largeform input[readonly], .largeform select[readonly] {
   background-color: #dcdcdc;
 }
+.largeform input.error, .largeform select.error, .largeform textarea.error {
+  border: solid 2px red;
+  background-image: url(../images/icons/msgwarning.png);
+  background-position: right;
+  background-repeat: no-repeat;
+}
 .largeform .ui-datepicker-trigger {
   float: left;
   margin: 5px 0px 5px 5px;
