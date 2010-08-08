@@ -50,7 +50,7 @@ post '/event/:slug/?' do |slug|
   user = current_user
   halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
 
-  %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
+  %w(title text).each{ |f| @event[f] = clean_html(clean_input(params['event'][f])) }
   %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
   start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
   @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
@@ -117,7 +117,7 @@ end
 post '/events/?' do
   @event = Event.new
 
-  %w(title text).each{ |f| @event[f] = clean_html(params['event'][f]) }
+  %w(title text).each{ |f| @event[f] = clean_html(clean_input(params['event'][f])) }
   %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
   start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
   @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?

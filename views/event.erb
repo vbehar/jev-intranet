@@ -19,7 +19,7 @@
 
 <div class="r1">Organisateur (R1) : <a href="/user/<%= @event.r1.uid %>"><%= @event.r1.display_name %></a></div>
 
-<div class="text"><p><%= linkify(@event.text) %></p></div>
+<div class="text"><p><%= linkify(nl2br(@event.text)) %></p></div>
 
 <div class="participate">
   <span class="title">Participer</span>

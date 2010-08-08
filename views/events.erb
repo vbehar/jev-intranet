@@ -19,7 +19,7 @@
       <span class="r1-uid"><%= event.r1_uid %></span>
       <span class="creator-uid"><%= event.creator_uid %></span>
       <span class="title"><a href="/event/<%= event.slug %>"><%= event.title %></a></span>
-      <span class="text"><%= linkify(event.text) %></span>
+      <span class="text"><%= linkify(nl2br(event.text)) %></span>
       <span class="participations">
         <% participants = event.participations_for(Participation::Status::PRESENT).count %>
         <%= participants %> participant<%= 's' unless participants == 1 %>

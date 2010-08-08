@@ -87,9 +87,19 @@ helpers do
     text.gsub(URL_REGEXP, '<a href="\0">\0</a>') rescue text
   end
 
+  # transform all 'lines returns' into html 'br'
+  def nl2br(text)
+    text.gsub(/\n/, '<br />') rescue text
+  end
+
   # clean (sanitize) the given html
   def clean_html(html)
     Sanitize.clean(html) rescue html
+  end
+
+  # clean the given input text (remove bad characters)
+  def clean_input(text)
+    text.gsub(/\r/, '') rescue text
   end
 
   # pagination - fix actual page number (start at 1)
