@@ -53,21 +53,5 @@
 <hr class="clear" />
 </div>
 
-<div class="sidebox">
-  <h2>Evènements</h2>
-  <ul class="sidemenu">
-    <li class="<%= 'current' if @type == 'passed' %> first"><a href="/events/passed">Passés</a></li>
-    <li class="<%= 'current' if @type == 'occurring' %>"><a href="/events/occurring">En cours</a></li>
-    <li class="<%= 'current' if @type == 'future' %>"><a href="/events/future">A venir</a></li>
-    <li class="more"><a href="/events/new">Créer un nouvel évènement</a></li>
-  </ul>
-</div>
-
-<div class="sidebox">
-  <h2>Participations</h2>
-  <ul class="sidemenu">
-    <li class="first"><a href="/events/participations/mine">Mes participations</a></li>
-    <li class=""><a href="/events/most-active-participants">Top <%= options.most_active_participants_on_page %> des participants</a></li>
-  </ul>
-</div>
+<%= erb :sidebox_event, :layout => false %>
 

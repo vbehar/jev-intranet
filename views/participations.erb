@@ -46,31 +46,5 @@
 <hr class="clear" />
 </div>
 
-<div class="sidebox">
-  <h2>Evènements</h2>
-  <ul class="sidemenu">
-    <li class="first"><a href="/events/passed">Passés</a></li>
-    <li class=""><a href="/events/occurring">En cours</a></li>
-    <li class=""><a href="/events/future">A venir</a></li>
-    <li class="more"><a href="/events/new">Créer un nouvel évènement</a></li>
-  </ul>
-</div>
-
-<div class="sidebox">
-  <h2>Participations</h2>
-  <ul class="sidemenu">
-    <li class="first"><a href="/events/participations/mine">Mes participations</a></li>
-    <li class=""><a href="/events/most-active-participants">Top <%= options.most_active_participants_on_page %> des participants</a></li>
-  </ul>
-</div>
-
-<script type="text/javascript">
-  //<![CDATA[
-  $('#intranet').bind('current_user-loaded', function(e) {
-    if(Intranet.current_user.uid == '<%= @user.uid %>') {
-      $('div.sidebox ul.sidemenu li.first').last().addClass('current');
-    }
-  });
-  //]]>
-</script>
+<%= erb :sidebox_event, :layout => false %>
 
