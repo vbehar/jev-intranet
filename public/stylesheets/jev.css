@@ -1032,6 +1032,8 @@ div.event div.actions {
   margin-top: 5px;
 }
 div.event div.actions div a.edit {
+  padding-left: 20px;
+  background: url(../images/icons/edit.png) no-repeat;
 }
 div.event div.actions div a.remove {
   padding-left: 20px;
