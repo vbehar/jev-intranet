@@ -43,54 +43,59 @@ get '/event/:slug/?' do |slug|
   erb :event
 end
 
-post '/event/:slug/?' do |slug|
-  @event = Event.find_by_slug(slug) rescue nil
-  pass if @event.nil? || @event.deleted?
+['/events/new/?', '/event/:slug/edit/?'].each do |path|
+  get path do
+    @new = request.path_info.match(/^\/events\/new/)
 
-  user = current_user
-  halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+    if @new
+      @event = Event.new
+      @event.start = @event.end = @event.created_at = @event.updated_at = Time.now
+      @event.r1_uid = @event.creator_uid = current_user_id
+    else
+      @event = Event.find_by_slug(params[:slug]) rescue nil
+      pass if @event.nil? || @event.deleted?
+      user = current_user
+      halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+    end
 
-  %w(title text).each{ |f| @event[f] = clean_html(clean_input(params['event'][f])) }
-  %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
-  start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
-  @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
-  end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
-  @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
-  @event.r1_uid = current_user_id if @event.r1_uid.blank? || !User.exist?(@event.r1_uid)
-
-  @event.closed = (params['event']['closed'] == 'on')
-
-  if(@event.save)
-    redirect "/event/#{slug}"
-  else
     @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
-    @new = false
     expires 0, :private, :no_cache, :no_store
     erb :event_form
   end
 end
 
-get '/event/:slug/edit/?' do |slug|
-  @event = Event.find_by_slug(slug) rescue nil
-  pass if @event.nil? || @event.deleted?
+['/events/?', '/events/new/?', '/event/:slug/?', '/event/:slug/edit/?'].each do |path|
+  post path do
+    @new = request.path_info.match(/^\/events/)
 
-  user = current_user
-  halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+    if @new
+      @event = Event.new
+      @event.created_at = @event.updated_at = Time.now
+      @event.creator_uid = current_user_id
+    else
+      @event = Event.find_by_slug(params[:slug]) rescue nil
+      pass if @event.nil? || @event.deleted?
+      user = current_user
+      halt 403 unless user.admin? || @event.creator_uid.eql?(user.uid) || @event.r1_uid.eql?(user.uid)
+    end
 
-  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
-  @new = false
-  expires 0, :private, :no_cache, :no_store
-  erb :event_form
-end
+    %w(title text).each{ |f| @event[f] = clean_html(clean_input(params['event'][f])) }
+    %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
+    start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
+    @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
+    end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
+    @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
+    @event.r1_uid = current_user_id if @event.r1_uid.blank? || !User.exist?(@event.r1_uid)
+    @event.closed = (params['event']['closed'] == 'on')
 
-get '/events/new' do
-  @event = Event.new
-  @event.start = @event.end = @event.created_at = @event.updated_at = Time.now
-  @event.r1_uid = @event.creator_uid = current_user_id
-
-  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
-  @new = true
-  erb :event_form
+    if(@event.save)
+      redirect "/event/#{@event.slug}"
+    else
+      @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+      expires 0, :private, :no_cache, :no_store
+      erb :event_form
+    end
+  end
 end
 
 post '/event/:slug/participation/:status/?' do |slug, status|
@@ -118,31 +123,6 @@ delete '/event/:slug/participation/?' do |slug|
 
   participation.delete!
   halt 204
-end
-
-post '/events/?' do
-  @event = Event.new
-
-  %w(title text).each{ |f| @event[f] = clean_html(clean_input(params['event'][f])) }
-  %w(start end r1_uid).each{ |f| @event[f] = params['event'][f] }
-  start_time = Time.parse(params['event']['start_time']) rescue nil unless params['event']['start_time'].blank?
-  @event.start += start_time.hour.hours + start_time.min.minutes unless start_time.nil?
-  end_time = Time.parse(params['event']['end_time']) rescue nil unless params['event']['end_time'].blank?
-  @event.end += end_time.nil? ? 1.day - 1.second : end_time.hour.hours + end_time.min.minutes
-  @event.r1_uid = current_user_id if @event.r1_uid.blank? || !User.exist?(@event.r1_uid)
-
-  @event.closed = (params['event']['closed'] == 'on')
-
-  if(@event.save)
-    redirect "/event/#{@event.slug}"
-  else
-    @new = true
-    @event.created_at = @event.updated_at = Time.now
-    @event.creator_uid = current_user_id
-    @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
-    expires 0, :private, :no_cache, :no_store
-    erb :event_form
-  end
 end
 
 delete '/event/:slug/?' do |slug|
