@@ -15,7 +15,7 @@ end
 end
 
 # controllers (sinatra routes)
-%w(helper main account users posts events admin api_v1).each do |f|
+%w(helper main account subscriptions users posts events admin api_v1).each do |f|
   require(File.join(File.dirname(__FILE__), 'controller', f))
 end
 

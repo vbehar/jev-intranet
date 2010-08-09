@@ -1,0 +1,21 @@
+<%
+  @title = 'Mes cotisations'
+  @breadcrumb = [['/', 'Accueil'], ['/subscriptions', @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<ul>
+  <% @subscriptions.each do |subscription| %>
+    <li>
+      <span class="year"><%= subscription.year %></span>
+      <span class="state"><%= subscription.state %></span>
+    </li>
+  <% end %>
+</ul>
+
+<hr class="clear" />
+</div>
+
