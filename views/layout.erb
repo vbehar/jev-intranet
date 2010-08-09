@@ -42,19 +42,6 @@
         <dd><a href="/events/participations/mine">Mes participations</a></dd>
         <dd><a href="/posts/mine">Mes messages</a></dd>
       </dl>
-      <script type="text/javascript">
-        //<![CDATA[
-        $(document).ready(function() {
-          $.getJSON('/account.json', function(user) {
-            Intranet.current_user = user;
-            $('#intranet').trigger('current_user-loaded');
-          });
-        });
-        $('#intranet').bind('current_user-loaded', function(e) {
-          $('#current_user_name').html(Intranet.current_user.display_name);
-        });
-        //]]>
-      </script>
       <dl class="nav">
         <dt><a href="/resources">Ressources</a></dt>
         <dd><a href="/users">Annuaire adhérents</a></dd>
@@ -88,6 +75,20 @@
  
   <hr class="clear" />
 </div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function() {
+    $.getJSON('/account.json', function(user) {
+      Intranet.current_user = user;
+      $('#intranet').trigger('current_user-loaded');
+    });
+  });
+  $('#intranet').bind('current_user-loaded', function(e) {
+    $('#current_user_name').html(Intranet.current_user.display_name);
+  });
+  //]]>
+</script>
 
 </body>
 </html>
