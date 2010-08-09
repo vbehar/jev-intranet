@@ -10,7 +10,7 @@
 end
 
 # domain classes
-%w(user group subscription workflow_action post event participation).each do |f|
+%w(user group subscription workflow_action payment post event participation).each do |f|
   require(File.join(File.dirname(__FILE__), 'domain', f))
 end
 
