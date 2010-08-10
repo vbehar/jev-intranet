@@ -12,7 +12,7 @@
 
 <% if @subscriptions.count > 0 %>
   <form method="post" action="/admin/subscriptions">
-    <table class="fullwidth">
+    <table class="fullwidth nicetable">
       <thead>
         <tr>
           <th>Adhérent</th>
@@ -48,13 +48,7 @@
           </tr>
         <% end %>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td colspan="7"></td>
           <td><button type="submit">GO</button></td>
         </tr>
       </tbody>
