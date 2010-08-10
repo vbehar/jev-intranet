@@ -1,0 +1,39 @@
+<%
+  @title = 'Cotisations'
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/subscriptions', 'Cotisations']]
+  if @years.size == 1
+    @title += " #{@years[0]}"
+    @breadcrumb.push(["/admin/subscriptions/#{@years[0]}", @years[0]])
+  end
+%>
+
+<div id="contentfull">
+
+<h2>Admin - <%= @title %></h2>
+
+<% @years.each do |year| %>
+  <h3>Cotisations <%= year %></h3>
+
+  <ul class="simplelist">
+    <li>
+      <a href="/admin/subscriptions/<%= year %>/new">Nouvelles - en attente de paiement</a> : 
+      <strong><%= @subscriptions.select{|s| s[:year] == year && s[:state] == 'new' }[0][:count] rescue 0 %></strong>
+    </li>
+    <li>
+      <a href="/admin/subscriptions/<%= year %>/paid">Payées - en attente de saisie FFCK</a> : 
+      <strong><%= @subscriptions.select{|s| s[:year] == year && s[:state] == 'paid' }[0][:count] rescue 0 %></strong>
+    </li>
+    <li>
+      <a href="/admin/subscriptions/<%= year %>/upstream">Saisies FFCK - en attente d'envoi (FFCK)</a> : 
+      <strong><%= @subscriptions.select{|s| s[:year] == year && s[:state] == 'upstream' }[0][:count] rescue 0 %></strong>
+    </li>
+    <li>
+      <a href="/admin/subscriptions/<%= year %>/sent">Envoyées</a> : 
+      <strong><%= @subscriptions.select{|s| s[:year] == year && s[:state] == 'sent' }[0][:count] rescue 0 %></strong>
+    </li>
+  </ul>
+<% end %>
+
+<hr class="clear" />
+</div>
+

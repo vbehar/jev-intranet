@@ -1,0 +1,40 @@
+<%
+  @title = "Cotisations saisies FFCK #{@year}"
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/subscriptions', 'Cotisations'],\
+                 ["/admin/subscriptions/#{@year}", @year], ["/admin/subscriptions/#{@year}/#{@state}", 'Saisies FFCK']]
+%>
+
+<div id="contentfull">
+
+<h2>Admin - <%= @title %></h2>
+
+<h3><%= @subscriptions.count %> cotisations saisies FFCK - en attente d'envoi (FFCK)</h3>
+
+<table class="fullwidth">
+  <thead>
+    <tr>
+      <th>Adhérent</th>
+      <th>Nom</th>
+      <th>Création</th>
+      <th>Modification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |s| %>
+      <tr>
+        <td>
+          <a href="/user/<%= s.user.uid %>"><img src="<%= s.user.avatar_url(48) %>" alt="<%= s.user.name %>" title="<%= s.user.name %>" /></a>
+        </td>
+        <td>
+          <a href="/user/<%= s.user.uid %>"><%= s.user.name %></a>
+        </td>
+        <td><%= s.created_at.getlocal.strftime "%d/%m/%Y à %H:%M" %></td>
+        <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y à %H:%M" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr class="clear" />
+</div>
+

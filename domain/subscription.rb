@@ -64,6 +64,12 @@ class Subscription
     success
   end
 
+  # return an array with the number of subscriptions by year and state
+  def self.count_by_years_and_states
+    Subscription.collection.group(%w(year state),{:deleted => false},{:count => 0},'function(doc,prev) {prev.count++;}')\
+                           .map{|o| { :year => o['year'].to_i, :state => o['state'], :count => o['count'].to_i } }
+  end
+
   # mark the subscription as deleted, and save it
   def delete!
     self.deleted = true

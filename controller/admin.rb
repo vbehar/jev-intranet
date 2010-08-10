@@ -67,6 +67,20 @@ get '/admin/user/:uid/?' do |uid|
   erb :admin_user
 end
 
+['/admin/subscriptions/?', '/admin/subscriptions/:year/?'].each do |path|
+  get path do
+    @years = params[:year].blank? ? Date.today.next_year.year.downto(2010).to_a : [params[:year].to_i]
+    @subscriptions = Subscription.count_by_years_and_states
+    erb :admin_subscriptions
+  end
+end
+
+get '/admin/subscriptions/:year/:state/?' do |year,state|
+  @year, @state = year.to_i, state
+  @subscriptions = Subscription.where(:year => @year, :state => @state).sort(:created_at.desc).all
+  erb "admin_subscriptions_#{@state}".to_sym
+end
+
 get '/admin/stats/?' do
   @users = User.find(:all)
   erb :admin_stats
