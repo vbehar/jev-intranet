@@ -81,6 +81,28 @@ get '/admin/subscriptions/:year/:state/?' do |year,state|
   erb "admin_subscriptions_#{@state}".to_sym
 end
 
+post '/admin/subscriptions/?' do
+  puts params['subscriptions'].inspect
+  params['subscriptions'].select{|s| s['update'] == 'on'}.each do |data|
+    s = Subscription.find data['id']
+    unless s.nil? || s.deleted?
+      case data['event']
+        when 'pay';     s.pay(:user_id => current_user_id,
+                              :type => data['payment']['type'],
+                              :amount => data['payment']['amount'].to_i,
+                              :date => (Date.strptime(data['payment']['date'], '%d/%m/%Y') rescue Date.today),
+                              :comment => data['payment']['comment'])\
+                        and s.save
+        when 'key_in';  s.key_in(:user_id => current_user_id)\
+                        and s.save
+        when 'deliver'; s.deliver(:user_id => current_user_id)\
+                        and s.save
+      end
+    end
+  end
+  redirect '/admin/subscriptions'
+end
+
 get '/admin/stats/?' do
   @users = User.find(:all)
   erb :admin_stats
