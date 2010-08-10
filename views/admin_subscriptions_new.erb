@@ -17,10 +17,10 @@
         <tr>
           <th>Adhérent</th>
           <th>Date de<br />création</th>
-          <th>Date de<br />modification</th>
+          <th>Dernière<br />modif</th>
           <th>Prix</th>
           <th>Type de<br />paiement</th>
-          <th>Date<br />jj/mm/aaaa</th>
+          <th>Date de<br />paiement</th>
           <th>Commentaire<br />sur le paiement</th>
           <th>MAJ</th>
         </tr>
@@ -28,12 +28,12 @@
       <tbody>
         <% @subscriptions.each do |s| %>
           <tr>
-            <td>
-              <a href="/user/<%= s.user.uid %>">
+            <th>
+              <a href="/user/<%= s.user.uid %>" title="<%= s.user.name %>">
                 <img src="<%= s.user.avatar_url(48) %>" alt="<%= s.user.name %>" title="<%= s.user.name %>" /><br />
-                <%= s.user.name %>
+                <strong><%= s.user.display_name %></strong>
               </a>
-            </td>
+            </th>
             <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><input type="text" name="subscriptions[][payment][amount]" value="" size="5" /></td>
