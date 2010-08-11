@@ -39,7 +39,7 @@
             <td><input type="text" name="subscriptions[][payment][amount]" value="" size="5" /></td>
             <td><input type="text" name="subscriptions[][payment][type]" value="chèque" size="10" /></td>
             <td><input type="text" name="subscriptions[][payment][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" /></td>
-            <td><input type="text" name="subscriptions[][payment][comment]" value="" size="20" /></td>
+            <td><textarea name="subscriptions[][payment][comment]" rows="3" cols="20"></textarea></td>
             <td>
               <input type="checkbox" name="subscriptions[][update]" />
               <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
