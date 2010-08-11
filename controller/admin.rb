@@ -93,7 +93,10 @@ post '/admin/subscriptions/?' do
                               :date => (Date.strptime(data['payment']['date'], '%d/%m/%Y') rescue Date.today),
                               :comment => data['payment']['comment'])\
                         and s.save
-        when 'key_in';  s.key_in(:user_id => current_user_id)\
+        when 'key_in';  s.key_in(:user_id => current_user_id,
+                                 :ffck_number => data['ffck_number'],
+                                 :date => (Date.strptime(data['key_in']['date'], '%d/%m/%Y') rescue Date.today),
+                                 :comment => data['key_in']['comment'])\
                         and s.save
         when 'deliver'; s.deliver(:user_id => current_user_id)\
                         and s.save

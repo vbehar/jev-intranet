@@ -11,6 +11,7 @@ class Subscription
   key :user_id,    String,  :required => true
   key :year,       Integer, :required => true
 # key :state,      String   -> auto-defined by state_machine
+  key :comment,    String
   key :deleted,    Boolean, :default  => false
   timestamps!
 
@@ -34,7 +35,7 @@ class Subscription
         define_method method do |options, *args|
           previous_state = state
           success = super # transition to another state
-          states << WorkflowAction.new(:user_id => options[:user_id], :event => method, :previous_state => previous_state, :new_state => state) if success && state != previous_state
+          states << WorkflowAction.new(:user_id => options[:user_id], :event => method, :previous_state => previous_state, :new_state => state, :comment => options[:comment]) if success && state != previous_state
           success
         end
       end
@@ -57,8 +58,8 @@ class Subscription
     if success
       u = self.user
       u.ffck_number = options[:ffck_number] unless options[:ffck_number].blank?
-      u.ffck_number_date = options[:date]
-      u.ffck_number_year = self.year
+      u.ffck_number_date = u['ffck_number_date'].to_a.push(options[:date].strftime('%Y-%m-%d'))
+      u.ffck_number_year = u['ffck_number_year'].to_a.push(self.year.to_s)
       u.save
     end
     success

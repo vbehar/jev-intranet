@@ -10,30 +10,49 @@
 
 <h3><%= @subscriptions.count %> cotisations payées - en attente de saisie FFCK</h3>
 
-<table class="fullwidth">
-  <thead>
-    <tr>
-      <th>Adhérent</th>
-      <th>Nom</th>
-      <th>Création</th>
-      <th>Modification</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @subscriptions.each do |s| %>
-      <tr>
-        <td>
-          <a href="/user/<%= s.user.uid %>"><img src="<%= s.user.avatar_url(48) %>" alt="<%= s.user.name %>" title="<%= s.user.name %>" /></a>
-        </td>
-        <td>
-          <a href="/user/<%= s.user.uid %>"><%= s.user.name %></a>
-        </td>
-        <td><%= s.created_at.getlocal.strftime "%d/%m/%Y à %H:%M" %></td>
-        <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y à %H:%M" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @subscriptions.count > 0 %>
+  <form method="post" action="/admin/subscriptions">
+    <table class="fullwidth nicetable">
+      <thead>
+        <tr>
+          <th>Adhérent</th>
+          <th>Date de<br />création</th>
+          <th>Dernière<br />modif</th>
+          <th>Licence<br />FFCK</th>
+          <th>Date de<br />saisie</th>
+          <th>Commentaire</th>
+          <th>MAJ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @subscriptions.each do |s| %>
+          <tr>
+            <th>
+              <a href="/user/<%= s.user.uid %>" title="<%= s.user.name %>">
+                <img src="<%= s.user.avatar_url(48) %>" alt="<%= s.user.name %>" title="<%= s.user.name %>" /><br />
+                <strong><%= s.user.display_name %></strong>
+              </a>
+            </th>
+            <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><input type="text" name="subscriptions[][ffck_number]" value="<%= s.user.ffck_number %>" size="5" /></td>
+            <td><input type="text" name="subscriptions[][key_in][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" /></td>
+            <td><textarea name="subscriptions[][key_in][comment]" rows="3" cols="20"></textarea></td>
+            <td>
+              <input type="checkbox" name="subscriptions[][update]" />
+              <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
+              <input type="hidden" name="subscriptions[][event]" value="key_in" />
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td colspan="6"></td>
+          <td><button type="submit">GO</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+<% end %>
 
 <hr class="clear" />
 </div>
