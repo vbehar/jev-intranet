@@ -36,7 +36,7 @@
             <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><input type="text" name="subscriptions[][ffck_number]" value="<%= s.user.ffck_number %>" size="5" /></td>
-            <td><input type="text" name="subscriptions[][key_in][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" /></td>
+            <td><input type="text" name="subscriptions[][key_in][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" class="input_date" /></td>
             <td><textarea name="subscriptions[][key_in][comment]" rows="3" cols="20"></textarea></td>
             <td>
               <input type="checkbox" name="subscriptions[][update]" />
@@ -56,4 +56,16 @@
 
 <hr class="clear" />
 </div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $(".input_date").datepicker({
+      dateFormat:'dd/mm/yy',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 1 %>:<%= Date.today.year + 1 %>',
+      closeText:'X', currentText:'Aujourd\'hui'
+    });
+  });
+  //]]>
+</script>
 
