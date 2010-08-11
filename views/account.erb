@@ -31,13 +31,6 @@
     <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @me.birth_date.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @me.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
-    <script type="text/javascript">
-      //<![CDATA[
-      $(document).ready(function(){
-        $("#user_birth_date_fr").datepicker({altField:'#user_birth_date', altFormat:'yy-mm-dd', changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>', showButtonPanel:true, closeText:'X', showOn:'both', buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true, buttonText:'Calendrier', currentText:'Aujourd\'hui'});
-      });
-      //]]>
-    </script>
 
     <h4 class="separator">Adresse</h4>
 
@@ -145,6 +138,13 @@
 <script type="text/javascript">
   //<![CDATA[
   $(document).ready(function(){
+    $("#user_birth_date_fr").datepicker({
+      altField:'#user_birth_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
     $('#account').delegate("span.input-action.remove-block", "click", function() {
       var elem = $(this).parent();
       if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
