@@ -37,7 +37,7 @@
             <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><input type="text" name="subscriptions[][ffck_number]" value="<%= s.user.ffck_number %>" size="5" /></td>
             <td><input type="text" name="subscriptions[][key_in][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" class="input_date" /></td>
-            <td><textarea name="subscriptions[][key_in][comment]" rows="3" cols="20"></textarea></td>
+            <td><textarea name="subscriptions[][comment]" rows="3" cols="20"></textarea></td>
             <td>
               <input type="checkbox" name="subscriptions[][update]" />
               <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
