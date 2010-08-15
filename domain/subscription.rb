@@ -8,11 +8,13 @@ class Subscription
   many :states, :class_name => 'WorkflowAction'
   one :payment, :class_name => 'Payment'
 
-  key :user_id,    String,  :required => true
-  key :year,       Integer, :required => true
-# key :state,      String   -> auto-defined by state_machine
-  key :comment,    String
-  key :deleted,    Boolean, :default  => false
+  key :user_id,                   String,  :required => true
+  key :year,                      Integer, :required => true
+# key :state,                     String   -> auto-defined by state_machine
+  key :medical_certificate_type,  String
+  key :medical_certificate_date,  Date
+  key :comment,                   String
+  key :deleted,                   Boolean, :default  => false
   timestamps!
 
   # workflow
@@ -56,10 +58,14 @@ class Subscription
   def key_in(params, *args)
     success = super
     if success
+      self.medical_certificate_type = params[:medical_certificate_type]
+      self.medical_certificate_date = params[:medical_certificate_date]
       u = self.user
       u.ffck_number = params[:ffck_number] unless params[:ffck_number].blank?
       u.ffck_number_date = params[:date]
-      u.ffck_number_year = self.year.to_s
+      u.ffck_number_year = self.year
+      u.medical_certificate_type = self.medical_certificate_type
+      u.medical_certificate_date = self.medical_certificate_date
       #u.save
     end
     success
@@ -75,6 +81,16 @@ class Subscription
   def delete!
     self.deleted = true
     save
+  end
+
+  # calculate the subscription price
+  def price
+    user_birth_year = user.birth_date.year rescue nil
+    case year
+      when 2010; user_birth_year >= 1996 ? 120 : 160 rescue nil
+      when 2011; user_birth_year >= 1997 ? 120 : 160 rescue nil
+      else nil
+    end
   end
 
   def user=(user)

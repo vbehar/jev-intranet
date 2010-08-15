@@ -1,0 +1,76 @@
+<%
+  translated_state = {'new' => 'Nouvelle', 'paid' => 'Payée', 'upstream' => 'Saisie FFCK', 'sent' => 'Envoyée'}
+  translated_states = {'new' => 'Nouvelles', 'paid' => 'Payées', 'upstream' => 'Saisies FFCK', 'sent' => 'Envoyées'}
+  @title = "Cotisation #{@subscription.user.name} #{@subscription.year}"
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/subscriptions', 'Cotisations'], ["/admin/subscriptions/#{@subscription.year}", @subscription.year], ["/admin/subscriptions/#{@subscription.year}/#{@subscription.state}", translated_states[@subscription.state]], ["/admin/subscription/#{@subscription.user.uid}-#{@subscription.year}", @subscription.user.name]]
+%>
+
+<div id="contentfull">
+
+<h2>Admin - <%= @title %></h2>
+
+<dl>
+  <dt>Adhérent</dt>
+  <dd><a href="/admin/user/<%= @subscription.user.uid %>"><%= @subscription.user.name %></a></dd>
+</dl>
+
+<dl>
+  <dt>Année</dt>
+  <dd><a href="/admin/subscriptions/<%= @subscription.year %>" title="Les cotisations <%= @subscription.year %>"><%= @subscription.year %></a></dd>
+</dl>
+
+<dl>
+  <dt>Etat</dt>
+  <dd><strong><%= translated_state[@subscription.state] %></strong></dd>
+</dl>
+
+<dl>
+  <dt>Date</dt>
+  <dd><%= @subscription.created_at.strftime 'Créée le %A %d %B %Y à %Hh%M' %>, <%= @subscription.updated_at.strftime 'dernière modification le %A %d %B %Y à %Hh%M' %></dd>
+</dl>
+
+<% unless @subscription.comment.blank? %>
+  <dl>
+    <dt>Commentaire</dt>
+    <dd><%= @subscription.comment %></dd>
+  </dl>
+<% end %>
+
+<dl>
+  <dt>Certificat</dt>
+  <dd><%= @subscription.medical_certificate_type %> - <%= @subscription.medical_certificate_date.strftime '%d/%m/%Y' rescue nil %></dd>
+</dl>
+
+<dl>
+  <dt>Prix (théorique)</dt>
+  <dd><%= @subscription.price %> euros</dd>
+</dl>
+
+<% unless @subscription.payment.nil? %>
+  <% p = @subscription.payment %>
+  <dl>
+    <dt>Paiement</dt>
+    <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
+  </dl>
+<% end %>
+
+<% unless @subscription.states.empty?  %>
+  <dl>
+    <dt>Workflow</dt>
+    <dd>Liste des <%= @subscription.states.count %> changements d'état :
+      <% @subscription.states.each do |event| %>
+        <dl>
+          <dt><%= translated_state[event.new_state] %></dt>
+          <dd>
+            <%= event.created_at.strftime 'Le %A %d %B %Y à %Hh%M' %>, par <%= event.user.name %>
+            <%= "<br /><em>Commentaire</em> : #{event.comment}" unless event.comment.blank? %>
+          </dd>
+        </dl>
+      <% end %>
+    </dd>
+  </dl>
+<% end %>
+
+<hr class="clear" />
+</div>
+

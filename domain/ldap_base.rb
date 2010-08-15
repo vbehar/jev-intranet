@@ -13,6 +13,7 @@ class LdapBase < ActiveLdap::Base
       value = self[ldap_attr.to_s]
       case clazz
         when :string; value
+        when :fixnum; value.to_i rescue value
         when :date; Date.strptime(value, options[:format]) rescue value
         when :time; Time.parse(value) rescue value
         else value
@@ -23,6 +24,7 @@ class LdapBase < ActiveLdap::Base
     define_method("#{name}=") do |value|
       converted_value = case clazz
         when :string; value
+        when :fixnum; value.to_s rescue value
         when :date; value.strftime(options[:format]) rescue value
         when :time; value.strftime(options[:format]) rescue value
         else value

@@ -67,6 +67,12 @@ get '/admin/user/:uid/?' do |uid|
   erb :admin_user
 end
 
+get '/admin/subscription/:user_id-:year/?' do |user_id, year|
+  @subscription = Subscription.find_by_user_id_and_year(user_id, year.to_i) rescue nil
+  pass if @subscription.nil?
+  erb :admin_subscription
+end
+
 ['/admin/subscriptions/?', '/admin/subscriptions/:year/?'].each do |path|
   get path do
     @years = params[:year].blank? ? Date.today.next_year.year.downto(2010).to_a : [params[:year].to_i]
@@ -82,20 +88,21 @@ get '/admin/subscriptions/:year/:state/?' do |year,state|
 end
 
 post '/admin/subscriptions/?' do
-  puts params['subscriptions'].inspect
   params['subscriptions'].select{|s| s['update'] == 'on'}.each do |data|
     s = Subscription.find data['id']
     unless s.nil? || s.deleted?
       case data['event']
         when 'pay';     s.pay(:user_id => current_user_id,
-                              :type => data['payment']['type'],
-                              :amount => data['payment']['amount'].to_i,
-                              :date => (Date.strptime(data['payment']['date'], '%d/%m/%Y') rescue Date.today),
+                              :type => data['type'],
+                              :amount => data['amount'].to_i,
+                              :date => (Date.strptime(data['date'], '%d/%m/%Y') rescue Date.today),
                               :comment => data['comment'])\
                         and s.save
         when 'key_in';  s.key_in(:user_id => current_user_id,
                                  :ffck_number => data['ffck_number'],
-                                 :date => (Date.strptime(data['key_in']['date'], '%d/%m/%Y') rescue Date.today),
+                                 :medical_certificate_type => data['medical_certificate_type'],
+                                 :medical_certificate_date => (Date.strptime(data['medical_certificate_date'], '%d/%m/%Y') rescue nil),
+                                 :date => Date.today,
                                  :comment => data['comment'])\
                         and s.save
         when 'deliver'; s.deliver(:user_id => current_user_id,

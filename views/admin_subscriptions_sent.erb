@@ -23,9 +23,8 @@
       <% @subscriptions.each do |s| %>
         <tr>
           <th>
-            <a href="/user/<%= s.user.uid %>" title="<%= s.user.name %>">
-              <img src="<%= s.user.avatar_url(48) %>" alt="<%= s.user.name %>" title="<%= s.user.name %>" /><br />
-              <strong><%= s.user.display_name %></strong>
+            <a href="/admin/subscription/<%= s.user.uid %>-<%= s.year %>" title="Voir en détails la demande de cotisation de <%= s.user.display_name %>">
+              <strong><%= s.user.firstname %><br /><%= s.user.lastname %></strong>
             </a>
           </th>
           <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>

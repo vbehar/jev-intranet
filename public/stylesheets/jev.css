@@ -223,13 +223,17 @@ Content
 #content ul ul, #content ol ol, #contentfull ul ul, #contentfull ol ol {
   margin: 5px 0 5px 10px;
 }
-#content dl {
+#content dl, #contentfull dl {
+  padding: 15px;
 }
-#content dl dt {
-  margin: 20px 0 5px 10px;
+#content dl dt, #contentfull dl dt {
+  clear: both;
+  float: left;
+  width: 150px;
   font-weight: bold;
 }
-#content dl dd {
+#content dl dd, #contentfull dl dd {
+  float: left;
 }
 
 /*******
@@ -411,33 +415,27 @@ table.nicetable th {
   padding: 6px 6px 6px 12px;
   background-color: #CAE8EA;
 }
-
 table.nicetable tbody th {
   font-size: 0.9em;
   border-left: 1px solid #C1DAD7;
   border-top: 0;
   text-transform: none;
 }
-
 table.nicetable tbody td {
   border-right: 1px solid #C1DAD7;
   border-bottom: 1px solid #C1DAD7;
   padding: 6px 6px 6px 12px;
 }
-
 table.nicetable tbody tr.odd th {
   background-color: #DBFAFA;
 }
-
 table.nicetable tbody tr.odd td {
   background-color: #DBFAFA;
   color: #B4AA9D;
 }
-
 table.nicetable tbody tr.even th {
   background-color: #FFFFFF;
 }
-
 table.nicetable tbody tr.even td {
   background-color: #FFFFFF;
   color: #6D929B;
