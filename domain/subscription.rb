@@ -32,10 +32,10 @@ class Subscription
     # override events to save workflow actions
     %w(pay key_in deliver).each do |method|
       (class << self; self; end).class_eval do
-        define_method method do |options, *args|
+        define_method method do |params, *args|
           previous_state = state
           success = super # transition to another state
-          states << WorkflowAction.new(:user_id => options[:user_id], :event => method, :previous_state => previous_state, :new_state => state, :comment => options[:comment]) if success && state != previous_state
+          states << WorkflowAction.new(:user_id => params[:user_id], :event => method, :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if success && state != previous_state
           success
         end
       end
@@ -45,22 +45,22 @@ class Subscription
     super
   end
 
-  def pay(options, *args)
+  def pay(params, *args)
     success = super
     if success
-      self.payment = Payment.new(:type => options[:type], :amount => options[:amount], :comment => options[:comment], :date => options[:date])
+      self.payment = Payment.new(:type => params[:type], :amount => params[:amount], :comment => params[:comment], :date => params[:date])
     end
     success
   end
 
-  def key_in(options, *args)
+  def key_in(params, *args)
     success = super
     if success
       u = self.user
-      u.ffck_number = options[:ffck_number] unless options[:ffck_number].blank?
-      u.ffck_number_date = u['ffck_number_date'].to_a.push(options[:date].strftime('%Y-%m-%d'))
-      u.ffck_number_year = u['ffck_number_year'].to_a.push(self.year.to_s)
-      u.save
+      u.ffck_number = params[:ffck_number] unless params[:ffck_number].blank?
+      u.ffck_number_date = params[:date]
+      u.ffck_number_year = self.year.to_s
+      #u.save
     end
     success
   end
