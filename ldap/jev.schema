@@ -243,7 +243,7 @@ attributetype ( ffckMemberAttr:8
     SINGLE-VALUE )
 
 attributetype ( jevMemberAttr:1
-    NAME 'jevNumberType'
+    NAME 'jevMemberType'
     DESC 'JEV member type'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
