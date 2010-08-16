@@ -67,6 +67,24 @@ get '/admin/user/:uid/?' do |uid|
   erb :admin_user
 end
 
+get '/admin/subscription/new/?' do
+  @subscription = Subscription.new
+  @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+  erb :admin_subscription_form
+end
+
+['/admin/subscription/?', '/admin/subscription/new/?'].each do |path|
+  post path do
+    @subscription = Subscription.new(params['subscription'])
+    if(@subscription.save)
+      redirect '/admin/subscriptions'
+    else
+      @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+      erb :admin_subscription_form
+    end
+  end
+end
+
 get '/admin/subscription/:user_id-:year/?' do |user_id, year|
   @subscription = Subscription.find_by_user_id_and_year(user_id, year.to_i) rescue nil
   pass if @subscription.nil?

@@ -1,0 +1,56 @@
+<%
+  @title = "Nouvelle cotisation"
+  @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/subscriptions', 'Cotisations'], ['/admin/subscription/new', @title]] 
+%>
+
+<div id="contentfull">
+
+<h2>Admin - <%= @title %></h2>
+
+<form method="post">
+  <div class="largeform">
+    <label for="subscription_user_id">Adhérent<span class="labeltip"></span></label>
+    <input type="text" name="subscription[user_id]" id="subscription_user_id" class="<%= 'error' if @subscription.errors.on :user_id %>" value="<%= @subscription.user_id %>" />
+
+    <label for="subscription_year">Année<span class="labeltip"></span></label>
+    <input type="text" name="subscription[year]" id="subscription_year" class="<%= 'error' if @subscription.errors.on :year %>" value="<%= @subscription.year %>" />
+
+    <label for="subscription_medical_certificate_type">Certif - Type<span class="labeltip"></span></label>
+    <input type="text" name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" class="<%= 'error' if @subscription.errors.on :medical_certificate_type %>" value="<%= @subscription.medical_certificate_type %>" />
+
+    <label for="subscription_medical_certificate_date">Certif - Date<span class="labeltip"></span></label>
+    <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date %>" />
+
+    <label for="subscription_comment">Commentaire<span class="labeltip"></span></label>
+    <input type="text" name="subscription[comment]" id="subscription_comment" class="<%= 'error' if @subscription.errors.on :comment %>" value="<%= @subscription.comment %>" />
+
+    <button type="submit">Créer !</button>
+    <div class="spacer"></div>
+  </div>
+</form>
+
+<hr class="clear" />
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $(".input_date").datepicker({
+      dateFormat:'dd/mm/yy',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 1 %>:<%= Date.today.year + 1 %>',
+      closeText:'X', currentText:'Aujourd\'hui'
+    });
+    users = <%= @users.to_json %>;
+    users.forEach(function(u) {
+      u.label = u.display_name + " (" + u.uid + ")";
+      u.value = u.uid;
+    });
+    $('#subscription_user_id').autocomplete({
+      source: users,
+      minLength: 0,
+      delay: 0
+    });
+  });
+  //]]>
+</script>
+
