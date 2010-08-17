@@ -75,7 +75,10 @@ end
 
 ['/admin/subscription/?', '/admin/subscription/new/?'].each do |path|
   post path do
-    @subscription = Subscription.new(params['subscription'])
+    @subscription = Subscription.new
+    %w(user_id year medical_certificate_type comment).each{ |f| @subscription[f] = clean_input(params['subscription'][f]) }
+    @subscription.medical_certificate_date = (Date.strptime(params['subscription']['medical_certificate_date'], '%d/%m/%Y') rescue nil)
+
     if(@subscription.save)
       redirect '/admin/subscriptions'
     else
