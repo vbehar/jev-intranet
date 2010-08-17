@@ -229,7 +229,7 @@ Content
 #content dl dt, #contentfull dl dt {
   clear: both;
   float: left;
-  width: 150px;
+  width: 180px;
   font-weight: bold;
 }
 #content dl dd, #contentfull dl dd {

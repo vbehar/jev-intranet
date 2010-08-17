@@ -1,4 +1,5 @@
 <%
+  translated_state = {'new' => 'Nouvelle', 'paid' => 'Payée', 'upstream' => 'Saisie FFCK', 'sent' => 'Envoyée'}
   @title = 'Mes cotisations'
   @breadcrumb = [['/', 'Accueil'], ['/subscriptions', @title]]
 %>
@@ -7,14 +8,51 @@
 
 <h2><%= @title %></h2>
 
-<ul>
-  <% @subscriptions.each do |subscription| %>
-    <li>
-      <span class="year"><%= subscription.year %></span>
-      <span class="state"><%= subscription.state %></span>
-    </li>
+<% @subscriptions.each do |s| %>
+  <h3><%= s.year %></h3>
+
+  <dl>
+    <dt>Etat</dt>
+    <dd><strong><%= translated_state[s.state] %></strong></dd>
+  </dl>
+
+  <% unless s.comment.blank? %>
+    <dl>
+      <dt>Commentaire</dt>
+      <dd><%= s.comment %></dd>
+    </dl>
   <% end %>
-</ul>
+
+  <dl>
+    <dt>Certificat médical</dt>
+    <dd><%= s.medical_certificate_type %> - <%= s.medical_certificate_date.strftime '%d/%m/%Y' rescue nil %></dd>
+  </dl>
+
+  <dl>
+    <dt>Prix (théorique)</dt>
+    <dd><%= s.price %> euros</dd>
+  </dl>
+
+  <% unless s.payment.nil? %>
+    <% p = s.payment %>
+    <dl>
+      <dt>Paiement</dt>
+      <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
+    </dl>
+  <% end %>
+
+  <dl>
+    <dt>Date de création</dt>
+    <dd><%= s.created_at.strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+  </dl>
+
+  <dl>
+    <dt>Dernière modification</dt>
+    <dd><%= s.updated_at.strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+  </dl>
+
+  <p class="clear"></p>
+<% end %>
 
 <hr class="clear" />
 </div>
