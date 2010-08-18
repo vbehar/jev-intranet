@@ -45,7 +45,7 @@ configure do
 
   # mongodb connection
   mongo_config = load_yaml_config 'mongo'
-  MongoMapper.connection = Mongo::Connection.new(mongo_config['host'], mongo_config['port'])
+  MongoMapper.connection = Mongo::Connection.new(mongo_config['host'], mongo_config['port'], mongo_config['options'])
   MongoMapper.database = mongo_config['db']
 end
 
