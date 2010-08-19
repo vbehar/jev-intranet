@@ -14,6 +14,7 @@ end
 
 get '/subscriptions/?' do
   @subscriptions = Subscription.where(:user_id => @me.uid).sort(:year.desc).all
+  @subscription = Subscription.new(:user_id => @me.uid, :year => Subscription.current_subscription_year) if Subscription.user_can_subscribe?(@me)
   erb :subscriptions
 end
 

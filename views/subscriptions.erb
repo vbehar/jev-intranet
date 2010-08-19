@@ -8,6 +8,13 @@
 
 <h2><%= @title %></h2>
 
+<% if @subscription %>
+  <h3>Nouvelle cotisation pour la saison <%= @subscription.year %></h3>
+
+  <form method="post">
+  </form>
+<% end %>
+
 <% @subscriptions.each do |s| %>
   <h3><%= s.year %></h3>
 

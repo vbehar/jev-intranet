@@ -83,6 +83,13 @@ class Subscription
     today.month >= 8 ? today.next_year.year : today.year
   end
 
+  # return true if the given user can subscribe for the current year
+  def self.user_can_subscribe?(user)
+    user_id = user.respond_to?(:uid) ? user.uid : user
+    return false if user_id.nil? || !User.exist?(user_id)
+    !Subscription.where(:user_id => user_id, :year => self.current_subscription_year).exist?
+  end
+
   # mark the subscription as deleted, and save it
   def delete!
     self.deleted = true
