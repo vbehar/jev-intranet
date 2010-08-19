@@ -3,6 +3,9 @@
 # in dev mode, the default logged-in userid
 default_user_id: john.doe
 
+# don't display subscriptions from years before this one
+first_subscription_year: 2010
+
 # number of posts that should be displayed per page
 posts_per_page: 10
 # number of 'most active posters' to display on the page

@@ -96,7 +96,7 @@ end
 
 ['/admin/subscriptions/?', '/admin/subscriptions/:year/?'].each do |path|
   get path do
-    @years = params[:year].blank? ? Date.today.next_year.year.downto(2010).to_a : [params[:year].to_i]
+    @years = params[:year].blank? ? Subscription.current_subscription_year.downto(options.first_subscription_year).to_a : [params[:year].to_i]
     @subscriptions = Subscription.count_by_years_and_states
     erb :admin_subscriptions
   end

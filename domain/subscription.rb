@@ -77,6 +77,12 @@ class Subscription
                            .map{|o| { :year => o['year'].to_i, :state => o['state'], :count => o['count'].to_i } }
   end
 
+  # return the current year used for requesting a new subscription
+  def self.current_subscription_year
+    today = Date.today
+    today.month >= 8 ? today.next_year.year : today.year
+  end
+
   # mark the subscription as deleted, and save it
   def delete!
     self.deleted = true
