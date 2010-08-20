@@ -481,7 +481,7 @@ Form
   padding: 4px 2px;
   border: solid 1px #aacfe4;
 }
-.simpleform input[readonly], .simpleform select[readonly] {
+.simpleform input[readonly], .simpleform select[readonly], .simpleform textarea[readonly] {
   background-color: #dcdcdc;
 }
 .simpleform button {
@@ -547,7 +547,7 @@ Form
   width: 200px;
   margin: 2px 0 20px 10px;
 }
-.tinyform input[readonly], .tinyform select[readonly] {
+.tinyform input[readonly], .tinyform select[readonly], .tinyform textarea[readonly] {
   background-color: #dcdcdc;
 }
 .tinyform .ui-datepicker-trigger {
@@ -658,7 +658,7 @@ Form
 .largeform input[type="checkbox"] {
   width: 20px;
 }
-.largeform input[readonly], .largeform select[readonly] {
+.largeform input[readonly], .largeform select[readonly], .largeform textarea[readonly] {
   background-color: #dcdcdc;
 }
 .largeform input.error, .largeform select.error, .largeform textarea.error {

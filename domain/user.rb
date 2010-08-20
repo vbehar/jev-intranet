@@ -64,6 +64,11 @@ class User < LdapBase
   def male?; gender == 'M'; end
   def female?; gender == 'F'; end
 
+  # return the full address of the user
+  def address
+    [street, [postal_code, l].join(' ')].join("\n")
+  end
+
   # return true if the user is admin, false otherwise
   def admin?
     Group.find('admin').members.member?(self)

@@ -9,13 +9,29 @@
 <h2><%= @title %></h2>
 
 <% if @subscription.editable_by_user? %>
-  <form method="post">
-    <div class="tinyform">
-      <h3>Nouvelle cotisation pour la saison <%= @subscription.year %></h3>
-      <p><a href="/account">Merci de valider vos coordonnées avant de valider !</a><br />Renseignez les informations concernant votre certificat médical (type et date), et déposez-en une copie au club.<br />La cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.</p>
+  <p>
+    Coût de votre cotisation <%= @subscription.year %> : <strong><%= @subscription.price %> euros</strong>.<br />
+    <strong>Note</strong> : <u>la cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.</u><br />
+    Vous devrez également déposer une copie de votre certificat médical au club.
+  </p>
 
-      <label for="subscription_price">Prix<span class="labeltip">En euros</span></label>
-      <input type="text" name="subscription[price]" id="subscription_price" value="<%= @subscription.price %>" readonly="readonly" />
+  <form method="post">
+    <div class="largeform">
+      <h3>Vos coordonnées</h3>
+      <p>Merci de vérifier que vos coordonnées sont correctes. Si ce n'est pas le cas, <a href="/account"><strong>cliquez ici pour les mettre à jour</strong></a>.</p>
+
+      <label for="user_address">Adresse postale complète<span class="labeltip"></span></label>
+      <textarea name="user[address]" id="user_address" rows="3" cols="60" readonly="readonly"><%= @subscription.user.address %></textarea>
+
+      <label for="user_emails">Adresses e-mails<span class="labeltip"></span></label>
+      <input type="text" name="user[emails]" id="user_emails" value="<%= @subscription.user.mail(true).join(', ') %>" readonly="readonly" />
+
+      <label for="user_phones">Numéros de téléphone<span class="labeltip"></span></label>
+      <input type="text" name="user[phones]" id="user_phones" value="<%= @subscription.user.mobile(true).join(', ') %>     <%= @subscription.user.home_phone(true).join(', ') %>     <%= @subscription.user.telephone_number(true).join(', ') %>" readonly="readonly" />
+
+      <hr class="separator" />
+
+      <h3>Demande de cotisation pour la saison <%= @subscription.year %></h3>
 
       <label for="subscription_medical_certificate_type">Certificat médical<span class="labeltip">Type</span></label>
       <select name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" class="<%= 'error' if @subscription.errors.on :medical_certificate_type %>">
