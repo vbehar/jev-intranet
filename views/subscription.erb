@@ -30,18 +30,17 @@
       <input type="text" name="user[phones]" id="user_phones" value="<%= @subscription.user.mobile(true).join(', ') %>     <%= @subscription.user.home_phone(true).join(', ') %>     <%= @subscription.user.telephone_number(true).join(', ') %>" readonly="readonly" />
 
       <hr class="separator" />
-
       <h3>Demande de cotisation pour la saison <%= @subscription.year %></h3>
+      <p></p>
 
-      <label for="subscription_medical_certificate_type">Certificat médical<span class="labeltip">Type</span></label>
-      <select name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" class="<%= 'error' if @subscription.errors.on :medical_certificate_type %>">
-        <% [nil, 'Compétition', 'Loisirs'].each do |type| %>
-          <option value="<%= type %>" <%= "selected='selected'" if @subscription.medical_certificate_type == type %>><%= type %></option>
-        <% end %>
-      </select>
+      <label for="subscription_medical_certificate_date">Date du certificat médical<span class="labeltip">Format jj/mm/aaaa</span></label>
+      <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
 
-      <label for="subscription_medical_certificate_date">Certificat médical<span class="labeltip">Date (jj/mm/aaaa)</span></label>
-      <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date %>" />
+      <label for="subscription_medical_certificate_type_compet">Certificat médical "Compétition"<span class="labeltip">Cocher si valide pour la compétition</span></label>
+      <input type="checkbox" name="subscription[medical_certificate_type_compet]" id="subscription_medical_certificate_type_compet" <%= "checked=\"checked\"" if @subscription.medical_certificate_type == 'Compétition' %> />
+      <input type="hidden" name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" value="<%= @subscription.medical_certificate_type %>" />
+
+      <hr class="separator" />
 
       <label for="subscription_comment">Commentaires<span class="labeltip">Facultatif</span></label>
       <textarea name="subscription[comment]" id="subscription_comment" rows="3" cols="30"><%= @subscription.comment %></textarea>
@@ -70,6 +69,10 @@
       buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
       buttonText:'Calendrier', currentText:'Aujourd\'hui'
     });
+    $("#subscription_medical_certificate_type_compet").change(function() {
+      var type = $(this).attr('checked') ? "Compétition" : "Loisirs";
+      $("#subscription_medical_certificate_type").val(type);
+    }).change();
   });
   //]]>
 </script>

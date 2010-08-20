@@ -31,7 +31,10 @@ post '/subscriptions/:year/?' do |year|
   @subscription = Subscription.find_or_create(:user_id => @me.id, :year => year)
   halt 403 unless @subscription.editable_by_user?
 
-  %w(medical_certificate_type medical_certificate_date comment).each{ |f| @subscription[f] = clean_input(params['subscription'][f]) }
+  @subscription.medical_certificate_date = (Date.strptime(params['subscription']['medical_certificate_date'], '%d/%m/%Y') rescue nil)
+  @subscription.medical_certificate_type = @subscription.medical_certificate_date.nil? ? nil : params['subscription']['medical_certificate_type']
+  @subscription.comment = clean_input(params['subscription']['comment'])
+
   if(@subscription.save)
     redirect '/subscriptions'
   else
