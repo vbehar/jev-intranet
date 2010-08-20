@@ -83,11 +83,9 @@ class Subscription
     today.month >= 8 ? today.next_year.year : today.year
   end
 
-  # return true if the given user can subscribe for the current year
-  def self.user_can_subscribe?(user)
-    user_id = user.respond_to?(:uid) ? user.uid : user
-    return false if user_id.nil? || !User.exist?(user_id)
-    !Subscription.where(:user_id => user_id, :year => self.current_subscription_year).exist?
+  # find or create a subscription with the given parameters
+  def self.find_or_create(params)
+    Subscription.where(params).first || Subscription.new(params)
   end
 
   # mark the subscription as deleted, and save it
@@ -104,6 +102,11 @@ class Subscription
       when 2011; user_birth_year >= 1997 ? 120 : 160 rescue nil
       else nil
     end
+  end
+
+  # return true if the subscription is still editable by the user
+  def editable_by_user?
+    %w(new paid).include?(self.state)
   end
 
   def user=(user)

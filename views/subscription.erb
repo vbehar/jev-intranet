@@ -1,0 +1,60 @@
+<%
+  translated_state = {'new' => 'Nouvelle', 'paid' => 'Payée', 'upstream' => 'Saisie FFCK', 'sent' => 'Envoyée'}
+  @title = "Cotisation #{@subscription.year}"
+  @breadcrumb = [['/', 'Accueil'], ['/subscriptions', 'Mes cotisations'], ["/subscriptions/#{@subscription.year}", @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<% if @subscription.editable_by_user? %>
+  <form method="post">
+    <div class="tinyform">
+      <h3>Nouvelle cotisation pour la saison <%= @subscription.year %></h3>
+      <p><a href="/account">Merci de valider vos coordonnées avant de valider !</a><br />Renseignez les informations concernant votre certificat médical (type et date), et déposez-en une copie au club.<br />La cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.</p>
+
+      <label for="subscription_price">Prix<span class="labeltip">En euros</span></label>
+      <input type="text" name="subscription[price]" id="subscription_price" value="<%= @subscription.price %>" readonly="readonly" />
+
+      <label for="subscription_medical_certificate_type">Certificat médical<span class="labeltip">Type</span></label>
+      <select name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" class="<%= 'error' if @subscription.errors.on :medical_certificate_type %>">
+        <% [nil, 'Compétition', 'Loisirs'].each do |type| %>
+          <option value="<%= type %>" <%= "selected='selected'" if @subscription.medical_certificate_type == type %>><%= type %></option>
+        <% end %>
+      </select>
+
+      <label for="subscription_medical_certificate_date">Certificat médical<span class="labeltip">Date (jj/mm/aaaa)</span></label>
+      <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date %>" />
+
+      <label for="subscription_comment">Commentaires<span class="labeltip">Facultatif</span></label>
+      <textarea name="subscription[comment]" id="subscription_comment" rows="3" cols="30"><%= @subscription.comment %></textarea>
+
+      <button type="submit">Valider la cotisation</button>
+      <div class="spacer"></div>
+    </div>
+  </form>
+  <p class="clear"></p>
+<% else %>
+  <p>Votre demande de cotisation pour <strong><%= @subscription.year %></strong> n'est plus éditable.</p>
+  <p>Etat actuel : <strong><%= translated_state[@subscription.state] %></strong></p>
+  <p>Pour toute demande de changement, contactez nous !</p>
+<% end %>
+
+<hr class="clear" />
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $(".input_date").datepicker({
+      dateFormat:'dd/mm/yy',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 1 %>:<%= Date.today.year + 1 %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+  });
+  //]]>
+</script>
+
