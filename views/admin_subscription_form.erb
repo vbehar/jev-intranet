@@ -13,7 +13,11 @@
     <input type="text" name="subscription[user_id]" id="subscription_user_id" class="<%= 'error' if @subscription.errors.on :user_id %>" value="<%= @subscription.user_id %>" />
 
     <label for="subscription_year">Année<span class="labeltip"></span></label>
-    <input type="text" name="subscription[year]" id="subscription_year" class="<%= 'error' if @subscription.errors.on :year %>" value="<%= @subscription.year %>" />
+    <select name="subscription[year]" id="subscription_year" class="<%= 'error' if @subscription.errors.on :year %>">
+      <% @years.each do |year| %>
+        <option value="<%= year %>" <%= "selected='selected'" if @subscription.year == year %>><%= year %></option>
+      <% end %>
+    </select>
 
     <label for="subscription_medical_certificate_type">Certificat médical - Type<span class="labeltip"></span></label>
     <select name="subscription[medical_certificate_type]" id="subscription_medical_certificate_type" class="<%= 'error' if @subscription.errors.on :medical_certificate_type %>">
@@ -26,7 +30,7 @@
     <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date %>" />
 
     <label for="subscription_comment">Commentaire<span class="labeltip"></span></label>
-    <input type="text" name="subscription[comment]" id="subscription_comment" class="<%= 'error' if @subscription.errors.on :comment %>" value="<%= @subscription.comment %>" />
+    <textarea name="subscription[comment]" id="subscription_comment" rows="3" cols="30"><%= @subscription.comment %></textarea>
 
     <button type="submit">Créer !</button>
     <div class="spacer"></div>

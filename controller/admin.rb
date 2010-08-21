@@ -70,6 +70,7 @@ end
 get '/admin/subscription/new/?' do
   @subscription = Subscription.new
   @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+  @years = Subscription.current_subscription_year.downto(options.first_subscription_year).to_a
   erb :admin_subscription_form
 end
 
@@ -83,6 +84,7 @@ end
       redirect '/admin/subscriptions'
     else
       @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
+      @years = Subscription.current_subscription_year.downto(options.first_subscription_year).to_a
       erb :admin_subscription_form
     end
   end
