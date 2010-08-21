@@ -1,5 +1,5 @@
 <%
-  translated_state = {'new' => 'Nouvelle', 'paid' => 'Payée', 'upstream' => 'Saisie FFCK', 'sent' => 'Envoyée'}
+  translated_state = {'new' => 'Nouvelle (en attente de paiement)', 'paid' => 'Payée (en attente de saisie)', 'upstream' => 'Saisie FFCK', 'sent' => 'Envoyée'}
   @title = "Cotisation #{@subscription.year}"
   @breadcrumb = [['/', 'Accueil'], ['/subscriptions', 'Mes cotisations'], ["/subscriptions/#{@subscription.year}", @title]]
 %>
@@ -31,7 +31,13 @@
 
       <hr class="separator" />
       <h3>Demande de cotisation pour la saison <%= @subscription.year %></h3>
-      <p></p>
+      <p>
+        <% unless @subscription.new? %>
+          Demande créée <%= @subscription.created_at.strftime('le %A %d %B %Y à %Hh%M') %>
+           - Dernière modification <%= @subscription.updated_at.strftime('le %A %d %B %Y à %Hh%M') %>
+           - Etat : <strong><%= translated_state[@subscription.state] %></strong>
+        <% end %>
+      </p>
 
       <label for="subscription_medical_certificate_date">Date du certificat médical<span class="labeltip">Format jj/mm/aaaa</span></label>
       <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
@@ -45,7 +51,7 @@
       <label for="subscription_comment">Commentaires<span class="labeltip">Facultatif</span></label>
       <textarea name="subscription[comment]" id="subscription_comment" rows="3" cols="30"><%= @subscription.comment %></textarea>
 
-      <button type="submit">Valider la cotisation</button>
+      <button type="submit"><%= @subscription.new? ? 'Valider la cotisation' : 'Modifier la cotisation' %></button>
       <div class="spacer"></div>
     </div>
   </form>

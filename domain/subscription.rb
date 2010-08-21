@@ -88,6 +88,11 @@ class Subscription
     Subscription.where(params).first || Subscription.new(params)
   end
 
+  # return true if this subscription has not been saved yet
+  def new?
+    self.created_at.nil?
+  end
+
   # mark the subscription as deleted, and save it
   def delete!
     self.deleted = true
