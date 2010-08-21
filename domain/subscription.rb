@@ -17,6 +17,8 @@ class Subscription
   key :deleted,                   Boolean, :default  => false
   timestamps!
 
+  validates_uniqueness_of :year, :scope => :user_id
+
   # workflow
   state_machine :state, :initial => :new do
     event :pay do
