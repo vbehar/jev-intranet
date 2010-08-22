@@ -7,6 +7,17 @@
 
 <h2>Admin - <%= @title %></h2>
 
+<% unless @subscription.errors.empty? %>
+  <div class="msgbox msgerror">
+    Impossible de créer cette demande de cotisation :<br />
+    <% if @subscription.errors.on(:year).eql?('non-uniq.year-user_id') %>
+     - Il existe déjà une <a href="/admin/subscription/<%= @subscription.user.uid %>-<%= @subscription.year %>">demande de cotisation <%= @subscription.year %> pour <%= @subscription.user.name %></a><br />
+    <% else %>
+     - Les champs en rouge sont obligatoires !
+    <% end %>
+  </div>
+<% end %>
+
 <form method="post">
   <div class="largeform">
     <label for="subscription_user_id">Adhérent<span class="labeltip"></span></label>
