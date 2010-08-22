@@ -18,6 +18,7 @@ class Subscription
   timestamps!
 
   validates_uniqueness_of :year, :scope => :user_id, :message => 'non-uniq.year-user_id'
+  validate :valid_user_id
 
   # workflow
   state_machine :state, :initial => :new do
@@ -126,6 +127,12 @@ class Subscription
   def user
     return @user unless @user.nil?
     @user = User.find(self.user_id)
+  end
+
+  private
+
+  def valid_user_id
+    errors.add(:user_id, 'invalid.user_id') unless !user_id.blank? and User.exist?(user_id)
   end
 
 end

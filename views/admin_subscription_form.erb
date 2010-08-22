@@ -12,6 +12,8 @@
     Impossible de créer cette demande de cotisation :<br />
     <% if @subscription.errors.on(:year).eql?('non-uniq.year-user_id') %>
      - Il existe déjà une <a href="/admin/subscription/<%= @subscription.user.uid %>-<%= @subscription.year %>">demande de cotisation <%= @subscription.year %> pour <%= @subscription.user.name %></a><br />
+    <% elsif(@subscription.errors.on(:user_id).include?('invalid.user_id') rescue false) %>
+     - Le nom de l'adhérent n'est pas valide ! Merci d'utiliser l'auto-complétion...
     <% else %>
      - Les champs en rouge sont obligatoires !
     <% end %>
