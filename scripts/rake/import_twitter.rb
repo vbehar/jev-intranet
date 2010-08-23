@@ -7,7 +7,7 @@ namespace :twitter do
 
     desc "Import jevck's tweets into posts"
     task :jevck do
-      twitter_api = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=jevck&count=20"
+      twitter_api = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=jevck&count=200&trim_user=true"
 
       last_tweet = Post.from_twitter.where(:user_id => "jev").sort(:created_at).last
       if last_tweet.nil?
