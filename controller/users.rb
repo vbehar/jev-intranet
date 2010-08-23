@@ -8,6 +8,11 @@ get '/user/:uid/?' do |uid|
   redirect "/user/#{current_user_id}" if uid.eql?('me')
   @user = User.find(uid) rescue nil
   pass if @user.nil?
+  @posts = Post.where(:user_id => @user.uid, :deleted => false).count
+  @participations = Event.where(:participations => {'$elemMatch' => {:user_id => @user.uid,
+                                                                     :status => Participation::Status::PRESENT,
+                                                                     :deleted => false} },
+                                :deleted => false).count
   erb :user
 end
 

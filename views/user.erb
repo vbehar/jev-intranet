@@ -3,15 +3,20 @@
   @breadcrumb = [['/', 'Accueil'], ['/users', 'Annuaire des adhérents'], ["/user/#{@user.uid}", @title]]
 %>
 
-<div id="contentfull">
+<div id="content">
 
 <h2><%= @user.name %></h2>
 
-<img src="<%= @user.avatar_url %>" />
+<img src="<%= @user.avatar_url(48) %>" />
 
 <dl>
   <dt>Nom</dt>
   <dd><%= @user.name %></dd>
+</dl>
+
+<dl>
+  <dt>Pseudo</dt>
+  <dd><%= @user.display_name %></dd>
 </dl>
 
 <dl>
@@ -20,10 +25,31 @@
 </dl>
 
 <dl>
+  <dt>Catégorie</dt>
+  <dd><%= @user.ffck_category %></dd>
+</dl>
+
+<dl>
   <dt>Anniversaire</dt>
   <dd><%= birth_day(@user.birth_date) %></dd>
 </dl>
 
+<% @user.labeled_uri(true).each do |labeled_uri| %>
+  <% link, label = labeled_uri.split(' ', 2) %>
+  <dl>
+    <dt><%= label.blank? ? 'Lien' : label %></dt>
+    <dd><a href="<%= link %>"><%= link %></a></dd>
+  </dl>
+<% end %>
+
 <hr class="clear" />
+</div>
+
+<div class="sidebox">
+  <h2>Voir ses...</h2>
+  <ul class="sidemenu">
+    <li class="first"><a href="/posts/<%= @user.uid %>"><%= @posts %> messages</a></li>
+    <li class=""><a href="/events/participations/<%= @user.uid %>"><%= @participations %> participations</a></li>
+  </ul>
 </div>
 
