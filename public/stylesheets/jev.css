@@ -166,6 +166,18 @@ Breadcrumb
 *********/
 
 #breadcrumb {
+  float: left;
+  font-size: 80%;
+}
+
+/********
+Extra nav
+********/
+
+#extra-nav {
+  float: right;
+  text-align: right;
+  right: 0;
   font-size: 80%;
 }
 
@@ -185,12 +197,14 @@ Content
 ******/
 
 #contentfull {
+  clear: both;
   float: left;
   margin: 20px 0 0 0;
   text-align: left;
   width: 100%;
 }
 #content {
+  clear: both;
   float: left;
   margin: 20px 0 0 0;
   text-align: left;

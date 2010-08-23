@@ -3,6 +3,18 @@
   @breadcrumb = [['/', 'Accueil'], ['/admin', 'Admin'], ['/admin/users', 'Utilisateurs'], ["/admin/user/#{@user.uid}", @title]]
 %>
 
+<% if prev_user(@user.uid) || next_user(@user.uid) %>
+  <div id="extra-nav">
+      <% if prev_user(@user.uid) %>
+        <a href="/admin/user/<%= prev_user(@user.uid) %>"><< <%= prev_user(@user.uid) %> </a>
+      <% end %>
+      <%= ' | ' if prev_user(@user.uid) && next_user(@user.uid) %>
+      <% if next_user(@user.uid) %>
+        <a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %> >></a>
+      <% end %>
+  </div>
+<% end %>
+
 <div id="contentfull">
 
 <h2><%= @user.name %></h2>
@@ -21,11 +33,6 @@
   <dt>Anniversaire</dt>
   <dd><%= birth_date(@user.birth_date) %></dd>
 </dl>
-
-<ul>
-<% if prev_user(@user.uid) %><li><a href="/admin/user/<%= prev_user(@user.uid) %>"><%= prev_user(@user.uid) %></a></li><% end %>
-<% if next_user(@user.uid) %><li><a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %></a></li><% end %>
-</ul>
 
 <hr class="clear" />
 </div>
