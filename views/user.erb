@@ -19,10 +19,12 @@
   <dd><%= @user.display_name %></dd>
 </dl>
 
-<dl>
-  <dt>Fonction</dt>
-  <dd><%= @user.title %></dd>
-</dl>
+<% unless @user.title.blank? %>
+  <dl>
+    <dt>Fonction</dt>
+    <dd><%= @user.title %></dd>
+  </dl>
+<% end %>
 
 <dl>
   <dt>Catégorie</dt>
