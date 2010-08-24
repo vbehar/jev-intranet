@@ -64,6 +64,9 @@ class User < LdapBase
   def male?; gender == 'M'; end
   def female?; gender == 'F'; end
 
+  def minor?; age < 18; end
+  def major?; age >= 18; end
+
   # return the full address of the user
   def address
     [street, [postal_code, l].join(' ')].join("\n")

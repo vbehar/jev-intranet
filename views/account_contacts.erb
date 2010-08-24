@@ -1,0 +1,152 @@
+<%
+  @title = 'Personnes à prévenir en cas de nécessité'
+  @breadcrumb = [['/', 'Accueil'], ['/account', 'Mon compte'], ['/account/contacts', @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<% if @me.minor? %>
+  <div class="msgbox msgerror">A renseigner obligatoirement pour les mineurs !</div>
+<% end %>
+
+<form id="contacts" method="post" action="/account/contacts">
+
+  <div class="tinyform">
+    <h3>Contact principal</h3>
+    <p>Coordonnées de la 1ère personne à prevenir en cas de nécessité</p>
+
+    <label for="main_contact_name">Nom<span class="labeltip"></span></label>
+    <input type="text" name="main_contact_name" id="main_contact_name" value="<%= @me.main_contact_name %>" />
+
+    <label for="main_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
+    <input type="text" name="main_contact_relationship" id="main_contact_relationship" value="<%= @me.main_contact_relationship %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @me.main_contact_mail(true).blank? ? [""] : @me.main_contact_mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="main_contact_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_mail[]" id="main_contact_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @me.main_contact_mobile_phone(true).blank? ? [""] : @me.main_contact_mobile_phone(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="main_contact_mobile_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_mobile_phone[]" id="main_contact_mobile_phone_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @me.main_contact_home_phone(true).blank? ? [""] : @me.main_contact_home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="main_contact_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_home_phone[]" id="main_contact_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+  </div>
+
+  <div class="tinyform">
+    <h3>Contact secondaire</h3>
+    <p>Coordonnées de la 2ème personne à prevenir en cas de nécessité</p>
+
+    <label for="sec_contact_name">Nom<span class="labeltip"></span></label>
+    <input type="text" name="sec_contact_name" id="sec_contact_name" value="<%= @me.sec_contact_name %>" />
+
+    <label for="sec_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
+    <input type="text" name="sec_contact_relationship" id="sec_contact_relationship" value="<%= @me.sec_contact_relationship %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @me.sec_contact_mail(true).blank? ? [""] : @me.sec_contact_mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="sec_contact_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_mail[]" id="sec_contact_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @me.sec_contact_mobile_phone(true).blank? ? [""] : @me.sec_contact_mobile_phone(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="sec_contact_mobile_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_mobile_phone[]" id="sec_contact_mobile_phone_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @me.sec_contact_home_phone(true).blank? ? [""] : @me.sec_contact_home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="sec_contact_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_home_phone[]" id="sec_contact_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="tinyform" style="margin: 10px auto; float: none;">
+    <button type="submit">Envoyer !</button>
+    <div class="spacer"></div>
+  </div>
+</form>
+
+<hr class="clear" />
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $('#contacts').delegate("span.input-action.remove-block", "click", function() {
+      var elem = $(this).parent();
+      if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
+        // can't remove the last one ! let's just clear the value
+        var html = elem.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, 1);
+        elem.html(html);
+        // and hide it
+        elem.addClass("hide");
+      } else {
+        elem.remove();
+      }
+    });
+    $('#contacts').delegate("span.action.duplicate-block", "click", function() {
+      var elem = $(this).prev();
+      if(elem.hasClass("hide")) {
+        // if it's hidden (last one), just display it
+        elem.removeClass("hide");
+      } else {
+        // duplicate it
+        var orig = elem;
+        var dup = orig.clone();
+        // and fix the html value
+        var html = dup.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, function(m,n) { return Number(n) + 1; });
+        dup.html(html);
+        dup.insertAfter(orig);
+      }
+    });
+  });
+  //]]>
+</script>
+

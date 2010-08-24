@@ -29,3 +29,12 @@ post '/account/?' do
   redirect '/account'
 end
 
+get '/account/contacts/?' do
+  erb :account_contacts
+end
+
+post '/account/contacts/?' do
+  puts params.inspect
+  redirect '/account/contacts'
+end
+
