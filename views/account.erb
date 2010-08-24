@@ -86,6 +86,17 @@
     </div>
     <% end %>
     <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone professionnel" />Ajouter un nouveau numéro de téléphone professionnel</span>
+
+    <h4 class="separator">Sites Internet<span class="tip">Vous pouvez indiquer plusieurs sites</span></h4>
+    <% labeled_uris = @me.labeled_uri(true).blank? ? [""] : @me.labeled_uri(true) %>
+    <% labeled_uris.each_with_index do |labeled_uri, index| %>
+    <div>
+      <label for="user_labeled_uri_<%= index %>">Site <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[labeled_uri][]" id="user_labeled_uri_<%= index %>" value="<%= labeled_uri %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce site !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un site" />Ajouter un nouveau site</span>
   </div>
 
   <div class="tinyform">
