@@ -20,3 +20,15 @@ get '/about/?' do
   erb :about
 end
 
+get '/resources/?' do
+  erb :resources
+end
+
+get '/paddle-pass/?' do
+  erb :paddle_pass
+end
+
+get '/services/?' do
+  erb :services
+end
+

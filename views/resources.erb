@@ -1,0 +1,36 @@
+<%
+  @title = 'Ressources'
+  @breadcrumb = [['/', 'Accueil'], ['/resources', @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<ul class="simplelist">
+  <li>
+    <a href="/users">Annuaire des adhérents</a>
+    <ul>
+      <li><a href="/users/birthdays">Anniversaires</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="/posts">Messages</a>
+  </li>
+  <li>
+    <a href="/events">Evènements</a>
+    <ul>
+      <li><a href="/events/passed">Evènements passés</a></li>
+      <li><a href="/events/occurring">Evènements en cours</a></li>
+      <li><a href="/events/future">Evènements à venir</a></li>
+      <li><a href="/events/new">Créer un nouvel évènement</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="/paddle-pass">Pagaies couleurs</a>
+  </li>
+</ul>
+
+<hr class="clear" />
+</div>
+
