@@ -1,11 +1,11 @@
 <%
-  @title = "A propos"
+  @title = 'A propos'
   @breadcrumb = [['/', 'Accueil'], ['/about', @title]]
 %>
 
 <div id="contentfull">
 
-<h2>A propos</h2>
+<h2><%= @title %></h2>
 
 <p>
 Application open-source, code disponible sur github : <a href="http://github.com/vbehar/jev-intranet">http://github.com/vbehar/jev-intranet</a>
@@ -13,14 +13,30 @@ Application open-source, code disponible sur github : <a href="http://github.com
 
 <h3>Statut de l'application</h3>
 
-<ul class="simplelist">
-  <li><strong>Environnement</strong> : <%= options.environment.to_s rescue "inconnu" %></li>
-  <li><strong>Dernier démarrage</strong> : <%= options.start_time.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnu" %></li>
-  <li><strong>Branche</strong> : <%= options.git_branch rescue "inconnue" %></li>
-  <li><strong>Version</strong> : <%= options.git_version rescue "inconnue" %> 
-    (complète : <%= options.git_version_full rescue "inconnue" %>)</li>
-  <li><strong>Date de la version</strong> : <%= options.git_version_date.strftime("%d/%m/%Y %H:%M:%S") rescue "inconnue" %></li>
-</ul>
+<dl>
+  <dt>Environnement</dt>
+  <dd><%= options.environment.to_s rescue 'inconnu' %></dd>
+</dl>
+
+<dl>
+  <dt>Dernier démarrage</dt>
+  <dd><%= options.start_time.strftime('%d/%m/%Y %H:%M:%S') rescue 'inconnu' %></dd>
+</dl>
+
+<dl>
+  <dt>Branche</dt>
+  <dd><%= options.git_branch rescue 'inconnue' %></dd>
+</dl>
+
+<dl>
+  <dt>Version</dt>
+  <dd><%= options.git_version rescue 'inconnue' %> (complète : <%= options.git_version_full rescue 'inconnue' %>)</dd>
+</dl>
+
+<dl>
+  <dt>Date de la version</dt>
+  <dd><%= options.git_version_date.strftime('%d/%m/%Y %H:%M:%S') rescue 'inconnue' %></dd>
+</dl>
 
 <hr class="clear" />
 </div>
