@@ -517,7 +517,7 @@ Form
 .tinyform {
   float: left;
   width: 400px;
-  margin: 0 24px;
+  margin: 0 24px 20px 24px;
   padding: 14px;
   border: solid 2px #b7ddf2;
   background: #ebf4fb;
