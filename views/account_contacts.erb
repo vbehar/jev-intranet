@@ -7,9 +7,11 @@
 
 <h2><%= @title %></h2>
 
-<% if @me.minor? %>
-  <div class="msgbox msgerror">A renseigner obligatoirement pour les mineurs !</div>
+<% unless @me.errors.empty? %>
+  <div class="msgbox msgerror">Impossible d'enregistrer : les champs en rouge ne sont pas valides !</div>
 <% end %>
+
+<div class="msgbox msginfo">A renseigner <strong>obligatoirement</strong> pour les mineurs !</div>
 
 <form id="contacts" method="post">
 
@@ -18,10 +20,10 @@
     <p>Coordonnées de la 1ère personne à prevenir en cas de nécessité</p>
 
     <label for="main_contact_name">Nom<span class="labeltip"></span></label>
-    <input type="text" name="main_contact_name" id="main_contact_name" value="<%= @me.main_contact_name %>" />
+    <input type="text" name="main_contact_name" id="main_contact_name" value="<%= @me.main_contact_name %>" class="<%= 'error' if @me.errors.on :main_contact_name %>" />
 
     <label for="main_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
-    <input type="text" name="main_contact_relationship" id="main_contact_relationship" value="<%= @me.main_contact_relationship %>" />
+    <input type="text" name="main_contact_relationship" id="main_contact_relationship" value="<%= @me.main_contact_relationship %>" class="<%= 'error' if @me.errors.on :main_contact_relationship %>" />
 
     <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
     <% mails = @me.main_contact_mail(true).blank? ? [""] : @me.main_contact_mail(true) %>
@@ -62,10 +64,10 @@
     <p>Coordonnées de la 2ème personne à prevenir en cas de nécessité</p>
 
     <label for="sec_contact_name">Nom<span class="labeltip"></span></label>
-    <input type="text" name="sec_contact_name" id="sec_contact_name" value="<%= @me.sec_contact_name %>" />
+    <input type="text" name="sec_contact_name" id="sec_contact_name" value="<%= @me.sec_contact_name %>" class="<%= 'error' if @me.errors.on :sec_contact_name %>" />
 
     <label for="sec_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
-    <input type="text" name="sec_contact_relationship" id="sec_contact_relationship" value="<%= @me.sec_contact_relationship %>" />
+    <input type="text" name="sec_contact_relationship" id="sec_contact_relationship" value="<%= @me.sec_contact_relationship %>" class="<%= 'error' if @me.errors.on :sec_contact_relationship %>" />
 
     <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
     <% mails = @me.sec_contact_mail(true).blank? ? [""] : @me.sec_contact_mail(true) %>

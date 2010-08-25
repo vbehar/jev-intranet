@@ -39,6 +39,13 @@ end
 
 post '/account/contacts/?' do
   puts params.inspect
-  redirect '/account/contacts'
+  prefixes = %w(main_contact_ sec_contact_)
+  fields = %w(name relationship mail mobile_phone home_phone).map{|e| prefixes.map{|p| p + e } }.flatten
+  fields.each{|f| @me[f] = params[f] }
+  if @me.save
+    redirect '/account'
+  else
+    erb :account_contacts
+  end
 end
 
