@@ -68,7 +68,7 @@
   </div>
 
   <div id="breadcrumb">
-    <%= @breadcrumb.map { |path, title| "<a href=\"#{path}\" title=\"#{title}\">#{title}</a>" }.join(" > ") %>
+  <%= @breadcrumb.map{|path,title| path.blank? ? title : "<a href=\"#{path}\" title=\"#{title}\">#{title}</a>"}.join(' > ') %>
   </div>
 
   <%= yield %>

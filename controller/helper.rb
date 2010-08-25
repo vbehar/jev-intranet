@@ -20,6 +20,11 @@ helpers do
     User.find(current_user_id)
   end
 
+  # return the configured Logger instance
+  def logger
+    options.logger
+  end
+
   # return a formatted string representing a duration between the 2 given dates
   def duration_date(start_date, end_date)
     str = ""

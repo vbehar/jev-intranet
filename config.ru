@@ -4,23 +4,29 @@
 # 'rackup' or 'shotgun config.ru' in dev mode
 # and whatever you want in prod (tested with webroar)
 
-# frameworks
+# web frameworks
 require 'rack'
 require 'sinatra'
 
-# config
+require 'logger'
+
+# global config
 ENV['RACK_ENV'] ||= ENV['APP_ENV'] # APP_ENV is used by webroar
 set     :environment, ENV['RACK_ENV'] || :development
-set     :raise_errors, true
-enable  :sessions
-disable :logging
+set     :show_exceptions, Proc.new { development? }
+enable  :static, :sessions, :method_override, :clean_trace
+disable :run, :logging, :raise_errors, :dump_errors
 
-# middlewares
-use ::Rack::ShowExceptions
+# development environment
 configure :development do
   require File.dirname(__FILE__) + '/middleware/sinatra_reloader'
   use ::Sinatra::Reloader
+  logger = Logger.new(STDOUT)
+  logger.level = Logger::DEBUG
+  set :logger, logger
 end
+
+# production environment
 configure :production do
   cache_config = YAML.load(ERB.new(IO.read(File.dirname(__FILE__) + "/config/cache.yml")).result)
   if cache_config['active']
@@ -38,9 +44,12 @@ configure :production do
   use ::Rack::ETag
   require File.dirname(__FILE__) + '/middleware/remote_user'
   use ::Rack::RemoteUser
+  logger = Logger.new('production.log', 'weekly')
+  logger.level = Logger::WARN
+  set :logger, logger
 end
 
-# application
+# load and run the application
 require File.dirname(__FILE__) + '/intranet'
 run ::Sinatra::Application
 
