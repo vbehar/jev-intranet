@@ -24,6 +24,10 @@ get '/account/?' do
   erb :account
 end
 
+get '/account/avatar/?' do
+  erb :account_avatar
+end
+
 get '/account/contact/?' do
   erb :account_contact
 end

@@ -1,0 +1,24 @@
+<%
+  @title = 'Changer mon avatar'
+  @breadcrumb = [['/', 'Accueil'], ['/account', 'Mon compte'], ['/account/avatar', @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<% if @me.mail(true).first.blank? %>
+  <div class="msgbox msgerror">Vous n'avez pas renseigné votre adresse e-mail ! Il vous faut une adresse e-mail pour avoir un avatar !</div>
+<% end %>
+
+<p>Avatar actuel : <img src="<%= @me.avatar_url(48) %>" /></p>
+
+<p>
+  Nous utilisons le site <a href="http://fr.gravatar.com">Gravatar</a> pour stocker les avatars (images de profils).<br />
+  Si vous n'avez jamais créé de compte sur <a href="http://fr.gravatar.com">gravatar.com</a>, le site vous attribue une image par défaut.<br />
+  Pour en changer, allez créer un compte sur <a href="http://fr.gravatar.com">gravatar.com</a>, puis associez l'image de votre choix à votre adresse e-mail (<strong><%= @me.mail(true).first.downcase rescue nil %></strong>).
+</p>
+
+<hr class="clear" />
+</div>
+
