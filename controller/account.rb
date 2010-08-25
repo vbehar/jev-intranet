@@ -24,9 +24,13 @@ get '/account/?' do
   erb :account
 end
 
-post '/account/?' do
+get '/account/contact/?' do
+  erb :account_contact
+end
+
+post '/account/contact/?' do
   puts params['user'].inspect
-  redirect '/account'
+  redirect '/account/contact'
 end
 
 get '/account/contacts/?' do
