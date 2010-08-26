@@ -41,12 +41,12 @@ end
 error do
   e = env['sinatra.error']
   trace = e.backtrace.delete_if{|t| t.start_with?('/var/lib/gems')}.join("\n") rescue nil
-  logger.error "500 at #{request.path_info}\n#{e.class} : #{e.message}\n#{trace}"
+  logger.error "\n#{Time.now} -- #{current_user_id}\n#{request.path_info} -- error 500\n#{e.class} : #{e.message}\n#{trace}\n"
   erb :error_500
 end
 
 not_found do
-  logger.error '404 at ' + request.path_info
+  logger.error "\n#{Time.now} -- #{current_user_id}\n#{request.path_info} -- error 404\n"
   erb :error_404
 end
 
