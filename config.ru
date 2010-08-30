@@ -7,6 +7,7 @@
 # web frameworks
 require 'rack'
 require 'sinatra'
+require 'sinatra/flash'
 
 require 'logger'
 

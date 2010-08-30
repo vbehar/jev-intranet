@@ -250,29 +250,29 @@ Content
   float: left;
 }
 
-/*******
-msgbox
-*******/
+/*************
+msgbox & flash
+*************/
 
-.msgbox {
+.msgbox, #flash .flash {
   border: 1px solid #CCCCCC;
   margin: 15px 0;
   padding: 10px 10px 10px 30px;
   text-align: left;
   width: 660px;
 }
-.msgbox a {
+.msgbox a, #flash .flash a {
   font-weight: bold;
 }
-.msginfo {
+.msginfo, #flash .notice {
   background: #F0F0F0 url(../images/icons/msginfo.png) no-repeat scroll 8px;
   color: #336699;
 }
-.msgwarning {
+.msgwarning, #flash .warning {
   background: #F0F0F0 url(../images/icons/msgwarning.png) no-repeat scroll 8px;
   color: #CC8822;
 }
-.msgerror {
+.msgerror, #flash .error {
   background: #F0F0F0 url(../images/icons/msgerror.png) no-repeat scroll 8px;
   color: #FF0000;
 }
