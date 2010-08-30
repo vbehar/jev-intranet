@@ -18,8 +18,8 @@ Dependencies (and their tested versions) :
 - babosa            0.1.0
 
 Dev mode :
-- racksh        0.9.7
-- shotgun       0.8
+- racksh            0.9.7
+- shotgun           0.8
 
 Config :
 - copy config/*_sample.yml to config/*.yml and adapt to your env.
