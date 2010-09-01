@@ -12,6 +12,8 @@ def post(*args); end
 def put(*args); end
 def delete(*args); end
 def set(*args); end
+def error(*args); end
+def not_found(*args); end
 # make sure the config block is executed
 def configure; yield; end
 
