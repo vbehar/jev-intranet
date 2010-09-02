@@ -133,7 +133,7 @@
 
     <label for="user_ffck_category">Catégorie<span class="labeltip">pour la saison en cours</span></label>
     <select name="user[ffck_category]" id="user_ffck_category" class="<%= 'error' if @user.errors.on :ffck_category %>">
-      <% ffck_categories.each do |category| %>
+      <% ffck_categories_detailed.each do |category| %>
         <option value="<%= category %>" <%= "selected='selected'" if @user.ffck_category == category %>><%= category %></option>
       <% end %>
     </select>

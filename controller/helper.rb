@@ -87,6 +87,12 @@ helpers do
     %w(Pitchoun Poussin Benjamin Minime Cadet Junior Senior Veteran Inconnu)
   end
 
+  # return an ordered array of all detailed ffck categories (with years)
+  def ffck_categories_detailed()
+    ['Pitchoun', 'Poussin 1', 'Poussin 2', 'Benjamin 1', 'Benjamin 2', 'Minime 1', 'Minime 2', 'Cadet 1', 'Cadet 2',
+     'Junior 1', 'Junior 2', 'Senior', 'Veteran 1', 'Veteran 2', 'Veteran 3', 'Veteran +', 'Inconnu']
+  end
+
   # linkify the given text
   def linkify(text)
     text.gsub(URL_REGEXP, '<a href="\0">\0</a>') rescue text
