@@ -33,8 +33,15 @@ get '/account/contact/?' do
 end
 
 post '/account/contact/?' do
-  puts params['user'].inspect
-  redirect '/account/contact'
+  fields = %w(display_name gender street postal_code l title occupation social_security_number birth_date tetanus_vaccine_date)
+  fields.each{|f| @me[f] = params['user'][f] }
+  multi_fields = %w(mail mobile home_phone telephone_number labeled_uri)
+  multi_fields.each{|f| @me[f] = params['user'][f] }
+  if @me.save
+    redirect '/account'
+  else
+    erb :account_contact
+  end
 end
 
 get '/account/contacts/?' do
@@ -42,7 +49,6 @@ get '/account/contacts/?' do
 end
 
 post '/account/contacts/?' do
-  puts params.inspect
   prefixes = %w(main_contact_ sec_contact_)
   fields = %w(name relationship mail mobile_phone home_phone).map{|e| prefixes.map{|p| p + e } }.flatten
   fields.each{|f| @me[f] = params[f] }

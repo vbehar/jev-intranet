@@ -101,7 +101,7 @@
 
   <div class="tinyform">
     <h3>Licence FFCK</h3>
-    <p>Informations concernant votre licence fédérale (FFCK). En cas de données incorrectes, contactez-nous.</p>
+    <p>Informations concernant votre licence fédérale (FFCK).<br />En cas de données incorrectes, contactez-nous.</p>
 
     <label for="user_ffck_number">Numéro<span class="labeltip">de licence</span></label>
     <input type="text" name="user[ffck_number]" id="user_ffck_number" value="<%= @me.ffck_number %>" readonly="readonly" />
@@ -135,6 +135,26 @@
     <input type="text" name="user[medical_certificate_type]" id="user_medical_certificate_type" value="<%= @me.medical_certificate_type %>" readonly="readonly" />
   </div>
 
+  <div class="tinyform">
+    <h3>Informations médicales</h3>
+    <p>Informations médicales vous concernant,<br /><strong>Obligatoire pour les mineurs</strong>.</p>
+
+    <label for="user_social_security_number">Sécurité sociale<span class="labeltip">Numéro</span></label>
+    <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @me.social_security_number %>" />
+
+    <label for="user_tetanus_vaccine_date_fr">Dernier vaccin antitétanique<span class="labeltip"></span></label>
+    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @me.tetanus_vaccine_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @me.tetanus_vaccine_date.strftime('%Y-%m-%d') rescue '' %>" />
+  </div>
+
+  <div class="tinyform">
+    <h3>Divers</h3>
+    <p>Informations diverses - optionnelles.</p>
+
+    <label for="user_occupation">Profession<span class="labeltip"></span></label>
+    <input type="text" name="user[occupation]" id="user_occupation" value="<%= @me.occupation %>" />
+  </div>
+
   <div class="spacer"></div>
 
   <div class="tinyform" style="margin: 10px auto; float: none;">
@@ -152,6 +172,13 @@
     $("#user_birth_date_fr").datepicker({
       altField:'#user_birth_date', altFormat:'yy-mm-dd',
       changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_tetanus_vaccine_date_fr").datepicker({
+      altField:'#user_tetanus_vaccine_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 50 %>:<%= Date.today.year %>',
       showButtonPanel:true, closeText:'X', showOn:'both',
       buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
       buttonText:'Calendrier', currentText:'Aujourd\'hui'
