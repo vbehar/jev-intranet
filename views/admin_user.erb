@@ -19,21 +19,244 @@
 
 <h2><%= @user.name %></h2>
 
-<dl>
-  <dt>Nom</dt>
-  <dd><%= @user.name %></dd>
-</dl>
+<% if flash[:notice] == 'user.save.success' %>
+  <div class="msgbox msginfo">Les coordonnées de <strong><%= @user.name %></strong> ont bien été modifiées</div>
+<% end %>
 
-<dl>
-  <dt>Fonction</dt>
-  <dd><%= @user.title %></dd>
-</dl>
+<form id="account" method="post">
 
-<dl>
-  <dt>Anniversaire</dt>
-  <dd><%= birth_date(@user.birth_date) %></dd>
-</dl>
+  <div class="tinyform">
+    <h3>Coordonnées</h3>
+    <div class="separator"></div>
+
+    <label for="user_uid">Identifiant<span class="labeltip">de connexion</span></label>
+    <input type="text" name="user[uid]" id="user_uid" value="<%= @user.uid %>" readonly="readonly" />
+
+    <label for="user_gn">Prénom<span class="labeltip"></span></label>
+    <input type="text" name="user[gn]" id="user_gn" value="<%= @user.gn %>" />
+
+    <label for="user_sn">Nom<span class="labeltip"></span></label>
+    <input type="text" name="user[sn]" id="user_sn" value="<%= @user.sn %>" />
+
+    <label for="user_display_name">Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
+    <input type="text" name="user[display_name]" id="user_display_name" value="<%= @user.display_name %>" />
+
+    <label for="user_gender">Sexe<span class="labeltip"></span></label>
+    <select name="user[gender]" id="user_gender">
+      <option value="M" <%= "selected='selected'" if @user.male? %>>Homme</option>
+      <option value="F" <%= "selected='selected'" if @user.female? %>>Femme</option>
+    </select>
+
+    <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
+    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <h4 class="separator">Adresse</h4>
+
+    <label for="user_street">Adresse<span class="labeltip">Numéro et rue</span></label>
+    <textarea name="user[street]" id="user_street" rows="2" cols="30"><%= @user.street %></textarea>
+
+    <label for="user_postal_code">Code postal<span class="labeltip"></span></label>
+    <input type="text" name="user[postal_code]" id="user_postal_code" value="<%= @user.postal_code %>" />
+
+    <label for="user_l">Ville<span class="labeltip"></span></label>
+    <input type="text" name="user[l]" id="user_l" value="<%= @user.l %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @user.mail(true).blank? ? [""] : @user.mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @user.mobile(true).blank? ? [""] : @user.mobile(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @user.home_phone(true).blank? ? [""] : @user.home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+
+    <h4 class="separator">Téléphone professionnel<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% telephone_numbers = @user.telephone_number(true).blank? ? [""] : @user.telephone_number(true) %>
+    <% telephone_numbers.each_with_index do |telephone_number, index| %>
+    <div>      <label for="user_telephone_number_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[telephone_number][]" id="user_telephone_number_<%= index %>" value="<%= telephone_number %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone professionnel !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone professionnel" />Ajouter un nouveau numéro de téléphone professionnel</span>
+
+    <h4 class="separator">Sites Internet<span class="tip">Vous pouvez indiquer plusieurs sites</span></h4>
+    <% labeled_uris = @user.labeled_uri(true).blank? ? [""] : @user.labeled_uri(true) %>
+    <% labeled_uris.each_with_index do |labeled_uri, index| %>
+    <div>
+      <label for="user_labeled_uri_<%= index %>">Site <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[labeled_uri][]" id="user_labeled_uri_<%= index %>" value="<%= labeled_uri %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce site !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un site" />Ajouter un nouveau site</span>
+  </div>
+
+  <div class="tinyform">
+    <h3>Licence FFCK</h3>
+    <div class="separator"></div>
+
+    <label for="user_ffck_number">Numéro<span class="labeltip">de licence</span></label>
+    <input type="text" name="user[ffck_number]" id="user_ffck_number" value="<%= @user.ffck_number %>" />
+
+    <label for="user_ffck_number_year">Année<span class="labeltip">de la dernière licence</span></label>
+    <input type="text" name="user[ffck_number_year]" id="user_ffck_number_year" value="<%= @user.ffck_number_year %>" />
+
+    <label for="user_ffck_number_date_fr">Date de la licence<span class="labeltip">Prise de la licence</span></label>
+    <input type="text" name="user[ffck_number_date_fr]" id="user_ffck_number_date_fr" value="<%= @user.ffck_number_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[ffck_number_date]" id="user_ffck_number_date" value="<%= @user.ffck_number_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <label for="user_ffck_category">Catégorie<span class="labeltip">pour la saison en cours</span></label>
+    <select name="user[ffck_category]" id="user_ffck_category" class="<%= 'error' if @user.errors.on :ffck_category %>">
+      <% ffck_categories.each do |category| %>
+        <option value="<%= category %>" <%= "selected='selected'" if @user.ffck_category == category %>><%= category %></option>
+      <% end %>
+    </select>
+
+    <h4 class="separator">Club</h4>
+
+    <label for="user_ffck_club_number">Numéro<span class="labeltip">du club</span></label>
+    <input type="text" name="user[ffck_club_number]" id="user_ffck_club_number" value="<%= @user.ffck_club_number %>" />
+
+    <label for="user_ffck_club_name">Nom<span class="labeltip">du club</span></label>
+    <input type="text" name="user[ffck_club_name]" id="user_ffck_club_name" value="<%= @user.ffck_club_name %>" />
+
+    <label for="user_title">Fonction<span class="labeltip">au sein du club</span></label>
+    <input type="text" name="user[title]" id="user_title" value="<%= @user.title %>" />
+
+    <h4 class="separator">Certificat médical</h4>
+
+    <label for="user_medical_certificate_date_fr">Date<span class="labeltip"></span></label>
+    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <label for="user_medical_certificate_type">Type<span class="labeltip">Compétition ou Loisirs</span></label>
+    <select name="user[medical_certificate_type]" id="user_medical_certificate_type" class="<%= 'error' if @user.errors.on :medical_certificate_type %>">
+      <% [nil, 'Compétition', 'Loisirs'].each do |type| %>
+        <option value="<%= type %>" <%= "selected='selected'" if @user.medical_certificate_type == type %>><%= type %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="tinyform">
+    <h3>Informations médicales</h3>
+    <div class="separator"></div>
+
+    <label for="user_social_security_number">Sécurité sociale<span class="labeltip">Numéro</span></label>
+    <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @user.social_security_number %>" />
+
+    <label for="user_tetanus_vaccine_date_fr">Dernier vaccin antitétanique<span class="labeltip"></span></label>
+    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d') rescue '' %>" />
+  </div>
+
+  <div class="tinyform">
+    <h3>Divers</h3>
+    <div class="separator"></div>
+
+    <label for="user_occupation">Profession<span class="labeltip"></span></label>
+    <input type="text" name="user[occupation]" id="user_occupation" value="<%= @user.occupation %>" />
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="tinyform" style="margin: 10px auto; float: none;">
+    <button type="submit">Envoyer !</button>
+    <div class="spacer"></div>
+  </div>
+</form>
 
 <hr class="clear" />
 </div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $("#user_birth_date_fr").datepicker({
+      altField:'#user_birth_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_ffck_number_date_fr").datepicker({
+      altField:'#user_ffck_number_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_medical_certificate_date_fr").datepicker({
+      altField:'#user_medical_certificate_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 5 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_tetanus_vaccine_date_fr").datepicker({
+      altField:'#user_tetanus_vaccine_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 50 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $('#account').delegate("span.input-action.remove-block", "click", function() {
+      var elem = $(this).parent();
+      if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
+        // can't remove the last one ! let's just clear the value
+        var html = elem.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, 1);
+        elem.html(html);
+        // and hide it
+        elem.addClass("hide");
+      } else {
+        elem.remove();
+      }
+    });
+    $('#account').delegate("span.action.duplicate-block", "click", function() {
+      var elem = $(this).prev();
+      if(elem.hasClass("hide")) {
+        // if it's hidden (last one), just display it
+        elem.removeClass("hide");
+      } else {
+        // duplicate it
+        var orig = elem;
+        var dup = orig.clone();
+        // and fix the html value
+        var html = dup.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, function(m,n) { return Number(n) + 1; });
+        dup.html(html);
+        dup.insertAfter(orig);
+      }
+    });
+  });
+  //]]>
+</script>
 

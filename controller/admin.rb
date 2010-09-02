@@ -67,6 +67,22 @@ get '/admin/user/:uid/?' do |uid|
   erb :admin_user
 end
 
+post '/admin/user/:uid/?' do |uid|
+  @user = User.find(uid) rescue nil
+  pass if @user.nil?
+  fields = %w(gn sn display_name gender birth_date street postal_code l ffck_number ffck_number_year ffck_number_date ffck_category ffck_club_number ffck_club_name title medical_certificate_date medical_certificate_type social_security_number tetanus_vaccine_date occupation)
+  fields.each{|f| @user[f] = params['user'][f] }
+  multi_fields = %w(mail mobile home_phone telephone_number labeled_uri)
+  multi_fields.each{|f| @user[f] = params['user'][f] }
+  @user.cn = "#{@user.gn} #{@user.sn}"
+  if @user.save
+    flash[:notice] = 'user.save.success'
+    redirect "/admin/user/#{uid}"
+  else
+    erb :admin_user
+  end
+end
+
 get '/admin/subscription/new/?' do
   @subscription = Subscription.new
   @users = User.find(:all, :attributes => ['cn','uid','displayName']).map{|u| {:uid => u.uid, :display_name => u.display_name}}
