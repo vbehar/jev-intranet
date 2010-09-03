@@ -33,9 +33,9 @@
       <h3>Demande de cotisation pour la saison <%= @subscription.year %></h3>
       <p>
         <% unless @subscription.new? %>
-          Demande créée <%= @subscription.created_at.strftime('le %A %d %B %Y à %Hh%M') %>
-           - Dernière modification <%= @subscription.updated_at.strftime('le %A %d %B %Y à %Hh%M') %>
-           - Etat : <strong><%= translated_state[@subscription.state] %></strong>
+          Demande créée <%= local_time(@subscription.created_at).strftime('le %A %d %B %Y à %Hh%M') %>
+           - Dernière modification <%= local_time(@subscription.updated_at).strftime('le %A %d %B %Y à %Hh%M') %>
+          <br />Etat : <strong><%= translated_state[@subscription.state] %></strong>
         <% end %>
       </p>
 

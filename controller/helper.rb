@@ -25,6 +25,12 @@ helpers do
     options.logger
   end
 
+  # return the local time if it is utc
+  def local_time(time)
+    return nil unless time.is_a?(Time)
+    time.utc? ? time.getlocal : time
+  end
+
   # return a formatted string representing a duration between the 2 given dates
   def duration_date(start_date, end_date)
     str = ""

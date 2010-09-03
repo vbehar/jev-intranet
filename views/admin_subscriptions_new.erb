@@ -33,8 +33,8 @@
                 <strong><%= s.user.firstname %><br /><%= s.user.lastname %></strong>
               </a>
             </th>
-            <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
-            <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><%= local_time(s.created_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><%= local_time(s.updated_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
             <td><input type="text" name="subscriptions[][amount]" value="<%= s.price %>" size="5" /></td>
             <td><input type="text" name="subscriptions[][type]" value="chèque" size="10" /></td>
             <td><input type="text" name="subscriptions[][date]" value="<%= Date.today.strftime '%d/%m/%Y' %>" size="10" class="input_date" /></td>

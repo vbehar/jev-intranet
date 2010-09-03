@@ -26,7 +26,7 @@
 
 <dl>
   <dt>Date</dt>
-  <dd><%= @subscription.created_at.strftime 'Créée le %A %d %B %Y à %Hh%M' %>, <%= @subscription.updated_at.strftime 'dernière modification le %A %d %B %Y à %Hh%M' %></dd>
+  <dd><%= local_time(@subscription.created_at).strftime 'Créée le %A %d %B %Y à %Hh%M' %>, <%= local_time(@subscription.updated_at).strftime 'dernière modification le %A %d %B %Y à %Hh%M' %></dd>
 </dl>
 
 <% unless @subscription.comment.blank? %>
@@ -62,7 +62,7 @@
         <dl>
           <dt><%= translated_state[event.new_state] %></dt>
           <dd>
-            <%= event.created_at.strftime 'Le %A %d %B %Y à %Hh%M' %>, par <%= event.user.name %>
+            <%= local_time(event.created_at).strftime 'Le %A %d %B %Y à %Hh%M' %>, par <%= event.user.name %>
             <%= "<br /><em>Commentaire</em> : #{event.comment}" unless event.comment.blank? %>
           </dd>
         </dl>

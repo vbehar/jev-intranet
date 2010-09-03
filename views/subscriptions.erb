@@ -49,12 +49,12 @@
 
   <dl>
     <dt>Date de création</dt>
-    <dd><%= s.created_at.strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+    <dd><%= local_time(s.created_at).strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
   </dl>
 
   <dl>
     <dt>Dernière modification</dt>
-    <dd><%= s.updated_at.strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+    <dd><%= local_time(s.updated_at).strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
   </dl>
 
   <p class="clear"></p>

@@ -36,7 +36,7 @@
                   <span class="user-id"><%= p.user.uid %></span>
                   <span class="user"><%= p.user.display_name %></span>
                   <span class="text"></span>
-                  <span class="date"><%= p.created_at.getlocal.strftime "Inscription le %A %d %B %Y à %Hh%M" %></span>
+                  <span class="date"><%= local_time(p.created_at).strftime "Inscription le %A %d %B %Y à %Hh%M" %></span>
                 </span>
                 <span class="actions">
                   <span class="intro">Changer en : </span>

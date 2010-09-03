@@ -27,8 +27,8 @@
               <strong><%= s.user.firstname %><br /><%= s.user.lastname %></strong>
             </a>
           </th>
-          <td><%= s.created_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
-          <td><%= s.updated_at.getlocal.strftime "%d/%m/%Y<br />%H:%M" %></td>
+          <td><%= local_time(s.created_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
+          <td><%= local_time(s.updated_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
         </tr>
       <% end %>
     </tbody>

@@ -79,7 +79,7 @@
             <li>
               <span class="user-icon">
                 <a href="/user/<%= p.user.uid %>">
-                  <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %> (inscription <%= p.created_at.getlocal.strftime "le %A %d %B %Y à %Hh%M" %>)" />
+                  <img src="<%= p.user.avatar_url(48) %>" alt="<%= p.user.display_name %>" title="<%= p.user.display_name %> (inscription <%= local_time(p.created_at).strftime "le %A %d %B %Y à %Hh%M" %>)" />
                 </a>
               </span>
               <span class="user-id"><%= p.user.id %></span>
@@ -106,8 +106,8 @@
   <span class="creator-uid hide"><%= @event.creator_uid %></span>
   <span class="r1-uid hide"><%= @event.r1_uid %></span>
   <span class="creator">Créé par <a href="/user/<%= @event.creator.uid %>"><%= @event.creator.display_name %></a></span>
-  <span class="created_at">Créé le <%= @event.created_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
-  <span class="updated_at">Dernier changement le <%= @event.updated_at.getlocal.strftime "%A %d %B %Y à %Hh%M" %></span>
+  <span class="created_at">Créé le <%= local_time(@event.created_at).strftime "%A %d %B %Y à %Hh%M" %></span>
+  <span class="updated_at">Dernier changement le <%= local_time(@event.updated_at).strftime "%A %d %B %Y à %Hh%M" %></span>
 </div>
 
 <div class="actions hide">
