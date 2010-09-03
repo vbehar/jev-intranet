@@ -69,7 +69,7 @@ class Subscription
       u.ffck_number_year = self.year
       u.medical_certificate_type = self.medical_certificate_type
       u.medical_certificate_date = self.medical_certificate_date
-      #u.save
+      u.save
     end
     success
   end
