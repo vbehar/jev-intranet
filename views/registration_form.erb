@@ -1,0 +1,300 @@
+<%
+  @title = "Demande d'adhésion à l'association Joinville Eau Vive"
+  @breadcrumb = [['/', 'Accueil'], ['/registration', @title]]
+%>
+
+<div id="contentfull">
+
+<h2><%= @title %></h2>
+
+<% unless @user.errors.empty? %>
+  <div class="msgbox msgerror">
+    Impossible d'enregistrer : les champs en rouge ne sont pas valides !
+    <% if @user.errors.on :distinguishedName %>
+      <br />Vous avez déjà un compte dans la base !
+    <% end %>
+  </div>
+<% end %>
+
+<div class="msgbox msginfo">
+  Ce formulaire vous permet de faire une demande d'adhésion à l'association <strong>Joinville Eau Vive</strong>.
+  <br />Merci de prendre le temps de lire <a href="http://www.jevck.com/club/inscription">les modalités d'inscription</a> avant de remplir ce formulaire.
+</div>
+
+<form id="account" method="post">
+
+  <div class="tinyform">
+    <h3>Coordonnées</h3>
+    <div class="separator"></div>
+
+    <label for="user_gn">Prénom<span class="labeltip"></span></label>
+    <input type="text" name="user[gn]" id="user_gn" value="<%= @user.gn %>" class="<%= 'error' if @user.errors.on :gn %>" />
+
+    <label for="user_sn">Nom<span class="labeltip"></span></label>
+    <input type="text" name="user[sn]" id="user_sn" value="<%= @user.sn %>" class="<%= 'error' if @user.errors.on :sn %>" />
+
+    <label for="user_display_name">Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
+    <input type="text" name="user[display_name]" id="user_display_name" value="<%= @user.display_name %>" class="<%= 'error' if @user.errors.on :display_name %>" />
+
+    <label for="user_password">Mot de passe<span class="labeltip">pour se connecter</span></label>
+    <input type="password" name="user[password]" id="user_password" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
+
+    <label for="user_password_verify">Mot de passe<span class="labeltip">vérification</span></label>
+    <input type="password" name="user[password_verify]" id="user_password_verify" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
+
+    <label for="user_gender">Sexe<span class="labeltip"></span></label>
+    <select name="user[gender]" id="user_gender">
+      <option value="M" <%= "selected='selected'" if @user.male? %>>Homme</option>
+      <option value="F" <%= "selected='selected'" if @user.female? %>>Femme</option>
+    </select>
+
+    <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
+    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :birth_date %>" />
+    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <h4 class="separator">Adresse</h4>
+
+    <label for="user_street">Adresse<span class="labeltip">Numéro et rue</span></label>
+    <textarea name="user[street]" id="user_street" rows="2" cols="30" class="<%= 'error' if @user.errors.on :street %>"><%= @user.street %></textarea>
+
+    <label for="user_postal_code">Code postal<span class="labeltip"></span></label>
+    <input type="text" name="user[postal_code]" id="user_postal_code" value="<%= @user.postal_code %>" class="<%= 'error' if @user.errors.on :postal_code %>" />
+
+    <label for="user_l">Ville<span class="labeltip"></span></label>
+    <input type="text" name="user[l]" id="user_l" value="<%= @user.l %>" class="<%= 'error' if @user.errors.on :l %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @user.mail(true).blank? ? [""] : @user.mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="user_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mail][]" id="user_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @user.mobile(true).blank? ? [""] : @user.mobile(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="user_mobile_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[mobile][]" id="user_mobile_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @user.home_phone(true).blank? ? [""] : @user.home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="user_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="user[home_phone][]" id="user_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+  </div>
+
+  <div class="tinyform">
+    <h3>Cotisation</h3>
+    <p>
+      La cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.
+      Voir <a href="http://www.jevck.com/club/tarifs">les tarifs</a>.
+    </p>
+
+    <h4>Certificat médical de "non contre-indication à la pratique du canoë-kayak"</h4>
+
+    <label for="user_medical_certificate_date_fr">Date du certificat<span class="labeltip">format jj/mm/aaaa</span></label>
+    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :medical_certificate_date %>" />
+    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <label for="user_medical_certificate_type_compet">Cocher si valide pour la compétition<span class="labeltip"></span></label>
+    <input type="checkbox" name="user[medical_certificate_type_compet]" id="user_medical_certificate_type_compet" <%= "checked=\"checked\"" if @user.medical_certificate_type == 'Compétition' %> />
+    <input type="hidden" name="user[medical_certificate_type]" id="user_medical_certificate_type" value="<%= @user.medical_certificate_type %>" />
+
+    <h4 class="separator">Informations médicales (obligatoire pour les mineurs)</h4>
+
+    <label for="user_social_security_number">Sécurité sociale<span class="labeltip">Numéro</span></label>
+    <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @user.social_security_number %>" />
+
+    <label for="user_tetanus_vaccine_date_fr">Dernier vaccin antitétanique<span class="labeltip"></span></label>
+    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y') rescue '' %>" />
+    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d') rescue '' %>" />
+
+    <h4 class="separator">Divers</h4>
+
+    <label for="user_occupation">Profession<span class="labeltip">Optionnel</span></label>
+    <input type="text" name="user[occupation]" id="user_occupation" value="<%= @user.occupation %>" />
+
+    <label for="comment">Commentaire<span class="labeltip">Optionnel</span></label>
+    <textarea name="comment" id="comment" rows="5" cols="30"><%= @comment %></textarea>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="msgbox msgwarning">Personnes à prevenir en cas de nécessité - <strong>Obligatoire pour les mineurs !</strong></div>
+
+  <div class="tinyform">
+    <h3>Contact principal</h3>
+    <p>Coordonnées de la 1ère personne à prevenir en cas de nécessité</p>
+
+    <label for="main_contact_name">Nom<span class="labeltip"></span></label>
+    <input type="text" name="main_contact_name" id="main_contact_name" value="<%= @user.main_contact_name %>" class="<%= 'error' if @user.errors.on :main_contact_name %>" />
+
+    <label for="main_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
+    <input type="text" name="main_contact_relationship" id="main_contact_relationship" value="<%= @user.main_contact_relationship %>" class="<%= 'error' if @user.errors.on :main_contact_relationship %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @user.main_contact_mail(true).blank? ? [""] : @user.main_contact_mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="main_contact_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_mail[]" id="main_contact_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @user.main_contact_mobile_phone(true).blank? ? [""] : @user.main_contact_mobile_phone(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="main_contact_mobile_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_mobile_phone[]" id="main_contact_mobile_phone_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @user.main_contact_home_phone(true).blank? ? [""] : @user.main_contact_home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="main_contact_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="main_contact_home_phone[]" id="main_contact_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+  </div>
+
+  <div class="tinyform">
+    <h3>Contact secondaire</h3>
+    <p>Coordonnées de la 2ème personne à prevenir en cas de nécessité</p>
+
+    <label for="sec_contact_name">Nom<span class="labeltip"></span></label>
+    <input type="text" name="sec_contact_name" id="sec_contact_name" value="<%= @user.sec_contact_name %>" class="<%= 'error' if @user.errors.on :sec_contact_name %>" />
+
+    <label for="sec_contact_relationship">Relation<span class="labeltip">avec l'adhérent</span></label>
+    <input type="text" name="sec_contact_relationship" id="sec_contact_relationship" value="<%= @user.sec_contact_relationship %>" class="<%= 'error' if @user.errors.on :sec_contact_relationship %>" />
+
+    <h4 class="separator">Adresses e-mail<span class="tip">Vous pouvez indiquer plusieurs adresses</span></h4>
+    <% mails = @user.sec_contact_mail(true).blank? ? [""] : @user.sec_contact_mail(true) %>
+    <% mails.each_with_index do |mail, index| %>
+    <div>
+      <label for="sec_contact_mail_<%= index %>">Email <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_mail[]" id="sec_contact_mail_<%= index %>" value="<%= mail %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer cet email !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un email" />Ajouter une nouvelle adresse email</span>
+
+    <h4 class="separator">Téléphone portable<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% mobiles = @user.sec_contact_mobile_phone(true).blank? ? [""] : @user.sec_contact_mobile_phone(true) %>
+    <% mobiles.each_with_index do |mobile, index| %>
+    <div>
+      <label for="sec_contact_mobile_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_mobile_phone[]" id="sec_contact_mobile_phone_<%= index %>" value="<%= mobile %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone portable !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone portable" />Ajouter un nouveau numéro de téléphone portable</span>
+
+    <h4 class="separator">Téléphone domicile<span class="tip">Vous pouvez indiquer plusieurs numéros</span></h4>
+    <% home_phones = @user.sec_contact_home_phone(true).blank? ? [""] : @user.sec_contact_home_phone(true) %>
+    <% home_phones.each_with_index do |home_phone, index| %>
+    <div>
+      <label for="sec_contact_home_phone_<%= index %>">N° <%= index + 1 %><span class="labeltip"></span></label>
+      <input type="text" name="sec_contact_home_phone[]" id="sec_contact_home_phone_<%= index %>" value="<%= home_phone %>" />
+      <span class="input-action remove-block"><img src="/images/icons/delete.png" alt="supprimer" title="Supprimer ce numéro de téléphone domicile !" /></span>
+    </div>
+    <% end %>
+    <span class="action duplicate-block"><img src="/images/icons/add.png" alt="ajouter" title="Ajouter un numéro de téléphone domicile" />Ajouter un nouveau numéro de téléphone domicile</span>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="tinyform" style="margin: 10px auto; float: none;">
+    <button type="submit">Envoyer !</button>
+    <div class="spacer"></div>
+  </div>
+</form>
+
+<hr class="clear" />
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+    $("#user_birth_date_fr").datepicker({
+      altField:'#user_birth_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 100 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_medical_certificate_date_fr").datepicker({
+      altField:'#user_medical_certificate_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 1 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_tetanus_vaccine_date_fr").datepicker({
+      altField:'#user_tetanus_vaccine_date', altFormat:'yy-mm-dd',
+      changeMonth:true, changeYear:true, yearRange:'<%= Date.today.year - 50 %>:<%= Date.today.year %>',
+      showButtonPanel:true, closeText:'X', showOn:'both',
+      buttonImage:'/images/icons/calendar.gif', buttonImageOnly:true,
+      buttonText:'Calendrier', currentText:'Aujourd\'hui'
+    });
+    $("#user_medical_certificate_type_compet").change(function() {
+      var type = $(this).attr('checked') ? "Compétition" : "Loisirs";
+      $("#user_medical_certificate_type").val(type);
+    }).change();
+    $('#account').delegate("span.input-action.remove-block", "click", function() {
+      var elem = $(this).parent();
+      if(elem.prev().hasClass("separator") && elem.next().hasClass("action")) {
+        // can't remove the last one ! let's just clear the value
+        var html = elem.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, 1);
+        elem.html(html);
+        // and hide it
+        elem.addClass("hide");
+      } else {
+        elem.remove();
+      }
+    });
+    $('#account').delegate("span.action.duplicate-block", "click", function() {
+      var elem = $(this).prev();
+      if(elem.hasClass("hide")) {
+        // if it's hidden (last one), just display it
+        elem.removeClass("hide");
+      } else {
+        // duplicate it
+        var orig = elem;
+        var dup = orig.clone();
+        // and fix the html value
+        var html = dup.html();
+        html = html.replace(/value="(.*)"/, "value=\"\"");
+        html = html.replace(/(\d+)/g, function(m,n) { return Number(n) + 1; });
+        dup.html(html);
+        dup.insertAfter(orig);
+      }
+    });
+  });
+  //]]>
+</script>
+

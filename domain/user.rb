@@ -19,6 +19,18 @@ class User < LdapBase
   attr_mapping :medical_certificate_date, :medical_certificate_date, :date, :format => '%Y-%m-%d'
   attr_mapping :tetanus_vaccine_date, :tetanus_vaccine_date, :date, :format => '%Y-%m-%d'
 
+  attr_accessor :password, :password_verify
+  validate :validates_password
+
+  validate :validates_dates
+
+  validates_presence_of :uid, :cn, :gn, :sn, :display_name
+  validates_presence_of :gender, :birth_date
+  validates_presence_of :street, :postal_code, :l
+
+  before_validation_on_create :set_uid, :set_cn, :set_default_status
+  before_validation_on_create :set_ffck_category, :set_default_ffck_club
+
   # search users with the given params (:filter and :attributes)
   def self.search_users(params = {})
     self.search(params).map do |user|
@@ -81,6 +93,59 @@ class User < LdapBase
   def avatar_url(size = 80)
     encoded_mail = MD5::md5(mail(true).first.downcase) rescue nil
     "http://www.gravatar.com/avatar/#{encoded_mail}.jpg?s=#{size}&amp;d=wavatar"
+  end
+
+  private
+
+  # custom validation : validates the password (on creation)
+  def validates_password
+    if user_password.blank? && password.blank?
+      errors.add(:user_password, 'empty.password')
+    elsif user_password.blank? && !password.blank? && password != password_verify
+      errors.add(:user_password, 'invalid.password')
+    elsif user_password.blank? && !password.blank? && password == password_verify
+      self['user_password'] = password
+    end
+  end
+
+  # custom validation : validates the format of dates
+  def validates_dates
+    ( Date.parse(self['birth_date']) rescue errors.add(:birth_date, 'invalid.date') ) if !self['birth_date'].blank?
+    ( Date.parse(self['ffck_number_date']) rescue errors.add(:ffck_number_date, 'invalid.date') ) if !self['ffck_number_date'].blank?
+    ( Date.parse(self['medical_certificate_date']) rescue errors.add(:medical_certificate_date, 'invalid.date') ) if !self['medical_certificate_date'].blank?
+    ( Date.parse(self['tetanus_vaccine_date']) rescue errors.add(:tetanus_vaccine_date, 'invalid.date') ) if !self['tetanus_vaccine_date'].blank?
+  end
+
+  # set the uid based on the gn and sn values
+  def set_uid
+    unless gn.blank? || sn.blank?
+      self['uid'] = gn.to_slug.approximate_ascii.normalize.to_s + '.' + sn.to_slug.approximate_ascii.normalize.to_s if uid.blank?
+    end
+  end
+
+  # set the cn based on the gn and sn values
+  def set_cn
+    unless gn.blank? || sn.blank?
+      self['cn'] = gn + ' ' + sn if cn.blank?
+    end
+  end
+
+  # set the status to 'active' by default
+  def set_default_status
+    self['status'] = 'active' if status.blank?
+  end
+
+  # set the ffck_category
+  def set_ffck_category
+    self['ffck_category'] = calculate_ffck_category if ffck_category.blank?
+  end
+
+  # set the default ffck club name and number
+  def set_default_ffck_club
+    if ffck_club_number.blank? && ffck_club_name.blank?
+      self['ffck_club_number'] = '9404'
+      self['ffck_club_name'] = 'Joinville Eau Vive'
+    end
   end
 
 end
