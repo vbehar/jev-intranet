@@ -151,7 +151,7 @@
 
     <h4 class="separator">Certificat médical</h4>
 
-    <label for="user_medical_certificate_date_fr">Date<span class="labeltip"></span></label>
+    <label for="user_medical_certificate_date_fr">Date<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
     <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d') rescue '' %>" />
 
