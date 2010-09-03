@@ -498,6 +498,12 @@ Form
 .simpleform input[readonly], .simpleform select[readonly], .simpleform textarea[readonly] {
   background-color: #dcdcdc;
 }
+.simpleform input.error, .simpleform select.error, .simpleform textarea.error {
+  border: solid 2px red;
+  background-image: url(../images/icons/msgwarning.png);
+  background-position: right;
+  background-repeat: no-repeat;
+}
 .simpleform button {
   display: inline;
   width: 125px;
@@ -563,6 +569,12 @@ Form
 }
 .tinyform input[readonly], .tinyform select[readonly], .tinyform textarea[readonly] {
   background-color: #dcdcdc;
+}
+.tinyform input.error, .tinyform select.error, .tinyform textarea.error {
+  border: solid 2px red;
+  background-image: url(../images/icons/msgwarning.png);
+  background-position: right;
+  background-repeat: no-repeat;
 }
 .tinyform .ui-datepicker-trigger {
   float: left;
