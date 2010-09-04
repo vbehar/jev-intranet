@@ -20,7 +20,7 @@
   </div>
 <% end %>
 
-<form method="post">
+<form method="post" action="">
   <div class="largeform">
     <label for="subscription_user_id">Adhérent<span class="labeltip"></span></label>
     <input type="text" name="subscription[user_id]" id="subscription_user_id" class="<%= 'error' if @subscription.errors.on :user_id %>" value="<%= @subscription.user_id %>" />
