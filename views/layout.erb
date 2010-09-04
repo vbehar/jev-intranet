@@ -85,7 +85,11 @@
     });
   });
   $('#intranet').bind('current_user-loaded', function(e) {
-    $('#current_user_name').html(Intranet.current_user.display_name);
+    if(Intranet.current_user != null) {
+      $('#current_user_name').html(Intranet.current_user.display_name);
+    } else {
+      $('#current_user_name').html('- Non connecté -');
+    }
   });
   $('#intranet').ajaxError(function(e, xhr, options, error) {
     if(options.url.indexOf("/account.json") >= 0) {
