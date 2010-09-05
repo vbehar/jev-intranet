@@ -5,6 +5,8 @@ require 'state_machine'
 class Subscription
   include MongoMapper::Document
 
+  scope :current_year, lambda { where(:year => Subscription.current_subscription_year) }
+
   many :states, :class_name => 'WorkflowAction'
   one :payment, :class_name => 'Payment'
 
