@@ -8,6 +8,7 @@ get '/registration/success/?' do
   if flash[:status] == 'success'
     @uid = flash[:uid]
     @name = flash[:name]
+    @mail = flash[:mail]
     expires 0, :private, :no_cache, :no_store
     erb :registration_success
   else
@@ -40,6 +41,7 @@ post '/registration/?' do
     flash[:status] = 'success'
     flash[:uid] = @user.uid
     flash[:name] = @user.name
+    flash[:mail] = @user.mail(true)
     redirect '/registration/success'
   else
     expires 0, :private, :no_cache, :no_store

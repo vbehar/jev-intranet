@@ -1,0 +1,10 @@
+# YAML config for sending mails
+
+:address: localhost
+:port: 25
+:domain: localhost.localdomain
+:user_name: ~
+:password: ~
+:authentication: ~
+:enable_starttls_auto: true
+

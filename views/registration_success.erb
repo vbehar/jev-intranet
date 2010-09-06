@@ -11,9 +11,15 @@
 
 <p>Nous avons bien reçu votre demande d'adhésion. Celle-ci sera effective lorsque nous aurons reçu le paiement de votre cotisation.</p>
 
-<p>Votre identifiant de connexion sur l'<a href="http://intranet.jevck.com">intranet de JEV</a> est : <strong><%= @uid %></strong>. Notez le bien !</p>
+<p>Votre identifiant de connexion sur l'<a href="http://intranet.jevck.com">intranet de JEV</a> est : <strong><%= @uid %></strong>.</p>
 
-<p>En attendant, nous vous conseillons de vous inscrire sur nos <a href="http://www.jevck.com/adherents/listes_de_discussion">listes de discussions</a> pour vous tenir au courant des infos club.</p>
+<% if @mail.empty? %>
+  <p>Vous n'avez pas fourni d'adresse e-mail ! Notez bien votre identifiant !</p>
+<% else %>
+  <p>Nous venons de vous envoyer un mail avec votre identifiant et votre mot de passe.</p>
+<% end %>
+
+<p>En attendant, nous vous conseillons de vous inscrire sur nos <a href="http://www.jevck.com/adherents/listes_de_discussion">listes de discussion</a> pour vous tenir au courant des infos club.</p>
 
 <p>N'hésitez pas à <a href="http://www.jevck.com/contact">nous contacter</a>, et à bientôt au club !</p>
 

@@ -2,6 +2,7 @@ require 'active_ldap'
 require File.dirname(__FILE__) + '/ldap_base'
 
 require 'mail'
+require 'erubis'
 
 # Represents a LDAP user
 class User < LdapBase
@@ -32,6 +33,8 @@ class User < LdapBase
 
   before_validation_on_create :set_uid, :set_cn, :set_default_status
   before_validation_on_create :set_ffck_category, :set_default_ffck_club
+
+  after_validation_on_create :send_create_mail
 
   # search users with the given params (:filter and :attributes)
   def self.search_users(params = {})
@@ -147,6 +150,19 @@ class User < LdapBase
     if ffck_club_number.blank? && ffck_club_name.blank?
       self['ffck_club_number'] = '9404'
       self['ffck_club_name'] = 'Joinville Eau Vive'
+    end
+  end
+
+  # send a creation mail to the user
+  def send_create_mail
+    user = self
+    unless mail(true).empty?
+      Mail.deliver do
+        from 'info@jevck.com'
+        to user.mail(true)
+        subject '[JEV] Création de compte sur jevck.com'
+        body Erubis::Eruby.new(File.read(File.dirname(__FILE__) + '/../views/mail_registration.erb')).result(:user => user)
+      end
     end
   end
 

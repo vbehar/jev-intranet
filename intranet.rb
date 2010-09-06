@@ -47,5 +47,10 @@ configure do
   mongo_config = load_yaml_config 'mongo'
   MongoMapper.connection = Mongo::Connection.new(mongo_config['host'], mongo_config['port'], mongo_config['options'])
   MongoMapper.database = mongo_config['db']
+
+  # mail settings
+  Mail.defaults do
+    delivery_method :smtp, load_yaml_config('mail')
+  end
 end
 

@@ -1,4 +1,5 @@
 application.yml
 cache.yml
 ldap.yml
+mail.yml
 mongo.yml

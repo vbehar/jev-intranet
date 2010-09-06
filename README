@@ -20,6 +20,7 @@ Dependencies (and their tested versions) :
 - fastercsv         1.5.3
 - sanitize          1.2.1
 - babosa            0.1.0
+- erubis            2.6.6
 
 Dev mode :
 - racksh            0.9.7
