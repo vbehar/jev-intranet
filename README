@@ -5,14 +5,18 @@ Uses lemonldap (web SSO) for auth.
 
 Dependencies (and their tested versions) :
 - net-ldap          0.1.1
-- activeldap        1.2.1
-- mongo_mapper      0.8.2
+- activeldap        1.2.2
+- mongo             1.0.8
+- bson              1.0.7
+- bson_ext          1.0.7
+- mongo_mapper      0.8.4
 - rack              1.0.1
 - rack-contrib      0.9.2
 - rack-cache        0.5.2
 - sinatra           1.0
 - sinatra-flash     0.3.0
 - state_machine     0.9.4
+- mail              2.2.5
 - fastercsv         1.5.3
 - sanitize          1.2.1
 - babosa            0.1.0
