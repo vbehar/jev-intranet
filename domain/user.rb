@@ -1,6 +1,8 @@
 require 'active_ldap'
 require File.dirname(__FILE__) + '/ldap_base'
 
+require 'mail'
+
 # Represents a LDAP user
 class User < LdapBase
   ldap_mapping :dn_attribute => 'uid', :prefix => 'ou=people', :scope => :one,
