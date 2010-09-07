@@ -33,8 +33,8 @@
                 <strong><%= s.user.firstname %><br /><%= s.user.lastname %></strong>
               </a>
             </th>
-            <td><%= local_time(s.created_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
-            <td><%= local_time(s.updated_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><%= local_time(s.created_at).strftime('%d/%m/%Y<br />%H:%M', 'fr') %></td>
+            <td><%= local_time(s.updated_at).strftime('%d/%m/%Y<br />%H:%M', 'fr') %></td>
             <td><input type="text" name="subscriptions[][ffck_number]" value="<%= s.user.ffck_number %>" size="5" /></td>
             <td>
               <select name="subscriptions[][medical_certificate_type]">
@@ -43,7 +43,7 @@
                 <% end %>
               </select>
             </td>
-            <td><input type="text" name="subscriptions[][medical_certificate_date]" value="<%= s.medical_certificate_date.strftime '%d/%m/%Y' rescue nil %>" size="8" class="input_date" /></td>
+            <td><input type="text" name="subscriptions[][medical_certificate_date]" value="<%= s.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue nil %>" size="8" class="input_date" /></td>
             <td><textarea name="subscriptions[][comment]" rows="2" cols="20"></textarea></td>
             <td>
               <input type="checkbox" name="subscriptions[][update]" />

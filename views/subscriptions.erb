@@ -31,7 +31,7 @@
 
   <dl>
     <dt>Certificat médical</dt>
-    <dd><%= s.medical_certificate_type %> - <%= s.medical_certificate_date.strftime '%d/%m/%Y' rescue nil %></dd>
+    <dd><%= s.medical_certificate_type %> - <%= s.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue nil %></dd>
   </dl>
 
   <dl>
@@ -43,18 +43,18 @@
     <% p = s.payment %>
     <dl>
       <dt>Paiement</dt>
-      <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
+      <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y', 'fr')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
     </dl>
   <% end %>
 
   <dl>
     <dt>Date de création</dt>
-    <dd><%= local_time(s.created_at).strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+    <dd><%= local_time(s.created_at).strftime('Le %A %d %B %Y à %Hh%M', 'fr') %></dd>
   </dl>
 
   <dl>
     <dt>Dernière modification</dt>
-    <dd><%= local_time(s.updated_at).strftime 'Le %A %d %B %Y à %Hh%M' %></dd>
+    <dd><%= local_time(s.updated_at).strftime('Le %A %d %B %Y à %Hh%M', 'fr') %></dd>
   </dl>
 
   <p class="clear"></p>

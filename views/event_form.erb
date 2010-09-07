@@ -33,18 +33,18 @@
     <input type="text" name="event[r1_uid]" id="event_r1_uid" class="<%= 'error' if @event.errors.on :r1_uid %>" value="<%= @event.r1_uid %>" />
 
     <label for="event_start_fr">Date de début<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="event[start_fr]" id="event_start_fr" class="<%= 'error' if @event.errors.on :start %>" value="<%= local_time(@event.start).strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="event[start]" id="event_start" value="<%= local_time(@event.start).strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="event[start_fr]" id="event_start_fr" class="<%= 'error' if @event.errors.on :start %>" value="<%= local_time(@event.start).strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="event[start]" id="event_start" value="<%= local_time(@event.start).strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <label for="event_start_time">Heure de début (optionnel)<span class="labeltip">format hh:mm</span></label>
-    <input type="text" name="event[start_time]" id="event_start_time" value="<%= local_time(@event.start).strftime('%H:%M') unless local_time(@event.start).strftime('%X') == '00:00:00' %>" />
+    <input type="text" name="event[start_time]" id="event_start_time" value="<%= local_time(@event.start).strftime('%H:%M', 'fr') unless local_time(@event.start).strftime('%X', 'fr') == '00:00:00' %>" />
 
     <label for="event_end_fr">Date de fin<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="event[end_fr]" id="event_end_fr" class="<%= 'error' if @event.errors.on :end %>" value="<%= local_time(@event.end).strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="event[end]" id="event_end" value="<%= local_time(@event.end).strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="event[end_fr]" id="event_end_fr" class="<%= 'error' if @event.errors.on :end %>" value="<%= local_time(@event.end).strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="event[end]" id="event_end" value="<%= local_time(@event.end).strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <label for="event_end_time">Heure de fin (optionnel)<span class="labeltip">format hh:mm</span></label>
-    <input type="text" name="event[end_time]" id="event_end_time" value="<%= local_time(@event.end).strftime('%H:%M') unless local_time(@event.end).strftime('%X') == '23:59:59' %>" />
+    <input type="text" name="event[end_time]" id="event_end_time" value="<%= local_time(@event.end).strftime('%H:%M', 'fr') unless local_time(@event.end).strftime('%X', 'fr') == '23:59:59' %>" />
 
     <label for="event_text">Texte<span class="labeltip">Description complète</span></label>
     <textarea name="event[text]" id="event_text" rows="10" cols="30"><%= @event.text %></textarea>
@@ -58,10 +58,10 @@
     <input type="text" name="event[creator]" id="event_creator" value="<%= @event.creator.name %>" readonly="readonly" />
 
     <label for="event_created_at">Date de création<span class="labeltip"></span></label>
-    <input type="text" name="event[created_at]" id="event_created_at" value="<%= local_time(@event.created_at).strftime('%A %d %B %Y à %Hh%M') %>" readonly="readonly" />
+    <input type="text" name="event[created_at]" id="event_created_at" value="<%= local_time(@event.created_at).strftime('%A %d %B %Y à %Hh%M', 'fr') %>" readonly="readonly" />
 
     <label for="event_updated_at">Date de dernière modification<span class="labeltip"></span></label>
-    <input type="text" name="event[updated_at]" id="event_updated_at" value="<%= local_time(@event.updated_at).strftime('%A %d %B %Y à %Hh%M') %>" readonly="readonly" />
+    <input type="text" name="event[updated_at]" id="event_updated_at" value="<%= local_time(@event.updated_at).strftime('%A %d %B %Y à %Hh%M', 'fr') %>" readonly="readonly" />
 
     <button type="submit"><%= @new ? 'Créer' : 'Modifier' %> !</button>
     <div class="spacer"></div>

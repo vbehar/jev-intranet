@@ -36,6 +36,6 @@ end
 
 # return an array of users born in the given month
 def users_birthdays_for(date)
-  User.find(:all, :attribute => 'birthDate', :value => date.strftime("*-%m-*"), :attributes => [:uid, :cn, :displayName, :mail, :birthDate]).sort{|a,b| a.birth_date.day <=> b.birth_date.day}
+  User.find(:all, :attribute => 'birthDate', :value => date.strftime('*-%m-*', 'fr'), :attributes => [:uid, :cn, :displayName, :mail, :birthDate]).sort{|a,b| a.birth_date.day <=> b.birth_date.day}
 end
 

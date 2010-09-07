@@ -20,7 +20,7 @@ Application open-source, code disponible sur github : <a href="http://github.com
 
 <dl>
   <dt>Dernier démarrage</dt>
-  <dd><%= local_time(options.start_time).strftime('%d/%m/%Y %H:%M:%S') rescue 'inconnu' %></dd>
+  <dd><%= local_time(options.start_time).strftime('%d/%m/%Y %H:%M:%S', 'fr') rescue 'inconnu' %></dd>
 </dl>
 
 <dl>
@@ -35,7 +35,7 @@ Application open-source, code disponible sur github : <a href="http://github.com
 
 <dl>
   <dt>Date de la version</dt>
-  <dd><%= local_time(options.git_version_date).strftime('%d/%m/%Y %H:%M:%S') rescue 'inconnue' %></dd>
+  <dd><%= local_time(options.git_version_date).strftime('%d/%m/%Y %H:%M:%S', 'fr') rescue 'inconnue' %></dd>
 </dl>
 
 <hr class="clear" />

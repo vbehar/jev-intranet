@@ -25,8 +25,8 @@ class LdapBase < ActiveLdap::Base
       converted_value = case clazz
         when :string; value
         when :fixnum; value.to_s rescue value
-        when :date; value.strftime(options[:format]) rescue value
-        when :time; value.strftime(options[:format]) rescue value
+        when :date; value.strftime(options[:format], 'fr') rescue value
+        when :time; value.strftime(options[:format], 'fr') rescue value
         else value
       end
       self[ldap_attr.to_s] = converted_value

@@ -33,34 +33,34 @@ helpers do
 
   # return a formatted string representing a duration between the 2 given dates
   def duration_date(start_date, end_date)
-    str = ""
+    str = ''
 
     start_date = start_date.to_time if start_date.respond_to?('to_time')
     end_date = end_date.to_time if end_date.respond_to?('to_time')
 
     if start_date.is_a?(Time) && end_date.is_a?(Time)
 
-      start_date = start_date.getlocal if start_date.utc?
-      end_date = end_date.getlocal if end_date.utc?
+      start_date = local_time(start_date)
+      end_date = local_time(end_date)
 
-      if start_date.strftime("%x") == end_date.strftime("%x") # same day
-        str += start_date.strftime "Le %A %d %B %Y"
-        if start_date.strftime("%X") == "00:00:00" && end_date.strftime("%X") == "23:59:59"
+      if start_date.strftime('%x', 'fr') == end_date.strftime('%x', 'fr') # same day
+        str += start_date.strftime('Le %A %d %B %Y', 'fr')
+        if start_date.strftime('%X', 'fr') == '00:00:00' && end_date.strftime('%X', 'fr') == '23:59:59'
           # entire day - no need to display start/end times
-        elsif end_date.strftime("%X") == "23:59:59" # we only have a start time
-          str += start_date.strftime " à partir de %Hh%M"
-        elsif start_date.strftime("%X") == "00:00:00" # we only have an end time
-          str += end_date.strftime " jusqu'à %Hh%M"
+        elsif end_date.strftime('%X', 'fr') == '23:59:59' # we only have a start time
+          str += start_date.strftime(' à partir de %Hh%M', 'fr')
+        elsif start_date.strftime('%X', 'fr') == '00:00:00' # we only have an end time
+          str += end_date.strftime(" jusqu'à %Hh%M", 'fr')
         else # we have both a start and an end time
-          str += start_date.strftime " de %Hh%M"
-          str += end_date.strftime " à %Hh%M"
+          str += start_date.strftime(' de %Hh%M', 'fr')
+          str += end_date.strftime(' à %Hh%M', 'fr')
         end
 
       else # different days
-        str += start_date.strftime "Du %A %d %B %Y"
-        str += start_date.strftime " (%Hh%M)" if start_date.strftime("%X") != "00:00:00"
-        str += end_date.strftime " au %A %d %B %Y"
-        str += end_date.strftime " (%Hh%M)" if end_date.strftime("%X") != "23:59:59"
+        str += start_date.strftime('Du %A %d %B %Y', 'fr')
+        str += start_date.strftime(' (%Hh%M)', 'fr') if start_date.strftime('%X', 'fr') != '00:00:00'
+        str += end_date.strftime(' au %A %d %B %Y', 'fr')
+        str += end_date.strftime(' (%Hh%M)', 'fr') if end_date.strftime('%X', 'fr') != '23:59:59'
       end
     end
     str
@@ -68,12 +68,12 @@ helpers do
 
   # return the full birth_date
   def birth_date(user_birth_date)
-    user_birth_date.strftime("%d %B %Y") rescue ""
+    user_birth_date.strftime('%d %B %Y', 'fr') rescue ''
   end
 
   # return the day and month of the birth_date
   def birth_day(user_birth_date)
-    Date.strptime(user_birth_date.strftime('%d/%m'), '%d/%m').strftime("%A %d %B") rescue ""
+    Date.strptime(user_birth_date.strftime('%d/%m', 'fr'), '%d/%m').strftime('%A %d %B', 'fr') rescue ''
   end
 
   # return a string representing the level of the poster, based on his posts count and the max count

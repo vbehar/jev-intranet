@@ -48,8 +48,8 @@
     </select>
 
     <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <h4 class="separator">Adresse</h4>
 
@@ -128,8 +128,8 @@
     <input type="text" name="user[ffck_number_year]" id="user_ffck_number_year" value="<%= @user.ffck_number_year %>" />
 
     <label for="user_ffck_number_date_fr">Date de la licence<span class="labeltip">Prise de la licence</span></label>
-    <input type="text" name="user[ffck_number_date_fr]" id="user_ffck_number_date_fr" value="<%= @user.ffck_number_date.strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="user[ffck_number_date]" id="user_ffck_number_date" value="<%= @user.ffck_number_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[ffck_number_date_fr]" id="user_ffck_number_date_fr" value="<%= @user.ffck_number_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="user[ffck_number_date]" id="user_ffck_number_date" value="<%= @user.ffck_number_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <label for="user_ffck_category">Catégorie<span class="labeltip">pour la saison en cours</span></label>
     <select name="user[ffck_category]" id="user_ffck_category" class="<%= 'error' if @user.errors.on :ffck_category %>">
@@ -152,8 +152,8 @@
     <h4 class="separator">Certificat médical</h4>
 
     <label for="user_medical_certificate_date_fr">Date<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <label for="user_medical_certificate_type">Type<span class="labeltip">Compétition ou Loisirs</span></label>
     <select name="user[medical_certificate_type]" id="user_medical_certificate_type" class="<%= 'error' if @user.errors.on :medical_certificate_type %>">
@@ -171,8 +171,8 @@
     <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @user.social_security_number %>" />
 
     <label for="user_tetanus_vaccine_date_fr">Dernier vaccin antitétanique<span class="labeltip"></span></label>
-    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
   </div>
 
   <div class="tinyform">

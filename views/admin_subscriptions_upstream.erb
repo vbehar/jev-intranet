@@ -31,8 +31,8 @@
                 <strong><%= s.user.firstname %><br /><%= s.user.lastname %></strong>
               </a>
             </th>
-            <td><%= local_time(s.created_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
-            <td><%= local_time(s.updated_at).strftime "%d/%m/%Y<br />%H:%M" %></td>
+            <td><%= local_time(s.created_at).strftime('%d/%m/%Y<br />%H:%M', 'fr') %></td>
+            <td><%= local_time(s.updated_at).strftime('%d/%m/%Y<br />%H:%M', 'fr') %></td>
             <td><%= s.user.ffck_number %></td>
             <td><textarea name="subscriptions[][comment]" rows="2" cols="20"></textarea></td>
             <td>

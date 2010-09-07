@@ -41,8 +41,8 @@
     </select>
 
     <label for="user_birth_date_fr">Date de naissance<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :birth_date %>" />
-    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" class="<%= 'error' if @user.errors.on :birth_date %>" />
+    <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <h4 class="separator">Choisissez un mot de passe<span class="tip">pour vous connecter sur l'intranet</span></h4>
 
@@ -108,8 +108,8 @@
     <h4>Certificat médical<span class="tip">de "non contre-indication à la pratique du CK"</span></h4>
 
     <label for="user_medical_certificate_date_fr">Date du certificat<span class="labeltip">format jj/mm/aaaa</span></label>
-    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :medical_certificate_date %>" />
-    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" class="<%= 'error' if @user.errors.on :medical_certificate_date %>" />
+    <input type="hidden" name="user[medical_certificate_date]" id="user_medical_certificate_date" value="<%= @user.medical_certificate_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <label for="user_medical_certificate_type_compet">Cocher si valide pour la compétition<span class="labeltip"></span></label>
     <input type="checkbox" name="user[medical_certificate_type_compet]" id="user_medical_certificate_type_compet" <%= "checked=\"checked\"" if @user.medical_certificate_type == 'Compétition' %> />
@@ -121,8 +121,8 @@
     <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @user.social_security_number %>" />
 
     <label for="user_tetanus_vaccine_date_fr">Dernier vaccin antitétanique<span class="labeltip"></span></label>
-    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y') rescue '' %>" />
-    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d') rescue '' %>" />
+    <input type="text" name="user[tetanus_vaccine_date_fr]" id="user_tetanus_vaccine_date_fr" value="<%= @user.tetanus_vaccine_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
+    <input type="hidden" name="user[tetanus_vaccine_date]" id="user_tetanus_vaccine_date" value="<%= @user.tetanus_vaccine_date.strftime('%Y-%m-%d', 'fr') rescue '' %>" />
 
     <h4 class="separator">Divers</h4>
 

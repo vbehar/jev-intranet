@@ -35,7 +35,7 @@
       <span class="user-id"><%= post.user.uid %></span>
       <span class="user"><%= post.user.display_name %></span>
       <span class="text"><%= linkify(post.text) %></span>
-      <span class="date"><%= local_time(post.created_at).strftime "%A %d %B %Y à %Hh%M" %></span>
+      <span class="date"><%= local_time(post.created_at).strftime('%A %d %B %Y à %Hh%M', 'fr') %></span>
     </span>
     <span class="actions hide">
       <span class="remove-post"><img src="/images/icons/trash.png" alt="supprimer" title="Supprimer ce message !" /></span>

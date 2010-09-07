@@ -26,7 +26,7 @@
 
 <dl>
   <dt>Date</dt>
-  <dd><%= local_time(@subscription.created_at).strftime 'Créée le %A %d %B %Y à %Hh%M' %>, <%= local_time(@subscription.updated_at).strftime 'dernière modification le %A %d %B %Y à %Hh%M' %></dd>
+  <dd><%= local_time(@subscription.created_at).strftime('Créée le %A %d %B %Y à %Hh%M', 'fr') %>, <%= local_time(@subscription.updated_at).strftime('dernière modification le %A %d %B %Y à %Hh%M', 'fr') %></dd>
 </dl>
 
 <% unless @subscription.comment.blank? %>
@@ -38,7 +38,7 @@
 
 <dl>
   <dt>Certificat médical</dt>
-  <dd><%= @subscription.medical_certificate_type %> - <%= @subscription.medical_certificate_date.strftime '%d/%m/%Y' rescue nil %></dd>
+  <dd><%= @subscription.medical_certificate_type %> - <%= @subscription.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue nil %></dd>
 </dl>
 
 <dl>
@@ -50,7 +50,7 @@
   <% p = @subscription.payment %>
   <dl>
     <dt>Paiement</dt>
-    <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
+    <dd><%= "#{p.amount.to_i} euros en #{p.type} le #{p.date.strftime('%A %d %B %Y', 'fr')}" %><%= " (#{p.comment})" unless p.comment.blank? %></dd>
   </dl>
 <% end %>
 
@@ -62,7 +62,7 @@
         <dl>
           <dt><%= translated_state[event.new_state] %></dt>
           <dd>
-            <%= local_time(event.created_at).strftime 'Le %A %d %B %Y à %Hh%M' %>, par <%= event.user.name %>
+            <%= local_time(event.created_at).strftime('Le %A %d %B %Y à %Hh%M', 'fr') %>, par <%= event.user.name %>
             <%= "<br /><em>Commentaire</em> : #{event.comment}" unless event.comment.blank? %>
           </dd>
         </dl>

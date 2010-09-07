@@ -33,14 +33,14 @@
       <h3>Demande de cotisation pour la saison <%= @subscription.year %></h3>
       <p>
         <% unless @subscription.new? %>
-          Demande créée <%= local_time(@subscription.created_at).strftime('le %A %d %B %Y à %Hh%M') %>
-           - Dernière modification <%= local_time(@subscription.updated_at).strftime('le %A %d %B %Y à %Hh%M') %>
+          Demande créée <%= local_time(@subscription.created_at).strftime('le %A %d %B %Y à %Hh%M', 'fr') %>
+           - Dernière modification <%= local_time(@subscription.updated_at).strftime('le %A %d %B %Y à %Hh%M', 'fr') %>
           <br />Etat : <strong><%= translated_state[@subscription.state] %></strong>
         <% end %>
       </p>
 
       <label for="subscription_medical_certificate_date">Date du certificat médical<span class="labeltip">Format jj/mm/aaaa</span></label>
-      <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" />
+      <input type="text" name="subscription[medical_certificate_date]" id="subscription_medical_certificate_date" class="input_date <%= 'error' if @subscription.errors.on :medical_certificate_date %>" value="<%= @subscription.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue '' %>" />
 
       <label for="subscription_medical_certificate_type_compet">Certificat médical "Compétition"<span class="labeltip">Cocher si valide pour la compétition</span></label>
       <input type="checkbox" name="subscription[medical_certificate_type_compet]" id="subscription_medical_certificate_type_compet" <%= "checked=\"checked\"" if @subscription.medical_certificate_type == 'Compétition' %> />
