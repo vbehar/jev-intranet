@@ -1262,6 +1262,9 @@ Various classes
 .introtext, .introtext a {
   font-weight: 700;
 }
+.underline {
+  text-decoration: underline;
+}
 .fullwidth {
   width: 100%;
 }

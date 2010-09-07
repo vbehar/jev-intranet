@@ -6,11 +6,11 @@
 <% if prev_user(@user.uid) || next_user(@user.uid) %>
   <div id="extra-nav">
       <% if prev_user(@user.uid) %>
-        <a href="/admin/user/<%= prev_user(@user.uid) %>"><< <%= prev_user(@user.uid) %> </a>
+        <a href="/admin/user/<%= prev_user(@user.uid) %>">&lt;&lt; <%= prev_user(@user.uid) %></a>
       <% end %>
       <%= ' | ' if prev_user(@user.uid) && next_user(@user.uid) %>
       <% if next_user(@user.uid) %>
-        <a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %> >></a>
+        <a href="/admin/user/<%= next_user(@user.uid) %>"><%= next_user(@user.uid) %> &gt;&gt;</a>
       <% end %>
   </div>
 <% end %>

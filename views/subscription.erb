@@ -11,7 +11,7 @@
 <% if @subscription.editable_by_user? %>
   <p>
     Coût de votre cotisation <%= @subscription.year %> : <strong><%= @subscription.price %> euros</strong>.<br />
-    <strong>Note</strong> : <u>la cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.</u><br />
+    <strong>Note</strong> : <span class="underline">la cotisation ne sera acceptée que lorsque le paiement aura été effectué et reçu par le trésorier.</span><br />
     Vous devrez également déposer une copie de votre certificat médical au club.
   </p>
 
