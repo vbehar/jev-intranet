@@ -50,7 +50,7 @@ configure do
 
   # mail settings
   Mail.defaults do
-    delivery_method :smtp, load_yaml_config('mail')
+    delivery_method :smtp, load_yaml_config('smtp')
   end
 end
 

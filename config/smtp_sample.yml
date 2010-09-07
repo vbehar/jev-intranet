@@ -1,4 +1,4 @@
-# YAML config for sending mails
+# YAML config for sending mails through smtp
 
 :address: localhost
 :port: 25
