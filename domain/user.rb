@@ -158,7 +158,7 @@ class User < LdapBase
     user = self
     unless mail(true).empty?
       Mail.deliver do
-        from 'info@jevck.com'
+        from 'Joinville Eau Vive <webmaster@jevck.com>'
         to user.mail(true)
         subject '[JEV] Création de compte sur jevck.com'
         body Erubis::Eruby.new(File.read(File.dirname(__FILE__) + '/../views/mail_registration.erb')).result(:user => user)
