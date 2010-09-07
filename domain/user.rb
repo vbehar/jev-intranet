@@ -167,6 +167,7 @@ class User < LdapBase
         to user.mail(true)
         subject '[JEV] Création de compte sur jevck.com'
         body Erubis::Eruby.new(File.read(File.dirname(__FILE__) + '/../views/mail_registration.erb')).result(:user => user)
+        self.charset = 'UTF-8'
       end
     end
   end
