@@ -9,9 +9,10 @@
 
 <% unless @user.errors.empty? %>
   <div class="msgbox msgerror">
-    Impossible d'enregistrer : les champs en rouge ne sont pas valides !
-    <% if @user.errors.on :distinguishedName %>
-      <br />Vous avez déjà un compte dans la base !
+    <% if (@user.errors.on(:distinguishedName).starts_with?('distinguishedName is duplicated') rescue false) %>
+      Impossible d'enregistrer : vous avez déjà un compte dans la base ! <a href="http://intranet.jevck.com">Connectez-vous ici</a>
+    <% else %>
+      Impossible d'enregistrer : les champs en rouge ne sont pas valides !
     <% end %>
   </div>
 <% end %>
@@ -33,15 +34,6 @@
     <label for="user_sn">Nom<span class="labeltip"></span></label>
     <input type="text" name="user[sn]" id="user_sn" value="<%= @user.sn %>" class="<%= 'error' if @user.errors.on :sn %>" />
 
-    <label for="user_display_name">Pseudo<span class="labeltip">affiché sur l'intranet</span></label>
-    <input type="text" name="user[display_name]" id="user_display_name" value="<%= @user.display_name %>" class="<%= 'error' if @user.errors.on :display_name %>" />
-
-    <label for="user_password">Mot de passe<span class="labeltip">pour se connecter</span></label>
-    <input type="password" name="user[password]" id="user_password" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
-
-    <label for="user_password_verify">Mot de passe<span class="labeltip">vérification</span></label>
-    <input type="password" name="user[password_verify]" id="user_password_verify" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
-
     <label for="user_gender">Sexe<span class="labeltip"></span></label>
     <select name="user[gender]" id="user_gender">
       <option value="M" <%= "selected='selected'" if @user.male? %>>Homme</option>
@@ -52,7 +44,16 @@
     <input type="text" name="user[birth_date_fr]" id="user_birth_date_fr" value="<%= @user.birth_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :birth_date %>" />
     <input type="hidden" name="user[birth_date]" id="user_birth_date" value="<%= @user.birth_date.strftime('%Y-%m-%d') rescue '' %>" />
 
-    <h4 class="separator">Adresse</h4>
+    <h4 class="separator">Choisissez un mot de passe<span class="tip">pour vous connecter sur l'intranet</span></h4>
+
+    <label for="user_password">Mot de passe<span class="labeltip"></span></label>
+    <input type="password" name="user[password]" id="user_password" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
+
+    <label for="user_password_verify">Vérification<span class="labeltip">du mot de passe</span></label>
+    <input type="password" name="user[password_verify]" id="user_password_verify" value="<%= @user.user_password %>" class="<%= 'error' if @user.errors.on :user_password %>" />
+
+
+    <h4 class="separator">Adresse postale<span class="tip">Pour vous envoyer votre licence</span></h4>
 
     <label for="user_street">Adresse<span class="labeltip">Numéro et rue</span></label>
     <textarea name="user[street]" id="user_street" rows="2" cols="30" class="<%= 'error' if @user.errors.on :street %>"><%= @user.street %></textarea>
@@ -104,7 +105,7 @@
       Voir <a href="http://www.jevck.com/club/tarifs">les tarifs</a>.
     </p>
 
-    <h4>Certificat médical de "non contre-indication à la pratique du canoë-kayak"</h4>
+    <h4>Certificat médical<span class="tip">de "non contre-indication à la pratique du CK"</span></h4>
 
     <label for="user_medical_certificate_date_fr">Date du certificat<span class="labeltip">format jj/mm/aaaa</span></label>
     <input type="text" name="user[medical_certificate_date_fr]" id="user_medical_certificate_date_fr" value="<%= @user.medical_certificate_date.strftime('%d/%m/%Y') rescue '' %>" class="<%= 'error' if @user.errors.on :medical_certificate_date %>" />
@@ -114,7 +115,7 @@
     <input type="checkbox" name="user[medical_certificate_type_compet]" id="user_medical_certificate_type_compet" <%= "checked=\"checked\"" if @user.medical_certificate_type == 'Compétition' %> />
     <input type="hidden" name="user[medical_certificate_type]" id="user_medical_certificate_type" value="<%= @user.medical_certificate_type %>" />
 
-    <h4 class="separator">Informations médicales (obligatoire pour les mineurs)</h4>
+    <h4 class="separator">Informations médicales<span class="tip">obligatoire pour les mineurs</span></h4>
 
     <label for="user_social_security_number">Sécurité sociale<span class="labeltip">Numéro</span></label>
     <input type="text" name="user[social_security_number]" id="user_social_security_number" value="<%= @user.social_security_number %>" />

@@ -31,10 +31,10 @@ class User < LdapBase
   validates_presence_of :gender, :birth_date
   validates_presence_of :street, :postal_code, :l
 
-  before_validation_on_create :set_uid, :set_cn, :set_default_status
+  before_validation_on_create :set_uid, :set_cn, :set_default_status, :set_default_display_name
   before_validation_on_create :set_ffck_category, :set_default_ffck_club
 
-  after_validation_on_create :send_create_mail
+  after_create :send_create_mail
 
   # search users with the given params (:filter and :attributes)
   def self.search_users(params = {})
@@ -140,6 +140,11 @@ class User < LdapBase
     self['status'] = 'active' if status.blank?
   end
 
+  # set the display name to the value of gn
+  def set_default_display_name
+    self['display_name'] = gn if display_name.blank?
+  end
+
   # set the ffck_category
   def set_ffck_category
     self['ffck_category'] = calculate_ffck_category if ffck_category.blank?
@@ -156,7 +161,7 @@ class User < LdapBase
   # send a creation mail to the user
   def send_create_mail
     user = self
-    unless mail(true).empty?
+    if user.mail?
       Mail.deliver do
         from 'Joinville Eau Vive <webmaster@jevck.com>'
         to user.mail(true)
