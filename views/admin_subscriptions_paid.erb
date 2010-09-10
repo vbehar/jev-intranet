@@ -22,7 +22,7 @@
           <th>Certif.<br />Type</th>
           <th>Certif.<br />Date</th>
           <th>Commentaire</th>
-          <th>MAJ</th>
+          <th>Saisie</th>
         </tr>
       </thead>
       <tbody>
@@ -46,15 +46,15 @@
             <td><input type="text" name="subscriptions[][medical_certificate_date]" value="<%= s.medical_certificate_date.strftime('%d/%m/%Y', 'fr') rescue nil %>" size="8" class="input_date" /></td>
             <td><textarea name="subscriptions[][comment]" rows="2" cols="20"></textarea></td>
             <td>
-              <input type="checkbox" name="subscriptions[][update]" />
+              <input type="checkbox" name="subscriptions[][keyed_in]" />
               <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
               <input type="hidden" name="subscriptions[][event]" value="key_in" />
             </td>
           </tr>
         <% end %>
         <tr>
-          <td colspan="7"><strong>Attention</strong> : en cliquant sur "GO", vous passerez les cotisations sélectionnées à l'état <strong>saisies FFCK</strong> (en modifiant la licence et le certificat)</td>
-          <td><button type="submit">GO</button></td>
+          <td colspan="7">Note : si vous ne sélectionnez pas "Saisie", les informations seront mises à jour sans changer l'état de la cotisation</td>
+          <td><button type="submit">Valider</button></td>
         </tr>
       </tbody>
     </table>

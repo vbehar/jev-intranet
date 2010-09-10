@@ -20,7 +20,7 @@
           <th>Dernière<br />modif</th>
           <th>Licence<br />FFCK</th>
           <th>Commentaire</th>
-          <th>MAJ</th>
+          <th>Envoyée</th>
         </tr>
       </thead>
       <tbody>
@@ -36,15 +36,15 @@
             <td><%= s.user.ffck_number %></td>
             <td><textarea name="subscriptions[][comment]" rows="2" cols="20"></textarea></td>
             <td>
-              <input type="checkbox" name="subscriptions[][update]" />
+              <input type="checkbox" name="subscriptions[][delivered]" />
               <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
               <input type="hidden" name="subscriptions[][event]" value="deliver" />
             </td>
           </tr>
         <% end %>
         <tr>
-          <td colspan="5"><strong>Attention</strong> : en cliquant sur "GO", vous passerez les cotisations sélectionnées à l'état <strong>envoyées</strong> (par la FFCK)</td>
-          <td><button type="submit">GO</button></td>
+          <td colspan="5">Note : si vous ne sélectionnez pas "Envoyée", les informations seront mises à jour sans changer l'état de la cotisation</td>
+          <td><button type="submit">Valider</button></td>
         </tr>
       </tbody>
     </table>

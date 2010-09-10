@@ -22,7 +22,7 @@
           <th>Type de<br />paiement</th>
           <th>Date de<br />paiement</th>
           <th>Commentaire<br />sur le paiement</th>
-          <th>MAJ</th>
+          <th>Payée</th>
         </tr>
       </thead>
       <tbody>
@@ -40,15 +40,15 @@
             <td><input type="text" name="subscriptions[][date]" value="<%= Date.today.strftime('%d/%m/%Y', 'fr') %>" size="10" class="input_date" /></td>
             <td><textarea name="subscriptions[][comment]" rows="2" cols="20"></textarea></td>
             <td>
-              <input type="checkbox" name="subscriptions[][update]" />
+              <input type="checkbox" name="subscriptions[][paid]" />
               <input type="hidden" name="subscriptions[][id]" value="<%= s.id.to_s %>" />
               <input type="hidden" name="subscriptions[][event]" value="pay" />
             </td>
           </tr>
         <% end %>
         <tr>
-          <td colspan="7"><strong>Attention</strong> : en cliquant sur "GO", vous passerez les cotisations sélectionnées à l'état <strong>payées</strong> (en modifiant le prix, type et date de paiement)</td>
-          <td><button type="submit">GO</button></td>
+          <td colspan="7">Note : si vous ne sélectionnez pas "Payée", les informations seront mises à jour sans changer l'état de la cotisation</td>
+          <td><button type="submit">Valider</button></td>
         </tr>
       </tbody>
     </table>

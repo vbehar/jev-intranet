@@ -127,26 +127,35 @@ get '/admin/subscriptions/:year/:state/?' do |year,state|
 end
 
 post '/admin/subscriptions/?' do
-  params['subscriptions'].select{|s| s['update'] == 'on'}.each do |data|
+  params['subscriptions'].each do |data|
     s = Subscription.find data['id']
     unless s.nil? || s.deleted?
       case data['event']
-        when 'pay';     s.pay(:user_id => current_user_id,
-                              :type => data['type'],
-                              :amount => data['amount'].to_i,
-                              :date => (Date.strptime(data['date'], '%d/%m/%Y') rescue Date.today),
-                              :comment => data['comment'])\
-                        and s.save
-        when 'key_in';  s.key_in(:user_id => current_user_id,
-                                 :ffck_number => data['ffck_number'],
-                                 :medical_certificate_type => data['medical_certificate_type'],
-                                 :medical_certificate_date => (Date.strptime(data['medical_certificate_date'], '%d/%m/%Y') rescue nil),
-                                 :date => Date.today,
-                                 :comment => data['comment'])\
-                        and s.save
-        when 'deliver'; s.deliver(:user_id => current_user_id,
-                                  :comment => data['comment'])\
-                        and s.save
+        when 'pay' then
+          s.pay(:user_id => current_user_id,
+                :type => data['type'],
+                :amount => data['amount'].to_i,
+                :date => (Date.strptime(data['date'], '%d/%m/%Y') rescue Date.today),
+                :comment => data['comment'])\
+          and s.save if data['paid'] == 'on'
+        when 'key_in' then
+          s.key_in(:user_id => current_user_id,
+                   :ffck_number => data['ffck_number'],
+                   :medical_certificate_type => data['medical_certificate_type'],
+                   :medical_certificate_date => (Date.strptime(data['medical_certificate_date'], '%d/%m/%Y') rescue nil),
+                   :date => Date.today,
+                   :comment => data['comment'])\
+          and s.save if data['keyed_in'] == 'on'
+          unless data['keyed_in'] == 'on'
+            # just update medical certificate informations
+            s.medical_certificate_type = data['medical_certificate_type']
+            s.medical_certificate_date = (Date.strptime(data['medical_certificate_date'], '%d/%m/%Y') rescue nil)
+            s.save
+          end
+        when 'deliver' then
+          s.deliver(:user_id => current_user_id,
+                    :comment => data['comment'])\
+          and s.save if data['delivered'] == 'on'
       end
     end
   end
