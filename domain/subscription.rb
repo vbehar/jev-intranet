@@ -37,32 +37,37 @@ class Subscription
 
   def initialize(*args)
     # override events to save workflow actions
-    %w(pay key_in deliver).each do |method|
-      (class << self; self; end).class_eval do
-        define_method method do |params, *args|
-          previous_state = state
-          success = super # transition to another state
-          states << WorkflowAction.new(:user_id => params[:user_id], :event => method, :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if success && state != previous_state
-          success
-        end
-      end
-    end
+    # need to fix this !
+#    %w(pay key_in deliver).each do |method|
+#      (class << self; self; end).class_eval do
+#        define_method method do |params, *args|
+#          previous_state = state
+#          success = super # transition to another state
+#          states << WorkflowAction.new(:user_id => params[:user_id], :event => method, :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if success && state != previous_state
+#          success
+#        end
+#      end
+#    end
 
     # required by state_machine
     super
   end
 
   def pay(params, *args)
-    success = super
+    previous_state = state
+    success = super # transition to another state
     if success
+      states << WorkflowAction.new(:user_id => params[:user_id], :event => 'pay', :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if state != previous_state
       self.payment = Payment.new(:type => params[:type], :amount => params[:amount], :comment => params[:comment], :date => params[:date])
     end
     success
   end
 
   def key_in(params, *args)
-    success = super
+    previous_state = state
+    success = super # transition to another state
     if success
+      states << WorkflowAction.new(:user_id => params[:user_id], :event => 'key_in', :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if state != previous_state
       self.medical_certificate_type = params[:medical_certificate_type]
       self.medical_certificate_date = params[:medical_certificate_date]
       u = self.user
@@ -72,6 +77,15 @@ class Subscription
       u.medical_certificate_type = self.medical_certificate_type
       u.medical_certificate_date = self.medical_certificate_date
       u.save
+    end
+    success
+  end
+
+  def deliver(params, *args)
+    previous_state = state
+    success = super # transition to another state
+    if success
+      states << WorkflowAction.new(:user_id => params[:user_id], :event => 'deliver', :previous_state => previous_state, :new_state => state, :comment => params[:comment]) if state != previous_state
     end
     success
   end
