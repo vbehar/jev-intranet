@@ -11,6 +11,8 @@
 <h3><%= @subscriptions.count %> cotisations saisies FFCK - en attente d'envoi (FFCK)</h3>
 
 <% if @subscriptions.count > 0 %>
+  <div class="msgbox msginfo">Vérifier sur <a href="http://ffcanoe.cvf.fr">l'extranet FFCK</a> que la licence à été envoyée avant de cocher 'Envoyée'...</div>
+
   <form method="post" action="/admin/subscriptions">
     <table class="fullwidth nicetable">
       <thead>

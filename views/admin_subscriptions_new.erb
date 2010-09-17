@@ -11,6 +11,8 @@
 <h3><%= @subscriptions.count %> nouvelles cotisations - en attente de paiement</h3>
 
 <% if @subscriptions.count > 0 %>
+  <div class="msgbox msginfo">Vérifiez que les cotisations ont payées avant de cocher 'Payée'...</div>
+
   <form method="post" action="/admin/subscriptions">
     <table class="fullwidth nicetable">
       <thead>

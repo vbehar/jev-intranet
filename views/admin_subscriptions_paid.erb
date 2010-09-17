@@ -11,6 +11,8 @@
 <h3><%= @subscriptions.count %> cotisations payées - en attente de saisie FFCK</h3>
 
 <% if @subscriptions.count > 0 %>
+  <div class="msgbox msginfo">Faire la saisie (manuelle) des cotisations sur <a href="http://ffcanoe.cvf.fr">l'extranet FFCK</a> avant de cocher 'Saisie'...</div>
+
   <form method="post" action="/admin/subscriptions">
     <table class="fullwidth nicetable">
       <thead>
