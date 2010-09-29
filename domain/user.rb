@@ -23,7 +23,7 @@ class User < LdapBase
   attr_mapping :tetanus_vaccine_date, :tetanus_vaccine_date, :date, :format => '%Y-%m-%d'
 
   attr_accessor :password, :password_verify
-  validate :validates_password
+  validate_on_create :validates_password
 
   validate :validates_dates
 

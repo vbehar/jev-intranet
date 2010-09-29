@@ -23,6 +23,10 @@
   <div class="msgbox msginfo">Les coordonnées de <strong><%= @user.name %></strong> ont bien été modifiées</div>
 <% end %>
 
+<% unless @user.errors.empty? %>
+  <div class="msgbox msgerror">Impossible de sauvegarder, certaines informations ne sont pas valides !</div>
+<% end %>
+
 <form id="account" method="post" action="">
 
   <div class="tinyform">
