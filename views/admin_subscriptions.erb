@@ -11,7 +11,12 @@
 
 <h2>Admin - <%= @title %></h2>
 
-<p><a href="/admin/subscription/new">Créer une nouvelle demande de cotisation</a></p>
+<h3>Saisie de cotisations</h3>
+
+<ul class="simplelist">
+  <li><a href="/registration">Nouvel adhérent</a></li>
+  <li><a href="/admin/subscription/new">Renouvellement (adhérent saison précédente)</a></li>
+</ul>
 
 <% @years.each do |year| %>
   <h3>Cotisations <%= year %></h3>
