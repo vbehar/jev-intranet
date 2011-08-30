@@ -19,6 +19,11 @@
   <dd><%= @user.display_name %></dd>
 </dl>
 
+<dl>
+  <dt>Dernière licence</dt>
+  <dd><%= @user.ffck_number_year %></dd>
+</dl>
+
 <% unless @user.title.blank? %>
   <dl>
     <dt>Fonction</dt>
