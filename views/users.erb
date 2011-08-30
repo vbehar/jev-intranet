@@ -15,6 +15,7 @@
       <th>Nom</th>
       <th>Fonction</th>
       <th>Catégorie</th>
+      <th>Dernière Licence</th>
       <th>Sexe</th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= u.lastname %></td>
         <td><%= u.title %></td>
         <td><%= u.ffck_category %></td>
+        <td><%= u.ffck_number_year %></td>
         <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" title="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
       </tr>
     <% end %>
@@ -43,6 +45,7 @@
       "sPaginationType": "full_numbers",
       "iDisplayLength": 50,
       "aoColumns": [
+        { "sType": "string" },
         { "sType": "string" },
         { "sType": "string" },
         { "sType": "string" },
