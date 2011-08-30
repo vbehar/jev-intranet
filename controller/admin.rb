@@ -190,6 +190,6 @@ end
 
 # return the ldap attrs needed for listing users
 def admin_user_attributes()
-  %w(uid cn sn gn gender birthDate ffckCategory ffckNumber postalCode l)
+  %w(uid cn sn gn gender birthDate ffckCategory ffckNumber ffckNumberYear postalCode l)
 end
 
