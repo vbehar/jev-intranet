@@ -36,6 +36,7 @@
       <th>Age</th>
       <th>Catégorie</th>
       <th>Licence</th>
+      <th>Année</th>
       <th>Sexe</th>
     </tr>
   </thead>
@@ -50,6 +51,7 @@
         <td><%= u.age %></td>
         <td><%= u.ffck_category %></td>
         <td><%= u.ffck_number %></td>
+        <td><%= u.ffck_number_year %></td>
         <td><img src="/images/icons/gender_<%= u.gender %>.png" alt="<%= u.male? ? 'Homme' : 'Femme' %>" title="<%= u.male? ? 'Homme' : 'Femme' %>" /></td>
       </tr>
     <% end %>
@@ -79,6 +81,7 @@
         { "sType": "string" },
         { "sType": "string" },
         { "sType": "numeric" },
+        { "sType": "string" },
         { "sType": "string" },
         { "sType": "string" },
         { "sType": "string" }
