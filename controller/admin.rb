@@ -87,7 +87,7 @@ get '/admin/subscription/new/?' do
   @subscription = Subscription.new
   @users = User.find(:all, :attributes => ['cn','uid','displayName','street','postalCode','l','mail','mobile','homePhone','telephoneNumber']).map do |u|
     { :uid => u.uid, :name => u.name, :display_name => u.display_name, :address => u.address, :emails => u.mail(true).join(', '),
-      :phones => u.mobile(true).join(', ') + " " + u.home_phone(true).join(', ') + " " + u.telephone_number(true).join(', ')
+      :phones => u.mobile(true).join(', ') + "     " + u.home_phone(true).join(', ') + "     " + u.telephone_number(true).join(', ')
     }
   end
   @years = Subscription.current_subscription_year.downto(options.first_subscription_year).to_a
