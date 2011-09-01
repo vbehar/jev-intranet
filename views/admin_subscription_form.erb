@@ -104,6 +104,11 @@
         }
       }
     });
+    $('#subscription_user_id').change(function() {
+      if($.isEmptyObject($(this).val())) {
+        $('#user_contact').addClass('hide');
+      }
+    });
   });
   //]]>
 </script>
