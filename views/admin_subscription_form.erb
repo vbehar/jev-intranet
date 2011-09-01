@@ -26,6 +26,7 @@
     <input type="text" name="subscription[user_id]" id="subscription_user_id" class="<%= 'error' if @subscription.errors.on :user_id %>" value="<%= @subscription.user_id %>" />
 
     <div id="user_contact" class="hide">
+      <hr class="clear" />
       <p>Merci de vérifier que les coordonnées sont correctes. Si ce n'est pas le cas, <a id="user_link" href=""><strong>cliquez ici pour les mettre à jour</strong></a>.</p>
 
       <label for="user_address">Adresse postale complète<span class="labeltip"></span></label>
