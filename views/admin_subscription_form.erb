@@ -86,11 +86,8 @@
       source: users,
       minLength: 0,
       delay: 0,
-      change: function(event, ui) {
-        var uid = ui.item;
-        var user = $.grep(users, function(elem, index) {
-          return elem.uid == uid;
-        })[0];
+      select: function(event, ui) {
+        var user = ui.item;
         if(user == undefined) {
           $('#user_contact').addClass('hide');
         } else {
