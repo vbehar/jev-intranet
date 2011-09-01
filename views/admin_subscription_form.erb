@@ -27,7 +27,10 @@
 
     <div id="user_contact" class="hide">
       <hr class="clear" />
-      <p>Merci de vérifier que les coordonnées sont correctes. Si ce n'est pas le cas, <a id="user_link" href=""><strong>cliquez ici pour les mettre à jour</strong></a>.</p>
+      <p>
+        Merci de vérifier que les coordonnées de <a id="user_link" href=""><strong></strong></a> sont correctes.
+        Si ce n'est pas le cas, <a id="user_admin_link" href=""><strong>cliquez ici pour les mettre à jour</strong></a>.
+      </p>
 
       <label for="user_address">Adresse postale complète<span class="labeltip"></span></label>
       <textarea name="user[address]" id="user_address" rows="3" cols="60" readonly="readonly"></textarea>
@@ -95,7 +98,9 @@
           $('#user_address').text(user.address);
           $('#user_emails').val(user.emails);
           $('#user_phones').val(user.phones);
-          $('#user_link').attr('href', '/admin/user/' + user.uid);
+          $('#user_link').attr('href', '/user/' + user.uid);
+          $('#user_link').html('<strong>' + user.name + '</strong>');
+          $('#user_admin_link').attr('href', '/admin/user/' + user.uid);
         }
       }
     });

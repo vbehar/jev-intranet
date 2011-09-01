@@ -86,7 +86,7 @@ end
 get '/admin/subscription/new/?' do
   @subscription = Subscription.new
   @users = User.find(:all, :attributes => ['cn','uid','displayName','street','postalCode','l','mail','mobile','homePhone','telephoneNumber']).map do |u|
-    { :uid => u.uid, :display_name => u.display_name, :address => u.address, :emails => u.mail(true).join(', '),
+    { :uid => u.uid, :name => u.name, :display_name => u.display_name, :address => u.address, :emails => u.mail(true).join(', '),
       :phones => u.mobile(true).join(', ') + " " + u.home_phone(true).join(', ') + " " + u.telephone_number(true).join(', ')
     }
   end
