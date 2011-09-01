@@ -25,6 +25,19 @@
     <label for="subscription_user_id">Adhérent<span class="labeltip"></span></label>
     <input type="text" name="subscription[user_id]" id="subscription_user_id" class="<%= 'error' if @subscription.errors.on :user_id %>" value="<%= @subscription.user_id %>" />
 
+    <div id="user_contact" class="hide">
+      <p>Merci de vérifier que les coordonnées sont correctes. Si ce n'est pas le cas, <a id="user_link" href=""><strong>cliquez ici pour les mettre à jour</strong></a>.</p>
+
+      <label for="user_address">Adresse postale complète<span class="labeltip"></span></label>
+      <textarea name="user[address]" id="user_address" rows="3" cols="60" readonly="readonly"></textarea>
+
+      <label for="user_emails">Adresses e-mails<span class="labeltip"></span></label>
+      <input type="text" name="user[emails]" id="user_emails" value="" readonly="readonly" />
+
+      <label for="user_phones">Numéros de téléphone<span class="labeltip"></span></label>
+      <input type="text" name="user[phones]" id="user_phones" value="" readonly="readonly" />
+    </div>
+
     <label for="subscription_year">Année<span class="labeltip"></span></label>
     <select name="subscription[year]" id="subscription_year" class="<%= 'error' if @subscription.errors.on :year %>">
       <% @years.each do |year| %>
@@ -72,6 +85,21 @@
       source: users,
       minLength: 0,
       delay: 0
+    });
+    $('#subscription_user_id').change(function() {
+      var uid = $(this).val();
+      var user = $.grep(users, function(elem, index) {
+        return elem.uid == uid;
+      })[0];
+      if(user == undefined) {
+        $('#user_contact').addClass('hide');
+      } else {
+        $('#user_contact').removeClass('hide');
+        $('#user_address').text(user.address);
+        $('#user_emails').val(user.emails);
+        $('#user_phones').val(user.phones);
+        $('#user_link').attr('href', '/admin/user/' + user.uid);
+      }
     });
   });
   //]]>
