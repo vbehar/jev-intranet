@@ -85,21 +85,21 @@
     $('#subscription_user_id').autocomplete({
       source: users,
       minLength: 0,
-      delay: 0
-    });
-    $('#subscription_user_id').change(function() {
-      var uid = $(this).val();
-      var user = $.grep(users, function(elem, index) {
-        return elem.uid == uid;
-      })[0];
-      if(user == undefined) {
-        $('#user_contact').addClass('hide');
-      } else {
-        $('#user_contact').removeClass('hide');
-        $('#user_address').text(user.address);
-        $('#user_emails').val(user.emails);
-        $('#user_phones').val(user.phones);
-        $('#user_link').attr('href', '/admin/user/' + user.uid);
+      delay: 0,
+      change: function(event, ui) {
+        var uid = ui.item;
+        var user = $.grep(users, function(elem, index) {
+          return elem.uid == uid;
+        })[0];
+        if(user == undefined) {
+          $('#user_contact').addClass('hide');
+        } else {
+          $('#user_contact').removeClass('hide');
+          $('#user_address').text(user.address);
+          $('#user_emails').val(user.emails);
+          $('#user_phones').val(user.phones);
+          $('#user_link').attr('href', '/admin/user/' + user.uid);
+        }
       }
     });
   });
