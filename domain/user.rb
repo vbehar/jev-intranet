@@ -55,7 +55,7 @@ class User < LdapBase
 
   # return the category for the current season
   def calculate_ffck_category
-    season_year = Date.today.month >= 8 ? Date.today.year + 1 : Date.today.year
+    season_year = Date.today.year
     user_birth_year = birth_date.year rescue Date.today.year
     case season_year - user_birth_year
       when 0..8; 'Pitchoun'
