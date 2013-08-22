@@ -126,6 +126,7 @@ class Subscription
       when 2011; user_birth_year >= 1997 ? 120 : 160 rescue nil
       when 2012; 160
       when 2013; 170
+      when 2014; 170
       else nil
     end
   end
