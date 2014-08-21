@@ -127,6 +127,7 @@ class Subscription
       when 2012; 160
       when 2013; 170
       when 2014; 170
+      when 2015; 175
       else nil
     end
   end
