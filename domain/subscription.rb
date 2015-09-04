@@ -128,6 +128,7 @@ class Subscription
       when 2013; 170
       when 2014; 170
       when 2015; 175
+      when 2016; user.postal_code == "94340" ? 160 : 180 rescue nil
       else nil
     end
   end
